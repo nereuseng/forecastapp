@@ -4,7 +4,7 @@ const key = `2da0473a0c7713adcff021bde8e391e3`;
 
 
 export function getWeather(city, unit) {
-    var url = `http://api.openweathermap.org/data/2.5/weather?appid=${key}&q=${city}&units=${unit}`;
+    var url = `https://api.openweathermap.org/data/2.5/weather?appid=${key}&q=${city}&units=${unit}`;
 
     console.log(`Making request to ${url}`);
 
