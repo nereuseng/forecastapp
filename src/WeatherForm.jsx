@@ -6,11 +6,11 @@ export default class WeatherForm extends Component{
             <div className={`weather-form${this.props.masking ? '-masking' : ''}`}>
                 <form onSubmit={this.handleSubmit}>
                     {/* //value設定了之後沒辦法改動，只能用onchange來變動 #react component的概念 */}
-                    <input type="text" name='city' placeholder="Type the city name." value={this.state.inputValue} ref='inputCity' onChange={this.handleInputChange}/>
+                    <input type="text" name='city' placeholder="Type the city name." value={this.state.inputValue} ref='inputCity' onChange={this.handleInputChange}/>&nbsp;&nbsp;
                     <select value={this.state.unit} onChange={this.handleUnit}>
                         <option value="metric">&ordm;C</option>
                         <option value="imperial">&ordm;F</option>
-                    </select>
+                    </select>&nbsp;&nbsp;
                     <button type="submit">Check</button>
                 </form>
             </div>
