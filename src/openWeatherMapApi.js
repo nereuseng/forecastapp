@@ -63,7 +63,7 @@ export function getWeatherGroup(code) {
 }
 
 export function getForecast(city, unit) {
-    var url = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&units=${unit}&appid=${key}`
+    var url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=${unit}&appid=${key}`
 
     console.log(`Making request to ${url}`);
 
