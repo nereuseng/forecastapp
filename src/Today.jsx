@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import WeatherDisplay from './WeatherDisplay.jsx';
 import WeatherForm from './WeatherForm.jsx';
-import {getWeather} from './openWeatherMapApi.js'
+import {getWeather} from './openWeatherMapApi.js';
 
 export default class Today extends Component{
     

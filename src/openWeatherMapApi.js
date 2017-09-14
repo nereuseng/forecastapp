@@ -38,7 +38,7 @@ function weekDay(string) {
    let date = new Date(combined);
    let dayRaw = date.getDay();
 
-   let weekDay = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+   let weekDay = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
    return weekDay[dayRaw];
 }
 
