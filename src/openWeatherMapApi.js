@@ -8,6 +8,8 @@ export function getWeather(city, unit) {
 
     console.log(`Making request to ${url}`);
 
+    //這是React版的Ajax，叫做Axios，出來的respond是json檔，再命名成res直接像下面那樣抓
+    //請參考這個https://api.openweathermap.org/data/2.5/weather?appid=2da0473a0c7713adcff021bde8e391e3&q=london&units=metric
     return axios.get(url).then(function (res) {
         // alert(res.data.weather[0].description); testing propose
         if (res.data.cod && res.data.message){
@@ -82,3 +84,28 @@ export function getForecast(city, unit) {
         }
     })
 }
+
+export function getLocationWeather(lat, lng , unit) {
+    var url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&appid=${key}&units=${unit}`
+    console.log(`Making request to ${url}`);
+
+    return axios.get(url).then(function(res){
+        if (res.data.cod && res.data.cod!=200 && res.data.message){
+            
+            throw new Error(res.data.message)
+        } else {
+            return {
+                city: res.data.city.name,
+                lat: lat,
+                lng: lng,
+                code: [res.data.list[0].weather[0].id, res.data.list[7].weather[0].id, res.data.list[15].weather[0].id, res.data.list[23].weather[0].id, res.data.list[31].weather[0].id],
+                group: [getWeatherGroup(res.data.list[0].weather[0].id), getWeatherGroup(res.data.list[7].weather[0].id), getWeatherGroup(res.data.list[15].weather[0].id), getWeatherGroup(res.data.list[23].weather[0].id), getWeatherGroup(res.data.list[31].weather[0].id)],
+                desc: [res.data.list[0].weather[0].description, res.data.list[7].weather[0].description, res.data.list[15].weather[0].description, res.data.list[23].weather[0].description, res.data.list[31].weather[0].description],
+                temp: [res.data.list[0].main.temp, res.data.list[7].main.temp, res.data.list[15].main.temp, res.data.list[23].main.temp, res.data.list[31].main.temp],
+                date: [weekDay(res.data.list[0].dt_txt), weekDay(res.data.list[7].dt_txt), weekDay(res.data.list[15].dt_txt), weekDay(res.data.list[23].dt_txt), weekDay(res.data.list[31].dt_txt)]
+            };
+        }
+    })
+}
+
+// https://api.openweathermap.org/data/2.5/forecast?lat=25.0112183&lon=121.52067570000001&appid=2da0473a0c7713adcff021bde8e391e3&units=metric

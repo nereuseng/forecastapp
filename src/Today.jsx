@@ -12,7 +12,8 @@ export default class Today extends Component{
             backgroundImage: 'url('+imgUrl+')',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
-            position: 'fixed',
+            position: 'absolute',
+            //為什麼一去掉position圖片就不見了？
             // zIndex: '-1',
             width: '100%',
             height: '100%',
