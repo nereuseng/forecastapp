@@ -71,15 +71,19 @@ export default class Today extends Component{
             ...weather,
             masking: true
             });
-        });
+        }).then( () => setTimeout(() => {
+                this.setState({
+                    masking: false
+                });
+            }, 600));
         });
 
-        //把transition換回去
-        setTimeout(() => {
-            this.setState({
-                masking: false
-            });
-        }, 600);
+        //把transition換回去,上面用了比較優雅的方法
+        // setTimeout(() => {
+        //     this.setState({
+        //         masking: false
+        //     });
+        // }, 600);
     }
 
 
