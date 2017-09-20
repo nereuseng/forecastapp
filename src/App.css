@@ -98,6 +98,8 @@ html, body, #root {
 
 .weather-table-masking {
   opacity: 0;
+  position: relative;
+  z-index: 50;
 }
 
 .forecast-display{

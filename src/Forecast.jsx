@@ -69,19 +69,27 @@ export default class forecast extends Component {
                 this.setState ({
                     ...weather,
                     masking: true
-                }); 
-            });
+                });
+            // 利用then()確定上面的masking完成後，才完成把masknig拿掉的步驟
+            }).then( () => setTimeout(() => {
+                this.setState({
+                    masking: false
+                });
+            }, 600));
         });
 
         if (this.props.units !== unit) {
             this.props.onUnitChange(unit);
         }
 
-        setTimeout(() => {
-            this.setState({
-                masking: false
-            });
-        }, 600)
+
+        // if(this.state.masking){
+        //     setTimeout(() => {
+        //         this.setState({
+        //             masking: false
+        //         });
+        //     }, 1000)
+        // }
     }
     handleQuery(city, unit) {
         this.getForecast(city, unit);
@@ -92,24 +100,32 @@ export default class forecast extends Component {
     }
 
     getLocationWeather(lat, lng, unit){
+        this.setState ({
+            lat: lat,
+            lng: lng
+        }, () => {
         // alert('有飛到這裡嗎');
             getLocationWeather(lat, lng, unit).then(weather => {
                 this.setState ({
                     ...weather,
                     masking: true
                 });
-            });
-
+            }).then( () => setTimeout(() => {
+                this.setState({
+                    masking: false
+                });
+            }, 600));
+        });
 
         if (this.props.units !== unit) {
             this.props.onUnitChange(unit);
         }
 
-        setTimeout(() => {
-            this.setState({
-                masking: false
-            });
-        }, 600)
+        // setTimeout(() => {
+        //     this.setState({
+        //         masking: false
+        //     });
+        // }, 1000)
     }
 
     // getLocationWeather(lat, lng, unit){
