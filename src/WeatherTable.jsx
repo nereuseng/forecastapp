@@ -56,7 +56,7 @@ export default class WeatherTable extends Component {
                         <td data-th="Weather"><img src={require(`./images/w-${this.props.group[3]}.png`)}/></td>
                         <td data-th="Temp">{Math.round(this.props.temp[3])}&ordm;&nbsp;{this.props.unit === 'metric' ? 'C': 'F'}</td> */}
                         <td>Description</td>
-                        {this.props.desc.map( m => <td data-th="Desc"> {this.props.desc[m]}</td>)}
+                        {this.props.desc.map( m => <td data-th="Desc"> {m}</td>)}
                     </tr>
                     {/* <tr>
                         <td data-th="Days">{this.props.date[4]}</td>
