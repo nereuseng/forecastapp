@@ -57,9 +57,10 @@ module.exports = {
     devServer: {
         contentBase: path.join(__dirname, './dist'),
         historyApiFallback: true,
-        host: '0.0.0.0'
+        host: '0.0.0.0',
+        port: process.env.PORT || 5000,
     },
-    
+
     externals: ['axios'],
 
     resolve: {
