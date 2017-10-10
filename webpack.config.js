@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const srcPath = path.resolve(__dirname, 'src');
 const distPath = path.resolve(__dirname, 'dist');
@@ -8,9 +9,8 @@ module.exports = {
     context: srcPath,
     /*入口*/
     entry: [
-        'react-hot-loader/patch',
         path.join(__dirname, 'src/index.js'),
-    ],
+    ],  
     /*输出到dist文件夹，输出文件名字为bundle.js*/
     output: {
         path: path.join(__dirname, './dist'),
@@ -59,6 +59,8 @@ module.exports = {
         historyApiFallback: true,
         host: '0.0.0.0'
     },
+    
+    externals: ['axios'],
 
     resolve: {
         //bug of webpack:
@@ -74,4 +76,12 @@ module.exports = {
         }
     },
 
+    plugins: [
+        new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor',
+        filename: 'vendor.bundle.js',
+        minChunks: 2
+        }), 
+        new UglifyJSPlugin(),
+    ],
 };
