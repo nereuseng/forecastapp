@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
-import './App.css';
-import Today from './Today.jsx';
+import Today from 'Today/Today.jsx';
 import {
     BrowserRouter as Router,
     Route,
     Link
 } from 'react-router-dom';
-import Forecast from './Forecast.jsx';
-import './NavBar.css';
+import Forecast from 'Forecast/Forecast.jsx';
+import 'component/NavBar.css';
 
 class App extends Component {
   render() {
     return (
-      //NavBar component aborted,
       <Router>  
         <div className="App">  
           <nav className="nav">
@@ -23,15 +21,12 @@ class App extends Component {
               <li><Link to="/Forecast">Forecast</Link></li>
             </ul> 
           </nav>
-
-        {/* <Switch> */}
         <Route exact path="/" render={() => (
-          <Today unit={this.state.unit} onUnitChange = {this.handleUnitChange}/>
+          <Today unit={this.state.unit} lat={this.state.lat} lng={this.state.lng} onUserLocationChange={this.handleLocationChange} onUnitChange = {this.handleUnitChange}/>
             )}/>
           <Route exact path="/Forecast" render={() =>(
-          <Forecast unit={this.state.unit} onUnitChange = {this.handleUnitChange}/>
+          <Forecast unit={this.state.unit} lat={this.state.lat} lng={this.state.lng} onUserLocationChange={this.handleLocationChange} onUnitChange = {this.handleUnitChange}/>
             )}/>
-        {/* </Switch> */}
         </div>
       </Router>  
     );
@@ -39,15 +34,25 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      unit: 'metric'
+      unit: 'metric',
+      lat: 25.105497,
+      lng: 121.597366
     }  
     this.handleUnitChange = this.handleUnitChange.bind(this);
+    this.handleLocationChange = this.handleLocationChange.bind(this);
   }
 
   handleUnitChange(unit){
     this.setState({
-      unit: unit
+      unit: unit,
     });
+  }
+
+  handleLocationChange(lat, lng){
+    this.setState({
+      lat: lat,
+      lng: lng
+    })
   }
 
 }

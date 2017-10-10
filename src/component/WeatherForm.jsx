@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
+import 'component/WeatherForm.css';
 
 export default class WeatherForm extends Component{
     render() {
         return (
-            <div className={`weather-form${this.props.masking ? '-masking' : ''}`}>
+            <div>
                 <form onSubmit={this.handleSubmit}>
-                    {/* //value設定了之後沒辦法改動，只能用onchange來變動 #react component的概念 */}
                     <input type="text" name='city' placeholder="Type the city name." value={this.state.inputValue} ref='inputCity' onChange={this.handleInputChange}/>&nbsp;&nbsp;
                     <select value={this.state.unit} onChange={this.handleUnit}>
                         <option value="metric">&ordm;C</option>
                         <option value="imperial">&ordm;F</option>
                     </select>&nbsp;&nbsp;
-                    <button type="submit">Check</button>
+                    <button type="submit">Check</button>&nbsp;&nbsp;
+                    <button onClick={this.handleLocation}>Location</button>
                 </form>
+                
             </div>
         );
     }
@@ -28,6 +30,7 @@ export default class WeatherForm extends Component{
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleUnit = this.handleUnit.bind(this);
+        this.handleLocation = this.handleLocation.bind(this);
 
     }
 
@@ -38,18 +41,23 @@ export default class WeatherForm extends Component{
         });
     }
 
+    handleLocation(event){
+        event.preventDefault();
+
+        this.props.onLocation();
+    }
+
     handleInputChange(event) {
         this.setState({inputValue: event.target.value});
         // TODO 要怎麼看到輸入的inputValue是Taipei?
     }
 
     handleUnit(event) {
-            this.setState({unit: event.target.value});
+        this.setState({unit: event.target.value});
     }
 
     handleSubmit(event){
         event.preventDefault();
-        // console.log(event); no way to show event??
 
         this.refs.inputCity.blur();
         if (this.state.inputValue && this.state.inputValue.trim()) {
@@ -57,6 +65,7 @@ export default class WeatherForm extends Component{
         } else {
             this.setState({inputCity: this.props.city});
         }
+        // TODO： Exception of typo/
         //保持原樣？ bangkokk?
         // 讓他不會多按幾次就跳出原本City的字串
     }

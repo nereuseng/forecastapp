@@ -1,33 +1,21 @@
 import React, {Component} from 'react';
-import './App.css';
-import {getForecast , getLocationWeather} from './openWeatherMapApi.js';
-import WeatherForm from './WeatherForm.jsx';
-import WeatherTable from './WeatherTable.jsx';
-import WeatherMap from './weatherMap.jsx';
+import 'Forecast/Forecast.css';
+import {getForecast , getLocationWeather} from 'Api/openWeatherMapApi.js';
+import WeatherForm from 'component/WeatherForm.jsx';
+import {getUserLocation} from 'component/userLocation.jsx';
+import WeatherTable from 'Forecast/WeatherTable.jsx';
+import WeatherMap from 'Forecast/weatherMap.jsx';
 
 export default class forecast extends Component {
     render(){
-
-        // var imgUrl = require(`./images/w-bg-${this.state.group[0]}.jpg`);
-        // const weatherbg = {         
-        //     backgroundImage: 'url('+imgUrl+')',
-        //     // backgroundColor: 'black',
-        //     backgroundRepeat: 'no-repeat',
-        //     backgroundSize: 'cover',
-        //     position: 'fixed',
-        //     //放fixed是因為不用scroll
-        //     width: '100%',
-        //     height: '100%',
-        // } 下面的DIV---->>style={weatherbg}
-
         return(
         <div >
             <div className={`map`}>
-            <WeatherMap lat={this.state.lat} lng={this.state.lng} onClick={this.handleClick}/>
+            <WeatherMap lat={this.props.lat} lng={this.props.lng} onClick={this.handleClick}/>
             <div className={`forecast-bg-mask${this.state.masking ? '-masking' : ''}`}>
-                <WeatherTable {...this.state} unit={this.props.unit}/>
-                <WeatherForm city={this.state.city} unit={this.props.unit} onQuery={this.handleQuery} masking={this.state.masking}/>
-                {/* weatherform還需要masking的參數嗎？ */}
+                <WeatherTable {...this.state} unit={this.props.unit} />
+                <WeatherForm city={this.state.city} unit={this.props.unit} onLocation={this.handleUserLocation} onQuery={this.handleQuery}/>
+                {/* weatherform還需要masking的參數嗎？ Ans：不需要*/}
             </div>
             </div>
         </div>        
@@ -45,12 +33,13 @@ export default class forecast extends Component {
             city: 'na',
             group: ['na','na','na','na','na'],
             date: [-1,-1,-1,-1,-1],
-            lat: 25.105497,
-            lng: 121.597366
+            lat: this.props.lat,
+            lng: this.props.lng
         }
 
         this.handleQuery = this.handleQuery.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.handleUserLocation = this.handleUserLocation.bind(this);
     }
 
     componentDidMount(){
@@ -70,6 +59,8 @@ export default class forecast extends Component {
                     ...weather,
                     masking: true
                 });
+                // this.props.lat = weather.lat;
+                // this.props.lng = weather.lng;
             // 利用then()確定上面的masking完成後，才完成把masknig拿掉的步驟
             }).then( () => setTimeout(() => {
                 this.setState({
@@ -109,7 +100,7 @@ export default class forecast extends Component {
                 this.setState ({
                     ...weather,
                     masking: true
-                });
+                }, () => this.notifyUnitChange(unit));
             }).then( () => setTimeout(() => {
                 this.setState({
                     masking: false
@@ -120,13 +111,38 @@ export default class forecast extends Component {
         if (this.props.units !== unit) {
             this.props.onUnitChange(unit);
         }
-
-        // setTimeout(() => {
-        //     this.setState({
-        //         masking: false
-        //     });
-        // }, 1000)
     }
+
+    handleUserLocation(){
+        getUserLocation().then(userCoords => {
+            this.setState ({
+                lat: userCoords.coords.latitude,
+                lng: userCoords.coords.longitude
+            }, () => {
+                this.notifyUserLocation(userCoords.coords.latitude, userCoords.coords.longitude);
+                this.getLocationWeather(this.state.lat, this.state.lng, this.props.unit);
+            })
+        })
+    //         }, () => this.notifyUserLocation(userCoords.coords.latitude, userCoords.coords.longitude));
+    //         alert(userCoords.coords.latitude);
+    //     }
+    //     }).then(, () => {
+    //         alert(userCoords.coords.latitude);
+    //         this.getLocationWeather(lat, lng, this.props.unit));
+    }
+
+    notifyUnitChange(unit) {
+        if (this.props.units !== unit) {
+            this.props.onUnitChange(unit);
+        }
+    }
+
+    notifyUserLocation(lat, lng){
+        if(this.props.lat !== lat && this.props.lng !== lng){
+            this.props.onUserLocationChange(lat, lng);
+        }
+    }
+    
 
     // getLocationWeather(lat, lng, unit){
     //     this.setState = ({

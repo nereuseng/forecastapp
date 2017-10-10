@@ -10,7 +10,7 @@ export default class WeatherMap extends Component {
 
     render(){
         const style = {
-            height: '600px',
+            height: '92.2vh',
             width: '100%',
             zIdex: '0'
         }
