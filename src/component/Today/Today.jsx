@@ -11,7 +11,7 @@ export default class Today extends Component{
     
     render() {
         // TODO: Random pic without Math.random not doing twice
-        var imgUrl = require(`./images/w-bg-${this.state.group}.jpg`);
+        var imgUrl = require('images/w-bg-'+this.state.group+'.jpg');
         const weatherbg = {         
             backgroundImage: 'url('+imgUrl+')',
             backgroundRepeat: 'no-repeat',

@@ -23,7 +23,7 @@ module.exports = {
         rules: [
             {
                 test: /\.js$/ ,
-                loader:['react-hot-loader/webpack', 'babel-loader'],
+                loader:['babel-loader'],
                 exclude: '/node_modules/'},
             {
                 test: /\.jsx$/ ,
@@ -32,7 +32,7 @@ module.exports = {
                 
             {
                 test: /\.css$/,
-                exclude: /(node_modules)/,
+                exclude: /node_modules/,
                 use: [
                     'style-loader',
                     {
@@ -44,7 +44,7 @@ module.exports = {
                 ]},
             {
                 test: /\.(png|jpg|gif)$/,
-                // exclude: /(node_modules)/,
+                exclude: /node_modules/,
                 use: [{
                     loader: 'url-loader',
                     options: {
@@ -58,16 +58,17 @@ module.exports = {
         contentBase: path.join(__dirname, './dist'),
         historyApiFallback: true,
         host: '0.0.0.0',
-        port: process.env.PORT || 5000,
+        port: process.env.PORT || 8080,
     },
 
-    externals: ['axios'],
+    // externals: ['axios'],
 
     resolve: {
         //bug of webpack:
         //https://github.com/webpack-contrib/css-loader/issues/74
         modules: ['./', 'node_modules'],
         alias: {
+            images: path.join(__dirname, './dist/images'),
             owfont: path.join(__dirname, 'src/component/Forecast/owfont-master'),
             Api: path.join(__dirname, 'src/component/Api'),
             Today: path.join(__dirname, 'src/component/Today'),
