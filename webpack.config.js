@@ -59,8 +59,8 @@ module.exports = {
         historyApiFallback: true,
         host: '0.0.0.0',
         port: process.env.PORT || 8080,
-        disableHostCheck: true,
-        // public: 'local.kingsum.biz'
+        // disableHostCheck: true,
+        public: 'forecastapps.herokuapp.com'
     },
 
     // externals: ['axios'],
