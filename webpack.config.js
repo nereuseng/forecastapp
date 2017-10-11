@@ -6,6 +6,7 @@ const srcPath = path.resolve(__dirname, 'src');
 const distPath = path.resolve(__dirname, 'dist');
 
 module.exports = {
+    devtool: 'source-map',
     context: srcPath,
     /*入口*/
     entry: [
@@ -76,7 +77,7 @@ module.exports = {
             Today: path.join(__dirname, 'src/component/Today'),
             Forecast: path.join(__dirname, 'src/component/Forecast'),
             component: path.join(__dirname, 'src/component'),
-            router: path.join(__dirname, 'src/router')
+            router: path.join(__dirname, 'src/router'),
         }
     },
 
@@ -86,6 +87,11 @@ module.exports = {
         filename: 'vendor.bundle.js',
         minChunks: 2
         }), 
-        new UglifyJSPlugin(),
+        // new UglifyJSPlugin(),
+        new webpack.DefinePlugin({
+            'process.env': {
+              'NODE_ENV': JSON.stringify('production')
+            }
+        }),
     ],
 };
