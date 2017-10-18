@@ -18,17 +18,17 @@ module.exports = {
         filename: 'bundle.js'
     },
 
-     /*src文件夹下面的以.js结尾的文件，要使用babel解析*/
- /*cacheDirectory是用来缓存编译结果，下次编译加速*/
+    /*src文件夹下面的以.js结尾的文件，要使用babel解析*/
+    /*cacheDirectory是用来缓存编译结果，下次编译加速*/
     module: {
         rules: [
             {
                 test: /\.js$/ ,
-                loader:['babel-loader'],
+                loader:['babel-loader?cacheDirectory=true'],
                 exclude: '/node_modules/'},
             {
                 test: /\.jsx$/ ,
-                loader:'babel-loader',
+                loader:['babel-loader?cacheDirectory=true'],
                 exclude: '/node_modules/'},
                 
             {
@@ -60,11 +60,8 @@ module.exports = {
         historyApiFallback: true,
         host: '0.0.0.0',
         port: process.env.PORT || 8080,
-        // disableHostCheck: true,
-        public: 'forecastapps.herokuapp.com'
+        // public: 'forecastapps.herokuapp.com'
     },
-
-    // externals: ['axios'],
 
     resolve: {
         //bug of webpack:
@@ -88,10 +85,10 @@ module.exports = {
         minChunks: 2
         }), 
         // new UglifyJSPlugin(),
-        new webpack.DefinePlugin({
-            'process.env': {
-              'NODE_ENV': JSON.stringify('production')
-            }
-        }),
+        // new webpack.DefinePlugin({
+        //     'process.env': {
+        //       'NODE_ENV': JSON.stringify('production')
+        //     }
+        // }),
     ],
 };

@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import WeatherDisplay from 'Today/WeatherDisplay.jsx';
 import WeatherForm from 'component/WeatherForm.jsx';
 import Suggestion from 'component/Suggestion.jsx';
+import PostItem from 'component/Post/PostItem.jsx';
 import {getWeather, getLocationWeatherToday} from 'Api/openWeatherMapApi.js';
 import {getUserLocation} from 'component/userLocation.jsx';
+// import {createPost, listPost, createVote} from 'Api/post.js';
 
 import 'Today/Today.css';
 
@@ -28,11 +30,13 @@ export default class Today extends Component{
                 <WeatherDisplay {...this.state}/> 
                 <WeatherForm city={this.state.city} unit={this.props.unit} onLocation={this.handleUserLocation} onQuery={this.handleQuery} masking={this.state.masking}/>
                 <Suggestion onQuery={this.handleQuery} unit={this.props.unit}/>
+                <PostItem onPost={this.handleCreatePost}/>
+                <PostList posts={this.state.posts}/>
                 </div>
             </div>
         );
     }
-
+/* onVote={this.handleCreateVote} */
     constructor(props){
         super(props);
         this.state={
@@ -43,11 +47,13 @@ export default class Today extends Component{
             city: 'na',
             masking: true,
             lat: this.props.lat,
-            lng: this.props.lng
+            lng: this.props.lng,
+            posts: []
         }
         
         this.handleQuery = this.handleQuery.bind(this);
         this.handleUserLocation = this.handleUserLocation.bind(this);
+        this.handleCreatePost = this.handleCreatePost.bind(this); 
     }
     
     componentDidMount() {
@@ -115,6 +121,12 @@ export default class Today extends Component{
             this.props.onUserLocationChange(lat, lng);
         }
         
+    }
+
+    handleCreatePost(mood, text){
+        console.log(mood, text);
+        // createPost(mood, text).then blabla
+
     }
     
 }
