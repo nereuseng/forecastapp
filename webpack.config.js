@@ -85,7 +85,7 @@ module.exports = {
         filename: 'vendor.bundle.js',
         minChunks: 2
         }), 
-        new UglifyJSPlugin(),
+        // new UglifyJSPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
               'NODE_ENV': JSON.stringify('production')
