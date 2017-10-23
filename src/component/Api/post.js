@@ -56,6 +56,6 @@ export function createVote(id, mood){
    })
 }
 
-function _createPost(id, mood) {
-    console.log(id, mood);
-}
+// function _createPost(id, mood) {
+//     console.log(id, mood);
+// }

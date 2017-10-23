@@ -51,7 +51,7 @@ export default class Suggestion extends Component{
         this.setState({
             number: indexNew,
         })
-        console.log(this.state.number)
+        // console.log(this.state.number)
     }
 
     position(){

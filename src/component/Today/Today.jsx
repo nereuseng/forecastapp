@@ -3,9 +3,10 @@ import WeatherDisplay from 'Today/WeatherDisplay.jsx';
 import WeatherForm from 'component/WeatherForm.jsx';
 import Suggestion from 'component/Suggestion.jsx';
 import PostItem from 'component/Post/PostItem.jsx';
+import PostList from 'component/Post/PostList.jsx';
 import {getWeather, getLocationWeatherToday} from 'Api/openWeatherMapApi.js';
 import {getUserLocation} from 'component/userLocation.jsx';
-// import {createPost, listPost, createVote} from 'Api/post.js';
+import {createPost, listPost, createVote} from 'Api/post.js';
 
 import 'Today/Today.css';
 
@@ -58,10 +59,17 @@ export default class Today extends Component{
     
     componentDidMount() {
         this.getWeather ('Taipei', 'metric');
+        this.listPost(this.props.searchText);
     }
 
     componentWillUnmount() {
 
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.searchText !== this.props.searchText){
+            this.listPost(nextProps.searchText);
+        }
     }
 
     handleQuery(city, unit){
@@ -125,8 +133,17 @@ export default class Today extends Component{
 
     handleCreatePost(mood, text){
         console.log(mood, text);
-        // createPost(mood, text).then blabla
+        createPost(mood, text).then( () =>{
+            this.listPost(this.props.searchText)
+        })
+    }
 
+    listPost(searchText){
+        listPost(searchText).then(posts =>{
+            this.setState({
+                posts: posts
+            })
+        })
     }
     
 }

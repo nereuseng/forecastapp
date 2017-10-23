@@ -6,7 +6,7 @@ const srcPath = path.resolve(__dirname, 'src');
 const distPath = path.resolve(__dirname, 'dist');
 
 module.exports = {
-    devtool: 'source-map',
+    devtool: 'eval',
     context: srcPath,
     /*入口*/
     entry: [

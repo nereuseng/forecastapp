@@ -19,10 +19,11 @@ class App extends Component {
                         {/* className="current" 要怎麼現實當前頁面被選擇的highlight？ */}
               <li><Link to="/">Today</Link></li>
               <li><Link to="/Forecast">Forecast</Link></li>
+              <input type="text" placeholder="Search..." onKeyPress={this.handleSearchKeyPress}></input>
             </ul> 
           </nav>
         <Route exact path="/" render={() => (
-          <Today unit={this.state.unit} lat={this.state.lat} lng={this.state.lng} onUserLocationChange={this.handleLocationChange} onUnitChange = {this.handleUnitChange}/>
+          <Today searchText={this.state.searchText} unit={this.state.unit} lat={this.state.lat} lng={this.state.lng} onUserLocationChange={this.handleLocationChange} onUnitChange = {this.handleUnitChange}/>
             )}/>
           <Route exact path="/Forecast" render={() =>(
           <Forecast unit={this.state.unit} lat={this.state.lat} lng={this.state.lng} onUserLocationChange={this.handleLocationChange} onUnitChange = {this.handleUnitChange}/>
@@ -36,10 +37,12 @@ class App extends Component {
     this.state = {
       unit: 'metric',
       lat: 25.105497,
-      lng: 121.597366
+      lng: 121.597366,
+      searchText: ""
     }  
     this.handleUnitChange = this.handleUnitChange.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
+    this.handleSearchKeyPress = this.handleSearchKeyPress.bind(this);
   }
 
   handleUnitChange(unit){
@@ -53,6 +56,15 @@ class App extends Component {
       lat: lat,
       lng: lng
     })
+  }
+
+  handleSearchKeyPress(e){
+    const keyCode = e.keyCode || e.which;
+    if(keyCode === 13){
+      this.setState({
+        searchText: e.target.value
+      })
+    }
   }
 
 }
