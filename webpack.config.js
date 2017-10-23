@@ -6,7 +6,8 @@ const srcPath = path.resolve(__dirname, 'src');
 const distPath = path.resolve(__dirname, 'dist');
 
 module.exports = {
-    devtool: 'eval',
+    // devtool: 'eval',
+    devtool:'cheap-module-eval-source-map',
     context: srcPath,
     /*入口*/
     entry: [
@@ -60,7 +61,7 @@ module.exports = {
         historyApiFallback: true,
         host: '0.0.0.0',
         port: process.env.PORT || 8080,
-        // public: 'forecastapps.herokuapp.com'
+        public: 'forecastapps.herokuapp.com'
     },
 
     resolve: {
@@ -84,11 +85,11 @@ module.exports = {
         filename: 'vendor.bundle.js',
         minChunks: 2
         }), 
-        // new UglifyJSPlugin(),
-        // new webpack.DefinePlugin({
-        //     'process.env': {
-        //       'NODE_ENV': JSON.stringify('production')
-        //     }
-        // }),
+        new UglifyJSPlugin(),
+        new webpack.DefinePlugin({
+            'process.env': {
+              'NODE_ENV': JSON.stringify('production')
+            }
+        }),
     ],
 };
