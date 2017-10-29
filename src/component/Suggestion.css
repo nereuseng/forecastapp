@@ -20,15 +20,17 @@
     width: 15rem;
     height: 2rem;
     overflow: hidden;
+    padding: 15px
     /* transition: all 0.6s; */
 }
 
 #sugg.firstRow li{
-    top: 0.029rem;
+    top: -1rem;
     transition: all 0.6s;
 }
 
 #sugg.secondRow li{
-    top: -2.1rem;
+    /* 兩排差距2rem的距離 */
+    top: -3rem;
     transition: all 0.6s;
 }

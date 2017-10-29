@@ -1,7 +1,10 @@
 .postBody{
-    width: 445px;
-    height: 50px;
+    width: 420px;
+    height: 100%;
     background-color: white;
+    padding: 10px 10px;
+    border-radius: 5px;
+    position: relative
 }
 
 

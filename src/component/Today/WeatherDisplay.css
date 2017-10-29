@@ -11,6 +11,7 @@
 
     transition: all 0.3s;
     opacity: 1;
+    margin-top: 160px;
   }
   
   .weather-display img, .weather-display-masking img {

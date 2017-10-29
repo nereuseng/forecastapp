@@ -15,19 +15,27 @@ export default class Today extends Component{
     render() {
         // TODO: Random pic without Math.random not doing twice
         var imgUrl = require('images/w-bg-'+this.state.group+'.jpg');
-        const weatherbg = {         
-            backgroundImage: 'url('+imgUrl+')',
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
+        // const weatherbg = {         
+        //     backgroundImage: 'url('+imgUrl+')',
+        //     backgroundRepeat: 'no-repeat',
+        //     backgroundSize: 'cover',
+        //     backgroundAttachment: 'fixed',
 
-            width: '100%',
+        //     width: '100%',
 
-        };
-        // 
+        // };
+
+        document.body.style.background = `url('${imgUrl}') fixed`;
+        document.body.style.backgroundSize = `cover`;
+        document.body.className = `weather-bg-mask${this.state.masking ? '-masking' : ''}`;
+        // document.querySelector('.weather-bg .mask').className = `mask ${masking ? 'masking' : ''}`;
+        
 
         return (
-            <div style={weatherbg}>
-                <div className={`weather-bg-mask${this.state.masking ? '-masking' : ''}`}>
+            // style={weatherbg}
+            // className={`weather-bg-mask${this.state.masking ? '-masking' : ''}`}
+            <div>
+                <div>
                 <WeatherDisplay {...this.state}/> 
                 <WeatherForm city={this.state.city} unit={this.props.unit} onLocation={this.handleUserLocation} onQuery={this.handleQuery} masking={this.state.masking}/>
                 <Suggestion onQuery={this.handleQuery} unit={this.props.unit}/>
