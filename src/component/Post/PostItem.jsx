@@ -19,14 +19,15 @@ export default class PostItem extends Component {
                         <i onClick={() => this.handleDropdownSelect('Snow')}>Snow</i>
                         <i onClick={() => this.handleDropdownSelect('Windy')}>Windy</i>
                     </div>
-                    <input type="textarea" placeholder="What's on your mind?" value={this.state.inputValue} onChange={this.handleInputChange}/>
+                    <textarea name="textarea" rows="3" cols="30" placeholder="What's on your mind?" value={this.state.inputValue} onChange={this.handleInputChange}/>
+                    
                     <button onClick={this.handlePost}  className="dropdownButton">Post</button>
                 </div>
 
             </div>
         )
     }
-
+    // <input type="textarea" rows="2" cols="5" placeholder="What's on your mind?" value={this.state.inputValue} onChange={this.handleInputChange}/>
     componentDidMount(){
         window.onclick = () =>{
             var event = window.event;

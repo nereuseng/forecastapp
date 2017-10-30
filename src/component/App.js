@@ -19,7 +19,7 @@ class App extends Component {
                         {/* className="current" 要怎麼現實當前頁面被選擇的highlight？ */}
               <li><Link to="/">Today</Link></li>
               <li><Link to="/Forecast">Forecast</Link></li>
-              <input type="text" placeholder="Search..." onKeyPress={this.handleSearchKeyPress}></input>
+              <input type="text" placeholder="Search..." onKeyPress={this.handleSearchKeyPress} className="search"></input>
             </ul> 
           </nav>
         <Route exact path="/" render={() => (

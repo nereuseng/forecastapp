@@ -1,13 +1,23 @@
 input{
-    padding:5px 15px; border:2px black solid;
+    padding:5px 15px;
+    border:0px none;
     cursor:pointer;
     -webkit-border-radius: 5px;
     border-radius: 5px;
   }
   
   button, select {
-    padding:5px 15px; background:#ccc; border:0 none;
+    padding:5px 15px; background:#ccc;
+    border:0 none;
     cursor:pointer;
     -webkit-border-radius: 5px;
     border-radius: 5px;
+  }
+
+  button:focus {
+    outline:0;
+  }
+
+  input:focus {
+    outline:0;
   }
