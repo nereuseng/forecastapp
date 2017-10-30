@@ -34,7 +34,7 @@ export default class Today extends Component{
         return (
             // style={weatherbg}
             // 
-            <div>
+            // <div>
                 <div className={`weather-bg-mask${this.state.masking ? '-masking' : ''}`}>
                 <WeatherDisplay {...this.state}/> 
                 <WeatherForm city={this.state.city} unit={this.props.unit} onLocation={this.handleUserLocation} onQuery={this.handleQuery} masking={this.state.masking}/>
@@ -42,7 +42,7 @@ export default class Today extends Component{
                 <PostItem onPost={this.handleCreatePost}/>
                 <PostList posts={this.state.posts}/>
                 </div>
-            </div>
+            // </div>
         );
     }
 /* onVote={this.handleCreateVote} */

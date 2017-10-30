@@ -11,8 +11,10 @@ import 'component/NavBar.css';
 class App extends Component {
   render() {
     return (
+      //Nav css借我放.app的設置
       <Router>  
-        <div className="App">  
+        
+        <div className="app">  
           <nav className="nav">
             <ul>
               <li className="appname">Weather</li>
