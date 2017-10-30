@@ -27,15 +27,15 @@ export default class Today extends Component{
 
         document.body.style.background = `url('${imgUrl}') fixed`;
         document.body.style.backgroundSize = `cover`;
-        document.body.className = `weather-bg-mask${this.state.masking ? '-masking' : ''}`;
+        // document.body.className = `weather-bg-mask${this.state.masking ? '-masking' : ''}`;
         // document.querySelector('.weather-bg .mask').className = `mask ${masking ? 'masking' : ''}`;
         
 
         return (
             // style={weatherbg}
-            // className={`weather-bg-mask${this.state.masking ? '-masking' : ''}`}
+            // 
             <div>
-                <div>
+                <div className={`weather-bg-mask${this.state.masking ? '-masking' : ''}`}>
                 <WeatherDisplay {...this.state}/> 
                 <WeatherForm city={this.state.city} unit={this.props.unit} onLocation={this.handleUserLocation} onQuery={this.handleQuery} masking={this.state.masking}/>
                 <Suggestion onQuery={this.handleQuery} unit={this.props.unit}/>
