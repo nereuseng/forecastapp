@@ -19,8 +19,13 @@
     z-index: 1;
 }
 
+.postBody textarea {
+    margin: 0 10px;
+}
+
 .dropdownButton {
     left: 10%;
+    transform: translateY(-50%);
 }
 
 .show{
@@ -32,4 +37,5 @@
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    cursor: pointer;
 }

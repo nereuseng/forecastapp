@@ -5,7 +5,7 @@ export function dropdownButton(){
 export function clickOutside(event) {
         if (!event.target.matches('.dropdownButton')){
                 let dropdowns = document.getElementsByClassName('dropdownItem');
-                // console.log(dropdowns);
+                // 判定下拉選單合起來的code放在PostItem的componentdidmount
                 for (let i = 0; i < dropdowns.length; i++){
                         let openDropdown = dropdowns[i];
                         if (openDropdown.classList.contains('show')){

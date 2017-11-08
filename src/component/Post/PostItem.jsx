@@ -19,7 +19,7 @@ export default class PostItem extends Component {
                         <i onClick={() => this.handleDropdownSelect('Snow')}>Snow</i>
                         <i onClick={() => this.handleDropdownSelect('Windy')}>Windy</i>
                     </div>
-                    <textarea name="textarea" rows="3" cols="30" placeholder="What's on your mind?" value={this.state.inputValue} onChange={this.handleInputChange}/>
+                    <textarea id="textarea" rows="2" cols="30" placeholder="What's on your mind?" value={this.state.inputValue} onChange={this.handleInputChange}/>
                     
                     <button onClick={this.handlePost}  className="dropdownButton">Post</button>
                 </div>
@@ -27,7 +27,6 @@ export default class PostItem extends Component {
             </div>
         )
     }
-    // <input type="textarea" rows="2" cols="5" placeholder="What's on your mind?" value={this.state.inputValue} onChange={this.handleInputChange}/>
     componentDidMount(){
         window.onclick = () =>{
             var event = window.event;
@@ -60,7 +59,17 @@ export default class PostItem extends Component {
     }
 
     handlePost(){
+        if (this.state.mood === 'na'){
+            return document.getElementById("dropdownItemSelector").classList.add("show");
+        }
+        if (this.state.inputValue == ''){
+            return document.getElementById("textarea").focus();
+        }
         this.props.onPost(this.state.mood, this.state.inputValue);
+        this.setState({
+            mood: 'na',
+            inputValue: ''
+        });
     }
 
 

@@ -6,17 +6,19 @@
   /* 結論是背景的masking影響到有沒有scroll bar */
   background-color: rgba(0, 0, 0, 0.5);
   transition: all 0.6s;
+  min-height: 94.7vh;
   /* padding-top: 4rem; */
   text-align: center;
   display: flex;
   flex-direction:column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .weather-bg-mask-masking {
   background-color: black;
   text-align: center;
+  min-height: 94.7vh;
   /* padding-top: 4rem; */
   left: 0;
   width: 100%;
@@ -25,5 +27,10 @@
   display: flex;
   flex-direction:column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+}
+
+.weather-bg-mask::after, .weather-bg-mask-masking::after {
+  content: "";
+  height: 100%;
 }
