@@ -63,10 +63,16 @@ class App extends Component {
   handleSearchKeyPress(e){
     const keyCode = e.keyCode || e.which;
     if(keyCode === 13){
-      this.setState({
+      return this.setState({
         searchText: e.target.value
       })
     }
+    // if(keyCode === 27){
+    //   e.target.value = '';
+    //   return this.setState({
+    //     searchText: e.target.value
+    //   })
+    // }
   }
 
 }
