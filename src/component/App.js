@@ -21,7 +21,12 @@ class App extends Component {
                         {/* className="current" 要怎麼現實當前頁面被選擇的highlight？ */}
               <li><Link to="/">Today</Link></li>
               <li><Link to="/Forecast">Forecast</Link></li>
-              <input type="text" placeholder="Search..." onKeyPress={this.handleSearchKeyPress} className="search"></input>
+              <div id="todaySearchBox">
+              <input type="text" placeholder="Search..." value={this.state.searchText} onChange={this.handleSearchChange} onKeyPress={this.handleSearchKeyPress} className="search"></input>{
+                  this.state.searchText &&
+                  <i className='navbar-text fa fa-times' onClick={this.handleClearSearch}></i>
+                }
+              </div>
             </ul> 
           </nav>
         <Route exact path="/" render={() => (
@@ -45,6 +50,8 @@ class App extends Component {
     this.handleUnitChange = this.handleUnitChange.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleSearchKeyPress = this.handleSearchKeyPress.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleClearSearch = this.handleClearSearch.bind(this);
   }
 
   handleUnitChange(unit){
@@ -63,7 +70,7 @@ class App extends Component {
   handleSearchKeyPress(e){
     const keyCode = e.keyCode || e.which;
     if(keyCode === 13){
-      return this.setState({
+      this.setState({
         searchText: e.target.value
       })
     }
@@ -73,6 +80,18 @@ class App extends Component {
     //     searchText: e.target.value
     //   })
     // }
+  }
+
+  handleSearchChange(e){
+    this.setState({
+      searchText: e.target.value
+    });
+  }
+
+  handleClearSearch(){
+    this.setState({
+      searchText: ''
+    })
   }
 
 }

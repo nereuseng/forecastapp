@@ -12,6 +12,7 @@ module.exports = {
     /*入口*/
     entry: [
         path.join(__dirname, 'src/index.js'),
+        'react-hot-loader/patch',
     ],  
     /*输出到dist文件夹，输出文件名字为bundle.js*/
     output: {
@@ -59,9 +60,10 @@ module.exports = {
     devServer: {
         contentBase: path.join(__dirname, './dist'),
         historyApiFallback: true,
+        hot: true,
         host: '0.0.0.0',
         port: process.env.PORT || 8080,
-        public: 'forecastapps.herokuapp.com'
+        // public: 'forecastapps.herokuapp.com'
     },
 
     resolve: {

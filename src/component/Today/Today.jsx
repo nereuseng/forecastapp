@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import WeatherDisplay from 'Today/WeatherDisplay.jsx';
 import WeatherForm from 'component/WeatherForm.jsx';
 import Suggestion from 'component/Suggestion.jsx';
-import PostItem from 'component/Post/PostItem.jsx';
+import PostForm from 'component/Post/PostForm.jsx';
 import PostList from 'component/Post/PostList.jsx';
 import {getWeather, getLocationWeatherToday} from 'Api/openWeatherMapApi.js';
 import {getUserLocation} from 'component/userLocation.jsx';
@@ -25,8 +25,8 @@ export default class Today extends Component{
 
         // };
 
-        document.body.style.background = `url('${imgUrl}') fixed`;
-        document.body.style.backgroundSize = `cover`;
+        document.getElementById('root').style.background = `url('${imgUrl}') fixed`;
+        document.getElementById('root').style.backgroundSize = `cover`;
         // document.body.className = `weather-bg-mask${this.state.masking ? '-masking' : ''}`;
         // document.querySelector('.weather-bg .mask').className = `mask ${masking ? 'masking' : ''}`;
         
@@ -39,7 +39,7 @@ export default class Today extends Component{
                 <WeatherDisplay {...this.state}/> 
                 <WeatherForm city={this.state.city} unit={this.props.unit} onLocation={this.handleUserLocation} onQuery={this.handleQuery} masking={this.state.masking}/>
                 <Suggestion onQuery={this.handleQuery} unit={this.props.unit}/>
-                <PostItem onPost={this.handleCreatePost}/>
+                <PostForm onPost={this.handleCreatePost}/>
                 <PostList posts={this.state.posts}/>
                 </div>
             // </div>

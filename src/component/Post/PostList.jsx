@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
-
 import 'src/component/Post/PostList.css';
+import {getMoodIcon} from './postIcon.js';
+import moment from 'moment';
+import PostItem from './PostItem.jsx';
+import {createVote} from 'Api/post.js';
 
 export default class postList extends Component{
     constructor(props) {
         super(props);
+
     }
 
     render(){
@@ -19,8 +23,7 @@ export default class postList extends Component{
         if (posts.length) {
             children = posts.map(p =>(
                 <div className="children">
-                    {p.mood}&nbsp;
-                    {p.text}
+                    <PostItem {...p} onVote={this.handleVote}/>
                 </div>
             ))
         }
@@ -28,5 +31,9 @@ export default class postList extends Component{
         return(
             children 
         )
+    }
+
+    handleVote(){
+
     }
 }

@@ -1,7 +1,68 @@
 .children {
     width: 420px;
     background-color: white;
-    padding: 10px 10px;
+    padding: 15px;
     border-radius: 5px;
     margin: 10px 10px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
+
+.post {
+    width: 100%;
+    display: flex;
+}
+
+.mood {
+    text-align: center;
+    font-size: 2rem;
+    width: 3rem;
+    display: inline-block;
+    align-items:flex-start;
+}
+
+.wrap {
+    width: 80%;
+    text-align: left;
+    display: inline-block;
+}
+
+.ts {
+    color: #bcbcbc;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+}
+
+.text {
+    white-space: pre-wrap;
+    word-wrap:break-word;
+}
+
+.vote {
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.voteBox {
+    opacity: 0.5;
+    position: absolute;
+    bottom: 10px;
+    right: 35px;
+    font-size: 2rem;
+    color: white;
+    background-color: #000000;
+    padding: 0.5rem;
+    border-radius: 10px;
+    transition: opacity 1s;
+}
+
+.voteBox i {
+    cursor: pointer;
+}
+
+.upvote:hover .voteBox, .show{
+    opacity: 1;
+}
+/* show class for clickable comment */

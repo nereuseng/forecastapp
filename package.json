@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev-build": "webpack --config webpack.config.js",
     "start_backup": "webpack-dev-server --config webpack.config.js",
-    "start": "set NODE_ENV=production&&webpack-dev-server --config webpack.config.js -p --progress --colors",
+    "start": "set NODE_ENV=production&&webpack-dev-server --config webpack.config.js -p --progress --colors --hot",
     "dev": "webpack-dev-server --config webpack.config.js --color --progress --hot",
     "build": "set NODE_ENV=production&&webpack -p --progress --colors",
     "heroku-postbuild": "npm run build"
@@ -22,7 +22,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^0.28.7",
     "file-loader": "^1.1.4",
-    "react-hot-loader": "^3.0.0-beta.7",
+    "react-hot-loader": "^3.1.2",
     "style-loader": "^0.18.2",
     "uglifyjs-webpack-plugin": "^1.0.0-beta.3",
     "url-loader": "^0.5.9",

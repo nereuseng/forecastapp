@@ -14,7 +14,14 @@ function _createPost(mood, text) {
         id: uuid(),
         mood: mood,
         text: text,
-        ts: moment().unix()
+        ts: moment().unix(),
+        clearVotes: 0,
+        cloudsVotes: 0,
+        drizzleVotes: 0,
+        rainVotes: 0,
+        thunderVotes: 0,
+        snowVotes: 0,
+        windyVotes: 0
     };
     const posts = [
         newPost,
@@ -56,6 +63,12 @@ export function createVote(id, mood){
    })
 }
 
-// function _createPost(id, mood) {
-//     console.log(id, mood);
-// }
+function _createVote(id, mood) {
+    const posts = _listPost.map(p => {
+        if (p.id === id) {
+            p[mood.toLowerCase()+'Votes']++;
+        }
+        return p;   
+    })
+    localStorage.setItem(postKey, JSON.stringify(posts));
+}

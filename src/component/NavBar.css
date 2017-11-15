@@ -7,11 +7,18 @@ a:hover {
     color: #F00;
 }
 
-.search {
+#todaySearchBox {
     position: relative;
     margin-left: auto;
     right: 20px;
     height: 20px;
+}
+
+#todaySearchBox i {
+    right: 8px;
+    top: 3px;
+    position: absolute;
+    cursor: pointer;
 }
 
 .app {
