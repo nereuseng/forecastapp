@@ -12,6 +12,7 @@
 .post {
     width: 100%;
     display: flex;
+    justify-content: space-around;
 }
 
 .mood {
@@ -46,9 +47,9 @@
 }
 
 .voteBox {
-    opacity: 0.5;
+    opacity: 0;
     position: absolute;
-    bottom: 10px;
+    bottom: 6px;
     right: 35px;
     font-size: 2rem;
     color: white;
@@ -62,7 +63,7 @@
     cursor: pointer;
 }
 
-.upvote:hover .voteBox, .show{
+.upvote:hover .voteBox, .vote .upvote .show{
     opacity: 1;
 }
 /* show class for clickable comment */

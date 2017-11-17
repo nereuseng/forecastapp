@@ -7,10 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev-build": "webpack --config webpack.config.js",
     "start_backup": "webpack-dev-server --config webpack.config.js",
-    "start": "set NODE_ENV=production&&webpack-dev-server --config webpack.config.js -p --progress --colors --hot",
+    "start": "webpack-dev-server --config webpack.config.js -p --progress --colors --hot",
     "dev": "webpack-dev-server --config webpack.config.js --color --progress --hot",
     "build": "set NODE_ENV=production&&webpack -p --progress --colors",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "backup": "set NODE_ENV=production&&"
   },
   "author": "",
   "license": "ISC",

@@ -40,7 +40,7 @@ export default class Today extends Component{
                 <WeatherForm city={this.state.city} unit={this.props.unit} onLocation={this.handleUserLocation} onQuery={this.handleQuery} masking={this.state.masking}/>
                 <Suggestion onQuery={this.handleQuery} unit={this.props.unit}/>
                 <PostForm onPost={this.handleCreatePost}/>
-                <PostList posts={this.state.posts}/>
+                <PostList posts={this.state.posts} onVote={this.handleCreateVote}/>
                 </div>
             // </div>
         );
@@ -63,6 +63,7 @@ export default class Today extends Component{
         this.handleQuery = this.handleQuery.bind(this);
         this.handleUserLocation = this.handleUserLocation.bind(this);
         this.handleCreatePost = this.handleCreatePost.bind(this); 
+        this.handleCreateVote = this.handleCreateVote.bind(this);
     }
     
     componentDidMount() {
@@ -153,5 +154,11 @@ export default class Today extends Component{
             })
         })
     }
-    
+
+    handleCreateVote(id, mood){
+        createVote(id, mood).then( () =>{
+            this.listPost(this.props.searchText)
+        })
+    }
+        
 }

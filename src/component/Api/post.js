@@ -59,12 +59,12 @@ function _listPost(searchText = '') {
 
 export function createVote(id, mood){
    return new Promise((resolve, reject) => {
-       resolve(_createPost(mood));
+       resolve(_createVote(id, mood));
    })
 }
 
 function _createVote(id, mood) {
-    const posts = _listPost.map(p => {
+    const posts = _listPost().map(p => {
         if (p.id === id) {
             p[mood.toLowerCase()+'Votes']++;
         }

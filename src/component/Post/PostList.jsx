@@ -3,12 +3,12 @@ import 'src/component/Post/PostList.css';
 import {getMoodIcon} from './postIcon.js';
 import moment from 'moment';
 import PostItem from './PostItem.jsx';
-import {createVote} from 'Api/post.js';
 
 export default class postList extends Component{
     constructor(props) {
         super(props);
 
+        this.handleVote = this.handleVote.bind(this);
     }
 
     render(){
@@ -33,7 +33,8 @@ export default class postList extends Component{
         )
     }
 
-    handleVote(){
-
+    handleVote(id, mood){
+        console.log(`handleVote!`)
+        this.props.onVote(id, mood);
     }
 }
