@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { capitalize } from '../../../../as2-redux-weathermood-post/src/api/open-weather-map';
 
 const key = `2da0473a0c7713adcff021bde8e391e3`;
 
@@ -95,17 +96,24 @@ export function getLocationWeatherToday(lat, lng , unit) {
         if (res.data.cod && res.data.cod!=200 && res.data.message){
             
             throw new Error(res.data.message)
-        } else {
+            const list = res.data.list.map(forecast => {
+                return {
+                    city: res.data.name,
+                    lat: lat,
+                    lng: lng,
+                    code: res.data.weather[0].id,
+                    group: getWeatherGroup(res.data.weather[0].id),
+                    desc: capitalized(res.data.weather[0].description),
+                    temp: res.data.main.temp,
+                    unit: unit
+                };
+            });
+
             return {
-                city: res.data.name,
-                lat: lat,
-                lng: lng,
-                code: res.data.weather[0].id,
-                group: getWeatherGroup(res.data.weather[0].id),
-                desc: capitalized(res.data.weather[0].description),
-                temp: res.data.main.temp,
-                unit: unit
-            };
+                city:capitalize(city),
+                unit:unit,
+                list
+            }
         }
     })
 }
