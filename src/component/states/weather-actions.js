@@ -1,13 +1,15 @@
 import {
     getWeather as getWeatherFromApi,
     getForecast as getForecastFromApi,
-} from 'api/openWeatherMapsApi.js'
+} from 'Api/openWeatherMapApi.js'
+
 
 /* Unit */
 
 function setUnit(unit) {
     return {
         type: '@UNIT/SET_UNIT',
+        unit: unit
     }
 }
 
@@ -56,8 +58,9 @@ export function getWeather(city, unit) {
         dispatch(maskTodayBy());
 
         return getWeatherFromApi(city, unit).then(weather =>{
+            console.log(weather);
             const {city, code, group , description, temp, unit} = weather;
-            dispatch(endGetWeather(city, code, description, temp, unit));
+            dispatch(endGetWeather(city, code, group, description, temp));
             dispatch(setUnit(unit));
         }).then( () => {
             setTimeout(() => {
@@ -70,11 +73,13 @@ export function getWeather(city, unit) {
     };
 };
 
-export function toggleForm() {
-    return {
-        type: '@WEATHER_FORM/TOOGLE_FORM',
-    };
-}
+/* WeatherForm */
+
+// export function toggleForm() {
+//     return {
+//         type: '@WEATHER_FORM/TOOGLE_FORM',
+//     };
+// }
 
 export function input(value) {
     return {
@@ -83,7 +88,14 @@ export function input(value) {
     };
 }
 
-export function toggleTemp() {
+// export function toggleTemp() {
+//     return {
+//         type: '@WEATHER_FORM/TOGGLE_TEMP'
+//     };
+// }
+
+export function selectUnit(unit) {
+    console.log(unit);
     return {
         type: '@WEATHER_FORM/SELECT_UNIT',
         unit: unit

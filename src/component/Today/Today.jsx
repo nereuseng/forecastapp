@@ -4,110 +4,70 @@ import WeatherForm from 'component/WeatherForm.jsx';
 import Suggestion from 'component/Suggestion.jsx';
 import PostForm from 'component/Post/PostForm.jsx';
 import PostList from 'component/Post/PostList.jsx';
-import {getWeather, getLocationWeatherToday} from 'Api/openWeatherMapApi.js';
+import {getLocationWeatherToday} from 'Api/openWeatherMapApi.js';
 import {getUserLocation} from 'component/userLocation.jsx';
 import {createPost, listPost, createVote} from 'Api/post.js';
 
+import {connect} from 'react-redux';
+import {getWeather} from 'states/weather-actions.js';
+
 import 'Today/Today.css';
 
-export default class Today extends Component{
+class Today extends React.Component{
     
     render() {
         // TODO: Random pic without Math.random not doing twice
-        var imgUrl = require('images/w-bg-'+this.state.group+'.jpg');
-        // const weatherbg = {         
-        //     backgroundImage: 'url('+imgUrl+')',
-        //     backgroundRepeat: 'no-repeat',
-        //     backgroundSize: 'cover',
-        //     backgroundAttachment: 'fixed',
-
-        //     width: '100%',
-
-        // };
+        const {city, group, description, temp, unit, masking, code} = this.props;
+        const {posts, postLoading} = this.state;
+        var imgUrl = require('images/w-bg-'+group+'.jpg');
 
         document.getElementById('root').style.background = `url('${imgUrl}') fixed`;
         document.getElementById('root').style.backgroundSize = `cover`;
-        // document.body.className = `weather-bg-mask${this.state.masking ? '-masking' : ''}`;
-        // document.querySelector('.weather-bg .mask').className = `mask ${masking ? 'masking' : ''}`;
         
 
         return (
-            // style={weatherbg}
-            // 
-            // <div>
-                <div className={`weather-bg-mask${this.state.masking ? '-masking' : ''}`}>
-                <WeatherDisplay {...this.state}/> 
-                <WeatherForm city={this.state.city} unit={this.props.unit} onLocation={this.handleUserLocation} onQuery={this.handleQuery} masking={this.state.masking}/>
+            <div className={`weather-bg-mask${this.props.masking ? '-masking' : ''}`}>
+                <WeatherDisplay {...{group, description, temp, unit, masking, code}} day='today'/> 
+                <WeatherForm city={city} defaultUnit={unit} onLocation={this.handleUserLocation} submitAction={getWeather}/>
+                
                 <Suggestion onQuery={this.handleQuery} unit={this.props.unit}/>
+                
                 <PostForm onPost={this.handleCreatePost}/>
-                <PostList posts={this.state.posts} onVote={this.handleCreateVote}/>
-                </div>
-            // </div>
+                <PostList posts={this.state.posts} onVote={this.handleCreateVote}/>{
+                    postLoading &&
+                    <span>Loading...</span>
+                }
+            </div>
         );
     }
-/* onVote={this.handleCreateVote} */
     constructor(props){
         super(props);
         this.state={
-            code: '-1',
-            temp: NaN,
-            group: 'na',
-            desc: 'N/A',
-            city: 'na',
-            masking: true,
             lat: this.props.lat,
             lng: this.props.lng,
             posts: []
         }
         
-        this.handleQuery = this.handleQuery.bind(this);
         this.handleUserLocation = this.handleUserLocation.bind(this);
         this.handleCreatePost = this.handleCreatePost.bind(this); 
         this.handleCreateVote = this.handleCreateVote.bind(this);
     }
     
     componentDidMount() {
-        this.getWeather ('Taipei', 'metric');
+        this.props.dispatch(getWeather ('Taipei', this.props.unit));
         this.listPost(this.props.searchText);
     }
 
     componentWillUnmount() {
-
+        // if (this.state.weatherLoading) {
+        //     cancelWeather();
+        // }
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.searchText !== this.props.searchText){
             this.listPost(nextProps.searchText);
         }
-    }
-
-    handleQuery(city, unit){
-        this.getWeather(city, unit);
-    }
-    
-    getWeather(city, unit){
-        this.setState({
-            city: city
-        }, () => {
-        getWeather(city, unit).then(weather => {
-        this.setState({
-            ...weather,
-            masking: true
-            });
-        }).then( () => setTimeout(() => {
-                this.setState({
-                    masking: false
-                });
-            }, 600));
-        });
-    }
-
-    masking() {
-        setTimeout(() => {
-            this.setState({
-                masking: false
-            });
-        }, 600)
     }
 
     handleUserLocation(){
@@ -159,6 +119,12 @@ export default class Today extends Component{
         createVote(id, mood).then( () =>{
             this.listPost(this.props.searchText)
         })
-    }
-        
+    }  
 }
+
+export default connect((state) => {
+    return {
+        ...state.weather,
+        unit: state.unit
+    };
+})(Today);

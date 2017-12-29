@@ -1,27 +1,34 @@
 import React, { Component } from 'react';
-import 'Forecast/WeatherTable.css';
-import 'owfont/css/owfont-regular.css'
 
-export default class WeatherTable extends Component {
+import {connect} from 'react-redux';
+import {getWeather} from 'states/weather-actions.js';
+
+import 'Forecast/WeatherTable.css';
+import 'owfont/css/owfont-regular.css'  
+// import Forecast from './Forecast';
+
+class WeatherTable extends Component {
     render() {
+        const {masking, list, city} = this.props;
+        console.log(list);
         return(
-        <div className={`forecast-display${this.props.masking ? '-masking' : ''}`}>
-            <div className={`weather-table${this.props.masking ? '-masking' : ''}`}>
-                <h1>Forcast for {this.props.city} in 5 days: </h1>
-                <table className="table-rwd">
+        <div className={`forecast-display${masking ? '-masking' : ''}`}>
+            <div className={`weather-table${masking ? '-masking' : ''}`}>
+                <h1>Forcast for {city} in 5 days: </h1>
+                 <table className="table-rwd">
                     <tbody>
                     <tr>
                         <td className="td-only-hide">Days</td>
-                        {this.props.date.map((m, index) => <td data-th="Days" key={index}>{m}</td>)}
+                        {list.date.map((m, index) => <td data-th="Days" key={index}>{m}</td>)}
                         {/* map的函數要加上index的參數， td裡面加上key*/}
                     </tr>
                     <tr>
                         <td className="td-only-hide">Weather</td>
-                        {this.props.code.map((m, index) =><td data-th="Weather" key={index}><i className={`owf owf-${m} owf-5x`}></i></td>)}
+                        {list.code.map((m, index) =><td data-th="Weather" key={index}><i className={`owf owf-${m} owf-5x`}></i></td>)}
                     </tr>
                     <tr>
                         <td className="td-only-hide">Temperature</td>
-                        {this.props.temp.map((m, index) => <td data-th="Temp" key={index}>{Math.round(m)}&ordm;&nbsp;{this.props.unit === 'metric' ? 'C': 'F'}</td>)}
+                        {list.temp.map((m, index) => <td data-th="Temp" key={index}>{Math.round(m)}&ordm;&nbsp;{unit === 'metric' ? 'C': 'F'}</td>)}
                     </tr>
                     <tr>
                         {/* 這個情況我真的覺得太詭異了：
@@ -35,7 +42,7 @@ export default class WeatherTable extends Component {
                         我實在覺得太詭異，先在這邊記錄
                         <td>{Math.round(this.props.temp[0])}&ordm;&nbsp;{this.props.unit === 'metric' ? 'C': 'F'}</td> */}
                         <td className="td-only-hide">Description</td>
-                        {this.props.desc.map((m, index) => <td data-th="Desc" key={index}> {m}</td>)}
+                        {list.description.map((m, index) => <td data-th="Desc" key={index}> {m}</td>)}
                     </tr>
                     </tbody>
                 </table>
@@ -43,3 +50,10 @@ export default class WeatherTable extends Component {
         </div>
     )}
 }
+
+export default connect((state) => {
+    return {
+        ...state.forecast,
+        unit: state.unit
+    };
+})(WeatherTable);

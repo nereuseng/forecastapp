@@ -6,8 +6,10 @@ const srcPath = path.resolve(__dirname, 'src');
 const distPath = path.resolve(__dirname, 'dist');
 
 module.exports = {
+    // devtool: 'cheap-module-eval-source-map',
     // devtool: 'eval',
-    devtool:'cheap-module-eval-source-map',
+    devtool: 'source-map',
+    devtool: 'eval',
     context: srcPath,
     /*入口*/
     entry: [
@@ -71,6 +73,7 @@ module.exports = {
         //https://github.com/webpack-contrib/css-loader/issues/74
         modules: ['./', 'node_modules'],
         alias: {
+            states: path.join(__dirname, 'src/component/states'),
             images: path.join(__dirname, './dist/images'),
             owfont: path.join(__dirname, 'src/component/Forecast/owfont-master'),
             Api: path.join(__dirname, 'src/component/Api'),

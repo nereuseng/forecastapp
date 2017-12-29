@@ -12,7 +12,6 @@ export function getWeather(city, unit) {
     //這是React版的Ajax，叫做Axios，出來的respond是json檔，再命名成res直接像下面那樣抓
     //請參考這個https://api.openweathermap.org/data/2.5/weather?appid=2da0473a0c7713adcff021bde8e391e3&q=london&units=metric
     return axios.get(url).then(function (res) {
-        // alert(res.data.weather[0].description); testing propose
         if (res.data.cod && res.data.message){
             throw new Error(res.data.message)
         } else {
@@ -23,8 +22,9 @@ export function getWeather(city, unit) {
                 group: getWeatherGroup(res.data.weather[0].id),
                 desc: capitalized(res.data.weather[0].description),
                 temp: res.data.main.temp,
-                unit: unit
+                unit: unit,
             };
+            
         }
     })
 }
@@ -60,7 +60,7 @@ export function getWeatherGroup(code) {
         group = 'atmosphere';
     } else if ( 800 === code) {
         group = 'clear';
-    } else if ( 801 <= code && code <= 805 ) {
+    } else if ( 801 <= code && code < 900 ) {
         group = 'clouds';
     }
     return group;

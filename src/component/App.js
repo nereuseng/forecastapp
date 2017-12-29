@@ -6,14 +6,24 @@ import {
     Link
 } from 'react-router-dom';
 import Forecast from 'Forecast/Forecast.jsx';
-import 'component/NavBar.css';
+import {unit, weather, weatherForm,  forecast} from 'states/weather-reducers.js';
 
-class App extends Component {
+import {createStore, combineReducers, compose, applyMiddleware} from 'redux';
+import thunkMiddleware from 'redux-thunk';
+// import loggerMiddleware from 'redux-logger';
+import {Provider} from 'react-redux';
+
+import 'component/NavBar.css';
+import { create } from 'domain';
+
+
+
+export default class App extends React.Component {
   render() {
     return (
       //Nav css借我放.app的設置
+    <Provider store={this.store}>  
       <Router>  
-        
         <div className="app">  
           <nav className="nav">
             <ul>
@@ -22,7 +32,7 @@ class App extends Component {
               <li><Link to="/">Today</Link></li>
               <li><Link to="/Forecast">Forecast</Link></li>
               <div id="todaySearchBox">
-              <input type="text" placeholder="Search..." value={this.state.searchText} onChange={this.handleSearchChange} onKeyPress={this.handleSearchKeyPress} className="search"></input>{
+              <input type="text" placeholder="Search..." value={this.state.searchText} onKeyPress={this.handleSearchKeyPress} className="search"></input>{
                   this.state.searchText &&
                   <i className='navbar-text fa fa-times' onClick={this.handleClearSearch}></i>
                 }
@@ -36,24 +46,35 @@ class App extends Component {
           <Forecast unit={this.state.unit} lat={this.state.lat} lng={this.state.lng} onUserLocationChange={this.handleLocationChange} onUnitChange = {this.handleUnitChange}/>
             )}/>
         </div>
-      </Router>  
+      </Router>
+    </Provider>  
     );
   }
   constructor(props){
     super(props);
     this.state = {
-      unit: 'metric',
       lat: 25.105497,
       lng: 121.597366,
       searchText: ""
-    }  
-    this.handleUnitChange = this.handleUnitChange.bind(this);
+    };
+    this.store = null;
+    // this.searchEl = null;
+
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleSearchKeyPress = this.handleSearchKeyPress.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleClearSearch = this.handleClearSearch.bind(this);
   }
 
+  componentWillMount() {
+    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+    this.store = createStore(combineReducers({
+      unit,
+      weather,
+      weatherForm,
+      forecast
+    }), composeEnhancers(applyMiddleware(thunkMiddleware)));
+  }
   handleUnitChange(unit){
     this.setState({
       unit: unit,
@@ -95,5 +116,3 @@ class App extends Component {
   }
 
 }
-
-export default App;
