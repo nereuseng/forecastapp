@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/redux@latest/dist/redux.js"></script>
+    <script src="https://unpkg.com/redux-actions@latest/dist/redux-actions.js"></script>
+    <script>
+    const defaultState = { counter: 0 };
+const content = document.getElementById('content');
+const { createStore } = window.Redux;
+const {
+  createActions,
+  handleActions
+} = window.ReduxActions;
+const {increment, decrement} = createActions({
+  'INCREMENT': amount => ({ amount: 1}),
+  'DECREMENT': amount => ({ amount: -1})
+});
+
+
+
+
+const reducer = handleActions({
+  [increment](state) {
+    return { counter: state.counter + amount }
+  },
+  [decrement](state) {
+    return { counter: state.counter + amount }
+  }
+}, defaultState);
+
+const store = createStore(reducer, defaultState);
+
+
+
+const render = () => {
+  content.innerHTML = store.getState().counter;
+};
+
+render();
+
+store.subscribe(render);
+
+document.getElementById('increment').addEventListener('click', () => {
+  store.dispatch(increment());
+});
+
+document.getElementById('decrement').addEventListener('click', () => {
+  store.dispatch(decrement());
+});
+    </script>
+</head>
+<body>
+    <button id="increment">INCREMENT</button>
+    <button id="decrement">DECREMENT</button>
+    <div id="content" />
+</body>
+</html>

@@ -9,7 +9,7 @@ class WeatherForm extends Component{
         const {inputValue, unit} = this.props;
 
         return (
-            <div>
+            <div className="weatherForm">
                 <form onSubmit={this.handleSubmit}>
                     <input type="text" name='city' placeholder="Type the city name." value={inputValue} ref='inputCity' onChange={this.handleInputChange}/>&nbsp;&nbsp;
                     <select value={unit} onChange={this.handleUnit}>

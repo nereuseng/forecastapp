@@ -20,7 +20,7 @@ export function getWeather(city, unit) {
                 code: res.data.weather[0].id,
                 // Today的背景還是需要group
                 group: getWeatherGroup(res.data.weather[0].id),
-                desc: capitalized(res.data.weather[0].description),
+                description: capitalized(res.data.weather[0].description),
                 temp: res.data.main.temp,
                 unit: unit,
             };
@@ -67,26 +67,33 @@ export function getWeatherGroup(code) {
 }
 
 export function getForecast(city, unit) {
-    var url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=${unit}&appid=${key}`
+    var url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=${unit}&appid=${key}&cnt=5`
 
     console.log(`Making request to ${url}`);
 
     return axios.get(url).then(function (res) {
         if (res.data.cod && res.data.cod!=200 && res.data.message){
-            throw new Error(res.data.message)
-        } else {
+            throw new Error(res.data.message);
+        }
+        // api key不全, 想辦法把3小時的轉換
+        const list = res.data.list.map(forecast => {
+            console.log(forecast);
+            return {
+                code: forecast.weather[0].id,
+                group: getWeatherGroup(forecast.weather[0].id),
+                description: forecast.weather[0].description,
+                temp: forecast.main.temp,
+                date: weekDay(forecast.dt_txt)
+            };
+        });
+        console.log(list);
             return {
                 city: capitalized(city),
-                code: [res.data.list[0].weather[0].id, res.data.list[7].weather[0].id, res.data.list[15].weather[0].id, res.data.list[23].weather[0].id, res.data.list[31].weather[0].id],
-                // 使用code直接替代group的分類
-                // group: [getWeatherGroup(res.data.list[0].weather[0].id), getWeatherGroup(res.data.list[7].weather[0].id), getWeatherGroup(res.data.list[15].weather[0].id), getWeatherGroup(res.data.list[23].weather[0].id), getWeatherGroup(res.data.list[31].weather[0].id)],
-                desc: [res.data.list[0].weather[0].description, res.data.list[7].weather[0].description, res.data.list[15].weather[0].description, res.data.list[23].weather[0].description, res.data.list[31].weather[0].description],
-                temp: [res.data.list[0].main.temp, res.data.list[7].main.temp, res.data.list[15].main.temp, res.data.list[23].main.temp, res.data.list[31].main.temp],
-                date: [weekDay(res.data.list[0].dt_txt), weekDay(res.data.list[7].dt_txt), weekDay(res.data.list[15].dt_txt), weekDay(res.data.list[23].dt_txt), weekDay(res.data.list[31].dt_txt)]
+                unit: unit,
+                list
             };
         }
-    })
-}
+    )}
 
 export function getLocationWeatherToday(lat, lng , unit) {
     var url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${key}&units=${unit}`

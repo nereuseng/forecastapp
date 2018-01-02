@@ -21,3 +21,7 @@ input{
   input:focus {
     outline:0;
   }
+
+.weatherForm {
+  padding: 1rem;
+}

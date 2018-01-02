@@ -12,13 +12,14 @@ import {getForecast} from 'states/weather-actions.js';
 class Forecast extends Component {
     render(){
         const {unit, city, masking, list, forecastLoading} = this.props;
+        console.log(list);
 
         return(
         <div >
             <div className={`map`}>
             <WeatherMap lat={this.props.lat} lng={this.props.lng} onClick={this.handleClick}/>
             <div className={`forecast-bg-mask${masking ? '-masking' : ''}`}>
-                <WeatherTable unit={unit} {...{city, masking, list}}/>
+                <WeatherTable unit={unit} {...list} city={city} masking={masking}/>
                 <WeatherForm city={city} defaultUnit={unit} onLocation={this.handleUserLocation} submitAction={getForecast}/>
                 {/* weatherform還需要masking的參數嗎？ Ans：不需要*/}
             </div>

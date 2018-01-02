@@ -95,7 +95,6 @@ export function input(value) {
 // }
 
 export function selectUnit(unit) {
-    console.log(unit);
     return {
         type: '@WEATHER_FORM/SELECT_UNIT',
         unit: unit
@@ -148,9 +147,7 @@ export function getForecast(city, unit) {
             dispatch(endGetForecast(city, list));
             dispatch(setUnit(unit));
         }).then( () => {
-            setTimeout(() => {
-                dispatch(unmaskTodayBg());
-            }, 600);
+            dispatch(unmaskForecastBg());
         }).catch(err => {
             console.error('Error getting forecast', err);
             dispatch(resetForecast());
