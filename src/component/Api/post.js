@@ -27,6 +27,8 @@ function _createPost(mood, text) {
         newPost,
         ..._listPost()
     ];
+    console.log(posts);
+    
     localStorage.setItem(postKey, JSON.stringify(posts) );
     return newPost;
 }

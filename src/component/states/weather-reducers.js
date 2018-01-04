@@ -67,7 +67,6 @@ const initWeatherFormState = {
 export function weatherForm(state = initWeatherFormState, action) {
     switch (action.type) {
         case '@WEATHER_FORM/INPUT':
-            console.log(`action.value: `+action.value);
             return {
                 ...state,
                 inputValue: action.value,

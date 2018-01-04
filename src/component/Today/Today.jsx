@@ -45,7 +45,7 @@ class Today extends React.Component{
         this.state={
             lat: this.props.lat,
             lng: this.props.lng,
-            posts: []
+            // posts: []
         }
         
         this.handleUserLocation = this.handleUserLocation.bind(this);
@@ -55,7 +55,9 @@ class Today extends React.Component{
     
     componentDidMount() {
         this.props.dispatch(getWeather ('Taipei', this.props.unit));
-        this.listPost(this.props.searchText);
+        // this.props.getWeather ('Taipei', this.props.unit);
+        this.props.dispatch(getWeather ('Taipei', this.props.unit));
+        // this.listPost(this.props.searchText);
     }
 
     componentWillUnmount() {
@@ -125,6 +127,6 @@ class Today extends React.Component{
 export default connect((state) => {
     return {
         ...state.weather,
-        unit: state.unit
+        unit: state.unit,
     };
 })(Today);

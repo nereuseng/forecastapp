@@ -12,7 +12,7 @@ export default class postList extends Component{
     }
 
     render(){
-        const {posts} = this.props; 
+        const {posts} = this.props;
 
         let children = (
             <div className="children">
@@ -34,7 +34,6 @@ export default class postList extends Component{
     }
 
     handleVote(id, mood){
-        console.log(`handleVote!`)
         this.props.onVote(id, mood);
     }
 }

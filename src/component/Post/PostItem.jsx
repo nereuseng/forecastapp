@@ -40,14 +40,6 @@ export default class PostItem extends React.Component {
                 </div>
                 <div className="vote">
                     <div className="voteresult">
-                            {/* {clearVotes > 0 && <span><i className={`fa fa-gratipay`}></i>&nbsp;{clearVotes}&nbsp;&nbsp;</span>}
-                            {cloudsVotes > 0 &&<span><i className={`fa fa-heart-o`}></i>&nbsp;{cloudsVotes}&nbsp;&nbsp;</span>}
-                            {drizzleVotes > 0 &&<span><i className={`fa fa-heart`}></i>&nbsp;{drizzleVotes}&nbsp;&nbsp;</span>}
-                            {rainVotes > 0 &&<span><i className={`fa fa-gratipay`}></i>&nbsp;{rainVotes}&nbsp;&nbsp;</span>}
-                            {thunderVotes > 0 &&<span><i className={`fa fa-heart`}></i>&nbsp;{thunderVotes}&nbsp;&nbsp;</span>}
-                            {snowVotes > 0 &&<span><i className={`fa fa-heart-o`}></i>&nbsp;{snowVotes}&nbsp;&nbsp;</span>}
-                            {windyVotes > 0 &&<span><i className={`fa fa-gratipay`}></i>&nbsp;{windyVotes}&nbsp;&nbsp;</span>} */}
-
                             {clearVotes > 0 && <span><i className={getMoodIcon('Clear')}></i>&nbsp;{clearVotes}&nbsp;&nbsp;</span>}
                             {cloudsVotes > 0 &&<span><i className={getMoodIcon('Clouds')}></i>&nbsp;{cloudsVotes}&nbsp;&nbsp;</span>}
                             {drizzleVotes > 0 &&<span><i className={getMoodIcon('Drizzle')}></i>&nbsp;{drizzleVotes}&nbsp;&nbsp;</span>}
@@ -67,15 +59,6 @@ export default class PostItem extends React.Component {
                             <i className={`${getMoodIcon('Snow')}`} onClick={this.handleSnowVote}></i>&nbsp;
                             <i className={`${getMoodIcon('Windy')}`} onClick={this.handleWindyVote}></i>
                         </div>
-                        {/* <div className={`voteBox ${(this.state.voteBoxOpen) ? "show" : ""}`} >
-                            <i className={`fa fa-gratipay`} onClick={this.handleClearVote}></i>&nbsp;
-                            <i className={`fa fa-heart-o`} onClick={this.handleCloudsVote}></i>&nbsp;
-                            <i className={`fa fa-heart`} onClick={this.handleDrizzleVote}></i>&nbsp;
-                            <i className={`fa fa-gratipay`} onClick={this.handleRainVote}></i>&nbsp;
-                            <i className={`fa fa-heart-o`} onClick={this.handleThunderVote}></i>&nbsp;
-                            <i className={`fa fa-heart`} onClick={this.handleSnowVote}></i>&nbsp;
-                            <i className={`fa fa-gratipay`} onClick={this.handleWindyVote}></i>
-                        </div> */}
                     </div>
                 </div>
             </div>

@@ -1,10 +1,14 @@
 import React , {Component} from 'react';
+
 import {dropdownButton, clickOutside} from './dropdownButton.js';
 // import {getWeather, getLocationWeatherToday} from 'Api/openWeatherMapApi.js';
 
 import './PostForm.css';
 
 import {getMoodIcon} from './postIcon.js';
+
+import {connect} from 'react-redux';
+import {input, selectMood, createPost} from 'states/post-actions.js'
 
 export default class PostForm extends Component {
     render(){
@@ -38,10 +42,10 @@ export default class PostForm extends Component {
 
     constructor(props){
         super(props);
-        this.state = {
-            inputValue: "",
-            mood: 'na'
-        }
+        // this.state = {
+        //     inputValue: "",
+        //     mood: 'na'
+        // }
 
         this.handleDropdown = this.handleDropdown.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -53,11 +57,13 @@ export default class PostForm extends Component {
     }
 
     handleDropdownSelect(mood){
-        this.setState({mood: mood})
+        this.props.dispatch(selectMood(mood))
+        // this.setState({mood: mood})
     }
 
     handleInputChange(event){
-        this.setState({inputValue: event.target.value});
+        this.props.dispatch(input(event.target.value))
+        // this.setState({inputValue: event.target.value});
     }
 
     handlePost(){
@@ -67,12 +73,17 @@ export default class PostForm extends Component {
         if (this.state.inputValue == ''){
             return document.getElementById("textarea").focus();
         }
-        this.props.onPost(this.state.mood, this.state.inputValue);
-        this.setState({
-            mood: 'na',
-            inputValue: ''
-        });
+        const {inputValue, mood} = this.props;
+        // this.props.onPost(this.state.mood, this.state.inputValue);
+        this.props.dispatch(createPost(mood, inputValue));
+        this.props.dispatch(createPost('na', ''));
+        // this.setState({
+        //     mood: 'na',
+        //     inputValue: ''
+        // });
     }
-
-
 }
+
+export default connect((state) => {
+    return state.weatherForm;
+})(WeatherForm);

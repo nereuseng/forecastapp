@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import Forecast from 'Forecast/Forecast.jsx';
 import {unit, weather, weatherForm,  forecast} from 'states/weather-reducers.js';
+import {post} from 'states/post.reducer.js'
 
 import {createStore, combineReducers, compose, applyMiddleware} from 'redux';
 import thunkMiddleware from 'redux-thunk';
@@ -40,7 +41,7 @@ export default class App extends React.Component {
             </ul> 
           </nav>
         <Route exact path="/" render={() => (
-          <Today searchText={this.state.searchText} unit={this.state.unit} lat={this.state.lat} lng={this.state.lng} onUserLocationChange={this.handleLocationChange} onUnitChange = {this.handleUnitChange}/>
+          <Today searchText={this.state.searchText}  lat={this.state.lat} lng={this.state.lng} onUserLocationChange={this.handleLocationChange} onUnitChange = {this.handleUnitChange}/>
             )}/>
           <Route exact path="/Forecast" render={() =>(
           <Forecast unit={this.state.unit} lat={this.state.lat} lng={this.state.lng} onUserLocationChange={this.handleLocationChange} onUnitChange = {this.handleUnitChange}/>
@@ -50,6 +51,7 @@ export default class App extends React.Component {
     </Provider>  
     );
   }
+  // unit={this.state.unit}
   constructor(props){
     super(props);
     this.state = {
@@ -63,7 +65,7 @@ export default class App extends React.Component {
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleSearchKeyPress = this.handleSearchKeyPress.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
-    this.handleClearSearch = this.handleClearSearch.bind(this);
+    // this.handleClearSearch = this.handleClearSearch.bind(this);
   }
 
   componentWillMount() {
@@ -72,7 +74,8 @@ export default class App extends React.Component {
       unit,
       weather,
       weatherForm,
-      forecast
+      forecast,
+      post
     }), composeEnhancers(applyMiddleware(thunkMiddleware)));
   }
   handleUnitChange(unit){
@@ -95,12 +98,6 @@ export default class App extends React.Component {
         searchText: e.target.value
       })
     }
-    // if(keyCode === 27){
-    //   e.target.value = '';
-    //   return this.setState({
-    //     searchText: e.target.value
-    //   })
-    // }
   }
 
   handleSearchChange(e){
@@ -109,10 +106,10 @@ export default class App extends React.Component {
     });
   }
 
-  handleClearSearch(){
-    this.setState({
-      searchText: ''
-    })
-  }
+  // handleClearSearch(){
+  //   this.setState({
+  //     searchText: ''
+  //   })
+  // }
 
 }
