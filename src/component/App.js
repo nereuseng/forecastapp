@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import Forecast from 'Forecast/Forecast.jsx';
 import {unit, weather, weatherForm,  forecast} from 'states/weather-reducers.js';
-import {post} from 'states/post.reducer.js'
+import {post, postForm} from 'states/post-reducer.js'
 
 import {createStore, combineReducers, compose, applyMiddleware} from 'redux';
 import thunkMiddleware from 'redux-thunk';
@@ -75,7 +75,8 @@ export default class App extends React.Component {
       weather,
       weatherForm,
       forecast,
-      post
+      post,
+      postForm
     }), composeEnhancers(applyMiddleware(thunkMiddleware)));
   }
   handleUnitChange(unit){

@@ -6,10 +6,11 @@ import PostForm from 'component/Post/PostForm.jsx';
 import PostList from 'component/Post/PostList.jsx';
 import {getLocationWeatherToday} from 'Api/openWeatherMapApi.js';
 import {getUserLocation} from 'component/userLocation.jsx';
-import {createPost, listPost, createVote} from 'Api/post.js';
+import {listPost, createVote} from 'Api/post.js';
 
 import {connect} from 'react-redux';
 import {getWeather} from 'states/weather-actions.js';
+import {createPost} from 'states/post-actions.js';
 
 import 'Today/Today.css';
 
@@ -17,8 +18,10 @@ class Today extends React.Component{
     
     render() {
         // TODO: Random pic without Math.random not doing twice
-        const {city, group, description, temp, unit, masking, code} = this.props;
-        const {posts, postLoading} = this.state;
+        const {city, group, description, temp, unit, masking, code, posts} = this.props;
+        const postLoading = false;
+        console.log(this.props);
+        
         var imgUrl = require('images/w-bg-'+group+'.jpg');
 
         document.getElementById('root').style.background = `url('${imgUrl}') fixed`;
@@ -32,8 +35,8 @@ class Today extends React.Component{
                 
                 <Suggestion onQuery={this.handleQuery} unit={this.props.unit}/>
                 
-                <PostForm onPost={this.handleCreatePost}/>
-                <PostList posts={this.state.posts} onVote={this.handleCreateVote}/>{
+                <PostForm onPost={createPost}/>
+                <PostList posts={posts} onVote={this.handleCreateVote}/>{
                     postLoading &&
                     <span>Loading...</span>
                 }
@@ -127,6 +130,7 @@ class Today extends React.Component{
 export default connect((state) => {
     return {
         ...state.weather,
+        ...state.post,
         unit: state.unit,
     };
 })(Today);

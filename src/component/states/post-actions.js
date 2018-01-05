@@ -55,7 +55,7 @@ export function createPost(mood, text) {
         dispatch(startCreatePost(mood, text));
         return createPostFromApi(mood, text).then( () => {
             dispatch(endCreatePost());
-            listPost();
+            listPost('');
         }).catch(err => {
             console.error('Error creating post', err);
         });

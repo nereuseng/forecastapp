@@ -39,9 +39,6 @@ class WeatherForm extends Component{
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            unit: nextProps.unit
-        });
         if (nextProps.city !== this.props.city) {
             this.props.dispatch(input(nextProps.city));
     }
@@ -59,7 +56,6 @@ class WeatherForm extends Component{
     }
 
     handleUnit(event) {
-        console.log(event.target.value);
         this.props.dispatch(selectUnit(event.target.value))
     }
 

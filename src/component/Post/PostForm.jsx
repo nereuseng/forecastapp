@@ -8,14 +8,15 @@ import './PostForm.css';
 import {getMoodIcon} from './postIcon.js';
 
 import {connect} from 'react-redux';
-import {input, selectMood, createPost} from 'states/post-actions.js'
+import {input, selectMood} from 'states/post-actions.js'
 
-export default class PostForm extends Component {
+class PostForm extends Component {
     render(){
+        const {inputValue, mood} = this.props;
         return (
             <div>
                 <div className="postBody">
-                    <button onClick={this.handleDropdown}  className="dropdownButton"><i className={getMoodIcon(this.state.mood)}></i>&nbsp;{this.state.mood ==='na' ? 'Mood' :this.state.mood}</button>
+                    <button onClick={this.handleDropdown}  className="dropdownButton"><i className={getMoodIcon(mood)}></i>&nbsp;{mood ==='na' ? 'Mood' :mood}</button>
                     <div id="dropdownItemSelector" className="dropdownItem">
                         <i className={getMoodIcon('Clear')} onClick={() => this.handleDropdownSelect('Clear')}>&nbsp;&nbsp;Clear</i>
                         <i className={getMoodIcon('Clouds')} onClick={() => this.handleDropdownSelect('Clouds')}>&nbsp;&nbsp;Clouds</i>
@@ -25,7 +26,7 @@ export default class PostForm extends Component {
                         <i className={getMoodIcon('Snow')} onClick={() => this.handleDropdownSelect('Snow')}>&nbsp;&nbsp;Snow</i>
                         <i className={getMoodIcon('Windy')} onClick={() => this.handleDropdownSelect('Windy')}>&nbsp;Windy</i>
                     </div>
-                    <textarea id="textarea" rows="2" cols="30" placeholder="What's on your mind?" value={this.state.inputValue} onChange={this.handleInputChange}/>
+                    <textarea id="textarea" rows="2" cols="30" placeholder="What's on your mind?" value={inputValue} onChange={this.handleInputChange}/>
                     
                     <button onClick={this.handlePost}  className="dropdownButton">Post</button>
                 </div>
@@ -67,16 +68,16 @@ export default class PostForm extends Component {
     }
 
     handlePost(){
-        if (this.state.mood === 'na'){
+        if (this.props.mood === 'na'){
             return document.getElementById("dropdownItemSelector").classList.add("show");
         }
-        if (this.state.inputValue == ''){
+        if (this.props.inputValue == ''){
             return document.getElementById("textarea").focus();
         }
-        const {inputValue, mood} = this.props;
+        const {inputValue, mood, dispatch} = this.props;
         // this.props.onPost(this.state.mood, this.state.inputValue);
-        this.props.dispatch(createPost(mood, inputValue));
-        this.props.dispatch(createPost('na', ''));
+        dispatch(this.props.onPost(mood, inputValue));
+        dispatch(this.props.onPost('na', ''));
         // this.setState({
         //     mood: 'na',
         //     inputValue: ''
@@ -85,5 +86,7 @@ export default class PostForm extends Component {
 }
 
 export default connect((state) => {
-    return state.weatherForm;
-})(WeatherForm);
+    return {
+        ...state.postForm
+    };
+})(PostForm);

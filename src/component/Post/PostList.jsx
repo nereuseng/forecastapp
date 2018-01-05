@@ -13,6 +13,8 @@ export default class postList extends Component{
 
     render(){
         const {posts} = this.props;
+        console.log(posts);
+        
 
         let children = (
             <div className="children">

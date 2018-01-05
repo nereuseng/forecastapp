@@ -6,6 +6,7 @@ const initPostState = {
 }
 
 export function post(state = initPostState, action) {
+    console.log(state);
     switch (action.type) {
         case '@POST/START_LIST_POST':
             return {
@@ -28,6 +29,8 @@ export function post(state = initPostState, action) {
             return {
                 ...state,
             }
+        default:
+            return state;
     }
 }
 
