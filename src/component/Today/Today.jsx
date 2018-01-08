@@ -6,11 +6,11 @@ import PostForm from 'component/Post/PostForm.jsx';
 import PostList from 'component/Post/PostList.jsx';
 import {getLocationWeatherToday} from 'Api/openWeatherMapApi.js';
 import {getUserLocation} from 'component/userLocation.jsx';
-import {listPost, createVote} from 'Api/post.js';
+import {createVote} from 'Api/post.js';
 
 import {connect} from 'react-redux';
 import {getWeather} from 'states/weather-actions.js';
-import {createPost} from 'states/post-actions.js';
+import {createPost, listPost} from 'states/post-actions.js';
 
 import 'Today/Today.css';
 
@@ -18,9 +18,8 @@ class Today extends React.Component{
     
     render() {
         // TODO: Random pic without Math.random not doing twice
-        const {city, group, description, temp, unit, masking, code, posts} = this.props;
+        const {city, group, description, temp, unit, masking, code, posts, mood, text, searchText} = this.props;
         const postLoading = false;
-        console.log(this.props);
         
         var imgUrl = require('images/w-bg-'+group+'.jpg');
 
@@ -35,7 +34,7 @@ class Today extends React.Component{
                 
                 <Suggestion onQuery={this.handleQuery} unit={this.props.unit}/>
                 
-                <PostForm onPost={createPost}/>
+                <PostForm onPost={createPost} mood={mood}/>
                 <PostList posts={posts} onVote={this.handleCreateVote}/>{
                     postLoading &&
                     <span>Loading...</span>
@@ -52,15 +51,13 @@ class Today extends React.Component{
         }
         
         this.handleUserLocation = this.handleUserLocation.bind(this);
-        this.handleCreatePost = this.handleCreatePost.bind(this); 
+        // this.handleCreatePost = this.handleCreatePost.bind(this); 
         this.handleCreateVote = this.handleCreateVote.bind(this);
     }
     
     componentDidMount() {
+        this.props.dispatch(listPost(this.props.searchText));
         this.props.dispatch(getWeather ('Taipei', this.props.unit));
-        // this.props.getWeather ('Taipei', this.props.unit);
-        this.props.dispatch(getWeather ('Taipei', this.props.unit));
-        // this.listPost(this.props.searchText);
     }
 
     componentWillUnmount() {
@@ -105,24 +102,24 @@ class Today extends React.Component{
         
     }
 
-    handleCreatePost(mood, text){
-        console.log(mood, text);
-        createPost(mood, text).then( () =>{
-            this.listPost(this.props.searchText)
-        })
-    }
+    // handleCreatePost(mood, text){
+    //     console.log(mood, text);
+    //     createPost(mood, text).then( () =>{
+    //         this.listPost(this.props.searchText)
+    //     })
+    // }
 
-    listPost(searchText){
-        listPost(searchText).then(posts =>{
-            this.setState({
-                posts: posts
-            })
-        })
-    }
+    // listPost(searchText){
+    //     listPost(searchText).then(posts =>{
+    //         this.setState({
+    //             posts: posts
+    //         })
+    //     })
+    // }
 
     handleCreateVote(id, mood){
         createVote(id, mood).then( () =>{
-            this.listPost(this.props.searchText)
+            this.props.dispatch(listPost(this.props.searchText));
         })
     }  
 }
@@ -131,6 +128,7 @@ export default connect((state) => {
     return {
         ...state.weather,
         ...state.post,
+        ...state.PostForm,
         unit: state.unit,
     };
 })(Today);

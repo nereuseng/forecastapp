@@ -69,6 +69,9 @@ export function getWeather(city, unit) {
         }).catch(err => {
             console.error('Error getting weather', err);
             dispatch(resetWeather());
+            setTimeout(() => {
+                dispatch(unmaskTodayBg());
+            }, 600);
         });
     };
 };

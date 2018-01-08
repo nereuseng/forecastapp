@@ -1,18 +1,18 @@
 import React , {Component} from 'react';
 
 import {dropdownButton, clickOutside} from './dropdownButton.js';
-// import {getWeather, getLocationWeatherToday} from 'Api/openWeatherMapApi.js';
 
 import './PostForm.css';
 
 import {getMoodIcon} from './postIcon.js';
 
 import {connect} from 'react-redux';
-import {input, selectMood} from 'states/post-actions.js'
+import {input, selectMood, resetForm} from 'states/post-actions.js'
 
 class PostForm extends Component {
     render(){
         const {inputValue, mood} = this.props;
+        
         return (
             <div>
                 <div className="postBody">
@@ -39,14 +39,12 @@ class PostForm extends Component {
             var event = window.event;
             clickOutside(event);
         }
+        this.props.dispatch(selectMood('na'));
+        this.props.dispatch(input(''));
     }
 
     constructor(props){
         super(props);
-        // this.state = {
-        //     inputValue: "",
-        //     mood: 'na'
-        // }
 
         this.handleDropdown = this.handleDropdown.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -58,13 +56,11 @@ class PostForm extends Component {
     }
 
     handleDropdownSelect(mood){
-        this.props.dispatch(selectMood(mood))
-        // this.setState({mood: mood})
+        this.props.dispatch(selectMood(mood));
     }
 
     handleInputChange(event){
-        this.props.dispatch(input(event.target.value))
-        // this.setState({inputValue: event.target.value});
+        this.props.dispatch(input(event.target.value));       
     }
 
     handlePost(){
@@ -75,13 +71,8 @@ class PostForm extends Component {
             return document.getElementById("textarea").focus();
         }
         const {inputValue, mood, dispatch} = this.props;
-        // this.props.onPost(this.state.mood, this.state.inputValue);
         dispatch(this.props.onPost(mood, inputValue));
-        dispatch(this.props.onPost('na', ''));
-        // this.setState({
-        //     mood: 'na',
-        //     inputValue: ''
-        // });
+        dispatch(resetForm());
     }
 }
 

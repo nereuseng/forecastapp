@@ -1,7 +1,6 @@
 const initUnitState = 'metric';
 
 export function unit(state = initUnitState, action) {
-    console.log(action.unit);
     switch (action.type) {
         case '@UNIT/SET_UNIT':
             return action.unit;

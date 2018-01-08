@@ -7,6 +7,8 @@ import {input, selectUnit} from 'states/weather-actions.js'
 class WeatherForm extends Component{
     render() {
         const {inputValue, unit} = this.props;
+        console.log(this.props);
+        
 
         return (
             <div className="weatherForm">

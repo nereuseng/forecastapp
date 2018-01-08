@@ -55,7 +55,7 @@ export function createPost(mood, text) {
         dispatch(startCreatePost(mood, text));
         return createPostFromApi(mood, text).then( () => {
             dispatch(endCreatePost());
-            listPost('');
+            dispatch(listPost(''));
         }).catch(err => {
             console.error('Error creating post', err);
         });
@@ -76,6 +76,12 @@ export function input(value) {
         type: '@POST_FORM/INPUT',
         value: value
     };
+}
+
+export function resetForm() {
+    return {
+        type: '@POST_FORM/RESET_FORM',
+    }
 }
 
 

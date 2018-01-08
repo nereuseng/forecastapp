@@ -2,11 +2,9 @@ const initPostState = {
     searchText: '',
     posts: [],
     mood: 'na',
-    text: 'na',
 }
 
 export function post(state = initPostState, action) {
-    console.log(state);
     switch (action.type) {
         case '@POST/START_LIST_POST':
             return {
@@ -35,8 +33,8 @@ export function post(state = initPostState, action) {
 }
 
 const initPostFormState = {
-    inputValue: null,
-    mood: null,
+    inputValue: '',
+    mood: 'na',
 }
 
 export function postForm(state = initPostFormState, action) {
@@ -51,7 +49,10 @@ export function postForm(state = initPostFormState, action) {
                 ...state,
                 mood: action.mood
             }    
-            
+        case '@POST_FORM/RESET_FORM':
+            return {
+                ...initPostFormState
+            }
         default:
             return state;
     }
