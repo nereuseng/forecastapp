@@ -61,7 +61,6 @@ module.exports = {
     devServer: {
         contentBase: path.join(__dirname, './dist'),
         historyApiFallback: true,
-        hot: true,
         host: '0.0.0.0',
         port: process.env.PORT || 8080,
         public: 'forecastapps.herokuapp.com'
