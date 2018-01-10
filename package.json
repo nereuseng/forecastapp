@@ -12,6 +12,8 @@
     "build": "set NODE_ENV=production&&webpack --config webpack.config.js -p --progress --colors",
     "module": "webpack --display-modules --sort-modules-by size",
     "stats": "webpack --profile --json > stats.json",
+    "postinstall": "cd client && npm install",
+    "build:production": "NODE_ENV=production webpack --config webpack.config.js",
     "backup": "set NODE_ENV=production&&"
   },
   "author": "",
