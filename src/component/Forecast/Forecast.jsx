@@ -73,9 +73,9 @@ class Forecast extends Component {
             }, 600));
         });
 
-        if (this.props.units !== unit) {
-            this.props.onUnitChange(unit);
-        }
+        // if (this.props.units !== unit) {
+        //     this.props.onUnitChange(unit);
+        // }
     }
 
     handleUserLocation(){
@@ -96,11 +96,11 @@ class Forecast extends Component {
     //         this.getLocationWeather(lat, lng, this.props.unit));
     }
 
-    notifyUnitChange(unit) {
-        if (this.props.units !== unit) {
-            this.props.onUnitChange(unit);
-        }
-    }
+    // notifyUnitChange(unit) {
+    //     if (this.props.units !== unit) {
+    //         this.props.onUnitChange(unit);
+    //     }
+    // }
 
     notifyUserLocation(lat, lng){
         if(this.props.lat !== lat && this.props.lng !== lng){

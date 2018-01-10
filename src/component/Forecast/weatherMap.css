@@ -3,7 +3,6 @@
     width: 100%;
     z-index: 0;
     visibility: visible;
-    /* transition: visibility .6s; */
 }
 
 .mapComponent-masking {
@@ -11,5 +10,4 @@
     width: 100%;
     z-index: 0;
     visibility: hidden;
-    /* transition: visibility .6s; */
 }

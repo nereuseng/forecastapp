@@ -6,11 +6,10 @@ import PostForm from 'component/Post/PostForm.jsx';
 import PostList from 'component/Post/PostList.jsx';
 import {getLocationWeatherToday} from 'Api/openWeatherMapApi.js';
 import {getUserLocation} from 'component/userLocation.jsx';
-import {createVote} from 'Api/post.js';
 
 import {connect} from 'react-redux';
 import {getWeather} from 'states/weather-actions.js';
-import {createPost, listPost} from 'states/post-actions.js';
+import {createPost, listPost, createVote} from 'states/post-actions.js';
 
 import 'Today/Today.css';
 
@@ -19,7 +18,7 @@ class Today extends React.Component{
     render() {
         // TODO: Random pic without Math.random not doing twice
         const {city, group, description, temp, unit, masking, code, posts, mood, text, searchText} = this.props;
-        const postLoading = false;
+        const postLoading = false;        
         
         var imgUrl = require('images/w-bg-'+group+'.jpg');
 
@@ -52,7 +51,7 @@ class Today extends React.Component{
         
         this.handleUserLocation = this.handleUserLocation.bind(this);
         // this.handleCreatePost = this.handleCreatePost.bind(this); 
-        this.handleCreateVote = this.handleCreateVote.bind(this);
+        // this.handleCreateVote = this.handleCreateVote.bind(this);
     }
     
     componentDidMount() {
@@ -67,9 +66,9 @@ class Today extends React.Component{
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.searchText !== this.props.searchText){
-            this.listPost(nextProps.searchText);
-        }
+        // if (nextProps.searchText !== this.props.searchText){
+        //     this.listPost(nextProps.searchText);
+        // }
     }
 
     handleUserLocation(){
@@ -89,11 +88,11 @@ class Today extends React.Component{
         })
     }
     
-    notifyUnitChange(unit) {
-        if (this.props.units !== unit) {
-            this.props.onUnitChange(unit);
-        }
-    }
+    // notifyUnitChange(unit) {
+    //     if (this.props.units !== unit) {
+    //         this.props.onUnitChange(unit);
+    //     }
+    // }
 
     notifyUserLocation(lat, lng){
         if(this.props.lat !== lat && this.props.lng !== lng){
@@ -117,11 +116,11 @@ class Today extends React.Component{
     //     })
     // }
 
-    handleCreateVote(id, mood){
-        createVote(id, mood).then( () =>{
-            this.props.dispatch(listPost(this.props.searchText));
-        })
-    }  
+    // handleCreateVote(id, mood){
+    //     createVote(id, mood).then( () =>{
+    //         this.props.dispatch(listPost(this.props.searchText));
+    //     })
+    // }  
 }
 
 export default connect((state) => {
@@ -129,6 +128,7 @@ export default connect((state) => {
         ...state.weather,
         ...state.post,
         ...state.PostForm,
+        ...state.vote,
         unit: state.unit,
     };
 })(Today);

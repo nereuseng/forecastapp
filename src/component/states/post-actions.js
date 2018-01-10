@@ -84,5 +84,29 @@ export function resetForm() {
     }
 }
 
+/* Create Vote */
 
+function startCreateVote(id, mood) {
+    return {
+        type: '@VOTE/START_CREATE_VOTE',
+        id: id,
+        mood: mood
+    }
+}
 
+function endCreateVote() {
+    return {
+        type: '@VOTE/END_CREATE_VOTE',
+    }
+}
+
+export function createVote(id, mood) {
+    return (dispatch, getState) => {
+        dispatch(startCreateVote(id, mood));
+        return createVoteFromApi(id, mood).then( () => {
+            dispatch(endCreateVote());
+        }).then( () => {
+            dispatch(listPost());
+        })
+    }
+}

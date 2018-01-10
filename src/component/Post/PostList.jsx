@@ -3,7 +3,10 @@ import 'src/component/Post/PostList.css';
 import {getMoodIcon} from './postIcon.js';
 import PostItem from './PostItem.jsx';
 
-export default class postList extends Component{
+import {createVote} from 'states/post-actions.js';
+import {connect} from 'react-redux';
+
+class postList extends Component{
     constructor(props) {
         super(props);
 
@@ -35,6 +38,14 @@ export default class postList extends Component{
     }
 
     handleVote(id, mood){
-        this.props.onVote(id, mood);
+        this.props.dispatch(createVote(id, mood));
+        // this.props.onVote(id, mood);
+        // .then listPost()
     }
 }
+
+export default connect( (state) => {
+    return {
+        ...state.vote
+    };
+})(postList)

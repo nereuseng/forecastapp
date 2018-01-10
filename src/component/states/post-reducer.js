@@ -57,3 +57,26 @@ export function postForm(state = initPostFormState, action) {
             return state;
     }
 }
+
+const getInitVoteState = {
+    id: '',
+    mood: 'na'
+}
+
+export function vote(state = getInitVoteState, action) {
+    switch (action.type) {
+        case '@VOTE/START_CREATE_VOTE':
+            return {
+                ...state,
+                id: action.id,
+                mood: action.mood
+            }
+        case '@VOTE/END_CREATE_VOTE':
+            return {
+                ...state,
+            }
+    
+        default:
+            return state;
+    }
+}
