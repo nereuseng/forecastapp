@@ -3,9 +3,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {getWeather} from 'states/weather-actions.js';
 
-import 'Forecast/WeatherTable.css';
-import 'owfont/css/owfont-regular.css'  
-// import Forecast from './Forecast';
+import 'Forecast/WeatherTable.css';  
 
 class WeatherTable extends Component {
     render() {

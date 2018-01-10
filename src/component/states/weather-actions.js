@@ -150,7 +150,9 @@ export function getForecast(city, unit) {
             dispatch(endGetForecast(city, list));
             dispatch(setUnit(unit));
         }).then( () => {
+            setTimeout(() => {
             dispatch(unmaskForecastBg());
+        }, 600);
         }).catch(err => {
             console.error('Error getting forecast', err);
             dispatch(resetForecast());

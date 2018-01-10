@@ -1,5 +1,5 @@
 import uuid from 'uuid/v4';
-import moment from 'moment';
+import moment from 'moment/min/moment.min';
 
 const postKey = 'posts';
 

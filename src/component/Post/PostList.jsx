@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import 'src/component/Post/PostList.css';
 import {getMoodIcon} from './postIcon.js';
-import moment from 'moment';
 import PostItem from './PostItem.jsx';
 
 export default class postList extends Component{

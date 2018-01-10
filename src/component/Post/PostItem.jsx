@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment';
+import moment from 'moment/min/moment.min';
 
 import {getMoodIcon} from './postIcon.js';
 

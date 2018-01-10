@@ -1,0 +1,15 @@
+.mapComponent {
+    min-height: 94.5vh;
+    width: 100%;
+    z-index: 0;
+    visibility: visible;
+    /* transition: visibility .6s; */
+}
+
+.mapComponent-masking {
+    min-height: 94.5vh;
+    width: 100%;
+    z-index: 0;
+    visibility: hidden;
+    /* transition: visibility .6s; */
+}

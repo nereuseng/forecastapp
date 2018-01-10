@@ -18,6 +18,17 @@
     transition: all 0.3s;
   }
 
+  .map-masking {
+    background-color: black;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    /* top: 25%; */
+    transition: all 0.3s;
+  }
+
   .map {
     position: relative;
     display: flex;

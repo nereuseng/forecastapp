@@ -65,10 +65,12 @@ module.exports = {
         hot: true,
         host: '0.0.0.0',
         port: process.env.PORT || 8080,
-        public: 'forecastapps.herokuapp.com'
+        // public: 'forecastapps.herokuapp.com'
     },
 
     resolve: {
+        //bug of webpack:
+        //https://github.com/webpack-contrib/css-loader/issues/74
         modules: ['./', 'node_modules'],
         alias: {
             states: path.join(__dirname, 'src/component/states'),
@@ -83,6 +85,7 @@ module.exports = {
     },
 
     plugins: [
+        //https://github.com/moment/moment/issues/2979
         new webpack.IgnorePlugin(/\.\/locale$/),
         new webpack.optimize.ModuleConcatenationPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
@@ -90,11 +93,11 @@ module.exports = {
         filename: 'vendor.bundle.js',
         minChunks: 2
         }), 
-        new UglifyJSPlugin(),
-        new webpack.DefinePlugin({
-            'process.env': {
-              'NODE_ENV': JSON.stringify('production')
-            }
-        }),
+        // new UglifyJSPlugin(),
+        // new webpack.DefinePlugin({
+        //     'process.env': {
+        //       'NODE_ENV': JSON.stringify('production')
+        //     }
+        // }),
     ],
 };

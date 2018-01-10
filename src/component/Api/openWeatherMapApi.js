@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { capitalize } from '../../../../as2-redux-weathermood-post/src/api/open-weather-map';
 
 const key = `2da0473a0c7713adcff021bde8e391e3`;
 
@@ -67,7 +66,7 @@ export function getWeatherGroup(code) {
 }
 
 export function getForecast(city, unit) {
-    var url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=${unit}&appid=${key}&cnt=5`
+    var url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=${unit}&appid=${key}`
 
     console.log(`Making request to ${url}`);
 
@@ -75,9 +74,11 @@ export function getForecast(city, unit) {
         if (res.data.cod && res.data.cod!=200 && res.data.message){
             throw new Error(res.data.message);
         }
-        // api key不全, 想辦法把3小時的轉換
-        const list = res.data.list.map(forecast => {
-            console.log(forecast);
+        const regex = /\s+12/;
+        const rawList = res.data.list.filter(rawForecast => {
+            return rawForecast.dt_txt.match(regex)
+        })
+        const list = rawList.map(forecast => {
             return {
                 code: forecast.weather[0].id,
                 group: getWeatherGroup(forecast.weather[0].id),
@@ -86,12 +87,11 @@ export function getForecast(city, unit) {
                 date: weekDay(forecast.dt_txt)
             };
         });
-        console.log(list);
-            return {
-                city: capitalized(city),
-                unit: unit,
-                list
-            };
+        return {
+            city: capitalized(city),
+            unit: unit,
+            list
+        };
         }
     )}
 

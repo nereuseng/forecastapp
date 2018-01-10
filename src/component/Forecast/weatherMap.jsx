@@ -6,17 +6,14 @@ import ReactDOM from 'react-dom';
 var markers = [];
 var map;
 
+import 'Forecast/weatherMap.css'
+
 export default class WeatherMap extends Component {
 
     render(){
-        const style = {
-            minHeight: '94.5vh',
-            width: '100%',
-            zIdex: '0'
-        }
 
         return(
-            <div id="map" style={style}><span></span></div>
+            <div id="map" class={`mapComponent${this.props.masking ? '-masking' : ''}`}><span></span></div>
         )
     }
 
