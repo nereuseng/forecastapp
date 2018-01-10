@@ -12,6 +12,7 @@
     "build": "set NODE_ENV=production&&webpack -p --progress --colors",
     "module": "webpack --display-modules --sort-modules-by size",
     "stats": "webpack --profile --json > stats.json",
+    "heroku-postbuild": "npm start",
     "backup": "set NODE_ENV=production&&"
   },
   "author": "",
