@@ -13,7 +13,7 @@ export default class WeatherMap extends Component {
     render(){
 
         return(
-            <div id="map" class={`mapComponent${this.props.masking ? '-masking' : ''}`}><span></span></div>
+            <div id="map" className={`mapComponent${this.props.masking ? '-masking' : ''}`}><span></span></div>
         )
     }
 

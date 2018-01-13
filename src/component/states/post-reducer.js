@@ -1,5 +1,4 @@
 const initPostState = {
-    searchText: '',
     posts: [],
     mood: 'na',
 }

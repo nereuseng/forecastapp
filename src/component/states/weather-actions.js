@@ -159,3 +159,27 @@ export function getForecast(city, unit) {
         })
     }
 }
+
+/**
+ * location
+ */
+
+ import { createAction } from 'redux-actions';
+ import { getUserLocation as getUserLocationFromApi } from 'component/userLocation.jsx';
+
+ const getLocation = createAction('GET_LOCATION');
+ const getLocationStatus = createAction('GET_LOCATION_STATUS')
+
+ export const getLocationWeather = function(params, type){
+    return async (dispatch) => {
+        dispatch(getLocationStatus({locationStatus: true}));
+        try {
+            const res = await getUserLocationFromApi();
+            dispatch(getLocation({lat:res.coords.latitude, lng:res.coords.longitude}));
+            dispatch(getLocationStatus({locationStatus: false}));
+        } catch (err) {
+            console.log('Error getting User Location', err);
+            // some reset action?
+        }
+    }
+ }

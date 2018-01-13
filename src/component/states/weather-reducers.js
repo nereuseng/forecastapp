@@ -135,3 +135,19 @@ export function forecast(state = getInitForecastState(), action) {
             return state;
     }
 }
+
+import { handleActions, combineActions } from 'redux-actions';
+
+const initLocationState = {
+    locationStatus: false,
+    lat: NaN,
+    lng: NaN
+};
+
+export const location = handleActions({
+    // [combineActions(GET_LOCATION, GET_LOCATION_STATUS)](state, payload) {
+    //     return { ...state, payload}
+    // }
+    GET_LOCATION: (state, action) => {return {...state, lat:action.payload.lat, lng: action.payload.lng}},
+    GET_LOCATION_STATUS: (state, action) => {return {...state, locationStatus: action.payload.locationStatus}}
+}, initLocationState)

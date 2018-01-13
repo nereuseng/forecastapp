@@ -8,7 +8,7 @@ import {getLocationWeatherToday} from 'Api/openWeatherMapApi.js';
 import {getUserLocation} from 'component/userLocation.jsx';
 
 import {connect} from 'react-redux';
-import {getWeather} from 'states/weather-actions.js';
+import {getWeather, getLocationWeather} from 'states/weather-actions.js';
 import {createPost, listPost, createVote} from 'states/post-actions.js';
 
 import 'Today/Today.css';
@@ -18,7 +18,9 @@ class Today extends React.Component{
     render() {
         // TODO: Random pic without Math.random not doing twice
         const {city, group, description, temp, unit, masking, code, posts, mood, text, searchText} = this.props;
-        const postLoading = false;        
+        const postLoading = false;     
+        console.log(this.props);
+           
         
         var imgUrl = require('images/w-bg-'+group+'.jpg');
 
@@ -66,26 +68,29 @@ class Today extends React.Component{
     }
 
     componentWillReceiveProps(nextProps) {
-        // if (nextProps.searchText !== this.props.searchText){
-        //     this.listPost(nextProps.searchText);
-        // }
+        if (nextProps.searchText !== this.props.searchText){
+            console.log(`listPost!!`);
+            
+            this.props.dispatch(listPost(nextProps.searchText));
+        }
     }
 
     handleUserLocation(){
-        getUserLocation().then(userCoords => {
-            this.setState({
-                lat: userCoords.coords.latitude,
-                lng: userCoords.coords.longitude
-            }, () => {
-                this.notifyUserLocation(userCoords.coords.latitude, userCoords.coords.longitude)
-                getLocationWeatherToday(this.state.lat, this.state.lng, this.props.unit).then(weather => {
-                    this.setState({
-                        ...weather,
-                        masking:true
-                    });
-                }).then( this.masking())
-            })
-        })
+        this.props.dispatch(getLocationWeather());
+        // getUserLocation().then(userCoords => {
+        //     this.setState({
+        //         lat: userCoords.coords.latitude,
+        //         lng: userCoords.coords.longitude
+        //     }, () => {
+        //         this.notifyUserLocation(userCoords.coords.latitude, userCoords.coords.longitude)
+        //         getLocationWeatherToday(this.state.lat, this.state.lng, this.props.unit).then(weather => {
+        //             this.setState({
+        //                 ...weather,
+        //                 masking:true
+        //             });
+        //         }).then( this.masking())
+        //     })
+        // })
     }
     
     // notifyUnitChange(unit) {
@@ -123,12 +128,14 @@ class Today extends React.Component{
     // }  
 }
 
-export default connect((state) => {
+export default connect((state, ownProps) => {    
     return {
         ...state.weather,
         ...state.post,
         ...state.PostForm,
         ...state.vote,
+        ...state.location,
+        searchText: ownProps.searchText,
         unit: state.unit,
     };
 })(Today);

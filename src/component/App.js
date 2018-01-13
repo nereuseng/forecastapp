@@ -6,7 +6,7 @@ import {
     Link
 } from 'react-router-dom';
 import Forecast from 'Forecast/Forecast.jsx';
-import {unit, weather, weatherForm,  forecast} from 'states/weather-reducers.js';
+import {unit, weather, weatherForm,  forecast, location} from 'states/weather-reducers.js';
 import {post, postForm, vote} from 'states/post-reducer.js'
 
 import {createStore, combineReducers, compose, applyMiddleware} from 'redux';
@@ -21,7 +21,6 @@ import { create } from 'domain';
 
 export default class App extends React.Component {
   render() {
-    console.log(this.props);
     
     return (
       //Nav css借我放.app的設置
@@ -35,7 +34,7 @@ export default class App extends React.Component {
               <li><Link to="/">Today</Link></li>
               <li><Link to="/Forecast">Forecast</Link></li>
               <div id="todaySearchBox">
-              <input type="text" placeholder="Search..." onChange={this.handleSearchChange} value={this.state.searchText} onKeyPress={this.handleSearchKeyPress} getRef={e => this.searchEl = e} className="search"></input>{
+              <input type="text" placeholder="Search..." ref={this.searchEl}onKeyPress={this.handleSearchKeyPress} ref={el => this.searchEl = el} className="search"></input>{
                   this.state.searchText &&
                   <i className='navbar-text fa fa-times' onClick={this.handleClearSearch}></i>
                 }
@@ -43,7 +42,7 @@ export default class App extends React.Component {
             </ul> 
           </nav>
         <Route exact path="/" render={() => (
-          <Today searchText={this.state.searchText}  lat={this.state.lat} lng={this.state.lng} onUserLocationChange={this.handleLocationChange}/>
+          <Today searchText={this.state.searchText} lat={this.state.lat} lng={this.state.lng} onUserLocationChange={this.handleLocationChange}/>
             )}/>
           <Route exact path="/Forecast" render={() =>(
           <Forecast unit={this.state.unit} lat={this.state.lat} lng={this.state.lng} onUserLocationChange={this.handleLocationChange}/>
@@ -66,7 +65,7 @@ export default class App extends React.Component {
 
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleSearchKeyPress = this.handleSearchKeyPress.bind(this);
-    this.handleSearchChange = this.handleSearchChange.bind(this);
+    // this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleClearSearch = this.handleClearSearch.bind(this);
   }
 
@@ -79,7 +78,8 @@ export default class App extends React.Component {
       forecast,
       post,
       postForm,
-      vote
+      vote,
+      location
     }), composeEnhancers(applyMiddleware(thunkMiddleware)));
   }
 
@@ -92,6 +92,8 @@ export default class App extends React.Component {
 
   handleSearchKeyPress(e){
     const keyCode = e.keyCode || e.which;
+    console.log(this);
+    
     if(keyCode === 13){
       this.setState({
         searchText: e.target.value
@@ -99,16 +101,13 @@ export default class App extends React.Component {
     }
   }
 
-  handleSearchChange(e){
-    this.setState({
-      searchText: e.target.value
-    });
-  }
-
-  handleClearSearch(){
+  handleClearSearch(){    
+    console.log(this.refs);
+    
     this.setState({
       searchText: ''
     })
+    this.searchEl.value = '';
   }
 
 }
