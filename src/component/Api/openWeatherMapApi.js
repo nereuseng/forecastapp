@@ -110,7 +110,7 @@ export function getLocationWeatherToday(lat, lng , unit) {
                     lng: lng,
                     code: res.data.weather[0].id,
                     group: getWeatherGroup(res.data.weather[0].id),
-                    desc: capitalized(res.data.weather[0].description),
+                    description: capitalized(res.data.weather[0].description),
                     temp: res.data.main.temp,
                     unit: unit
                 };
@@ -141,7 +141,7 @@ export function getLocationWeather(lat, lng , unit) {
                 code: [res.data.list[0].weather[0].id, res.data.list[7].weather[0].id, res.data.list[15].weather[0].id, res.data.list[23].weather[0].id, res.data.list[31].weather[0].id],
                 // 使用code直接替代group的分類
                 // group: [getWeatherGroup(res.data.list[0].weather[0].id), getWeatherGroup(res.data.list[7].weather[0].id), getWeatherGroup(res.data.list[15].weather[0].id), getWeatherGroup(res.data.list[23].weather[0].id), getWeatherGroup(res.data.list[31].weather[0].id)],
-                desc: [res.data.list[0].weather[0].description, res.data.list[7].weather[0].description, res.data.list[15].weather[0].description, res.data.list[23].weather[0].description, res.data.list[31].weather[0].description],
+                description: [res.data.list[0].weather[0].description, res.data.list[7].weather[0].description, res.data.list[15].weather[0].description, res.data.list[23].weather[0].description, res.data.list[31].weather[0].description],
                 temp: [res.data.list[0].main.temp, res.data.list[7].main.temp, res.data.list[15].main.temp, res.data.list[23].main.temp, res.data.list[31].main.temp],
                 date: [weekDay(res.data.list[0].dt_txt), weekDay(res.data.list[7].dt_txt), weekDay(res.data.list[15].dt_txt), weekDay(res.data.list[23].dt_txt), weekDay(res.data.list[31].dt_txt)]
             };

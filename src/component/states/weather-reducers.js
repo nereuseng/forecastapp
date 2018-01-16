@@ -148,6 +148,40 @@ export const location = handleActions({
     // [combineActions(GET_LOCATION, GET_LOCATION_STATUS)](state, payload) {
     //     return { ...state, payload}
     // }
-    GET_LOCATION: (state, action) => {return {...state, lat:action.payload.lat, lng: action.payload.lng}},
-    GET_LOCATION_STATUS: (state, action) => {return {...state, locationStatus: action.payload.locationStatus}}
-}, initLocationState)
+    GET_LOCATION: (state, action) => {
+        console.log(action);
+        
+        return {
+            ...state, ...action.payload
+        }
+    },
+    GET_LOCATION_STATUS: (state, action) => {return {...state, ...action.payload}}
+}, initLocationState);
+
+// const initLocationWeatherTodayState = {
+//     city: 'na',
+//     lat: NaN,
+//     lng: NaN,
+//     code: -1,
+//     group:'na',
+//     description: 'N/A',
+//     temp: NaN,
+//     // weatherLoading: false,
+//     masking: false
+// }
+
+// export const locationWeather = handleActions ({
+//     GET_LOCATION_WEATHER_STATUS: (state, action) => {
+//         return {
+//             ...state,
+//             masking: true,
+//         }
+//     },
+//     GET_LOCATION_WEATHER: (state, action) => {
+//         return {
+//             ...state,
+//             masking: false,
+
+//         }
+//     }
+// }, initLocationState)
