@@ -6,7 +6,7 @@ import {
     Link
 } from 'react-router-dom';
 import Forecast from 'Forecast/Forecast.jsx';
-import {unit, weather, weatherForm,  forecast, location} from 'states/weather-reducers.js';
+import {unit, weather, weatherForm,  forecast, location, locationWeather} from 'states/weather-reducers.js';
 import {post, postForm, vote} from 'states/post-reducer.js'
 
 import {createStore, combineReducers, compose, applyMiddleware} from 'redux';
@@ -79,7 +79,8 @@ export default class App extends React.Component {
       post,
       postForm,
       vote,
-      location
+      location,
+      // locationWeather
     }), composeEnhancers(applyMiddleware(thunkMiddleware)));
   }
 

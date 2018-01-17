@@ -101,29 +101,21 @@ export function getLocationWeatherToday(lat, lng , unit) {
 
     return axios.get(url).then(function(res){
         if (res.data.cod && res.data.cod!=200 && res.data.message){
-            
-            throw new Error(res.data.message)
-            const list = res.data.list.map(forecast => {
-                return {
-                    city: res.data.name,
-                    lat: lat,
-                    lng: lng,
-                    code: res.data.weather[0].id,
-                    group: getWeatherGroup(res.data.weather[0].id),
-                    description: capitalized(res.data.weather[0].description),
-                    temp: res.data.main.temp,
-                    unit: unit
-                };
-            });
-
-            return {
-                city:capitalize(city),
-                unit:unit,
-                list
-            }
+            throw new Error(res.data.message);
+        }            
+        return {
+            unit:unit,
+            lat: lat,
+            lng: lng,
+            city: res.data.name,
+            code: res.data.weather[0].id,
+            group: getWeatherGroup(res.data.weather[0].id),
+            description: capitalized(res.data.weather[0].description),
+            temp: res.data.main.temp,
         }
     })
 }
+
 
 export function getLocationWeather(lat, lng , unit) {
     var url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&appid=${key}&units=${unit}`

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 
+import {connect} from 'react-redux';
+
 import 'component/Suggestion.css';
 
-export default class Suggestion extends Component{
+class Suggestion extends Component{
     render(){
         return(
             <div id="sugg" className={this.position()}>
@@ -38,8 +40,12 @@ export default class Suggestion extends Component{
         this.autoplay();
     }
 
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
     autoplay(){
-        setInterval(this.play, 3000)
+        this.interval = setInterval(this.play, 3000)
     }
 
     play(){
@@ -61,3 +67,9 @@ export default class Suggestion extends Component{
         }
     }
 }
+
+export default connect((state) => {    
+    return {
+        unit: state.unit,
+    };
+})(Suggestion);

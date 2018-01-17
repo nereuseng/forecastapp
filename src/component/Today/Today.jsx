@@ -33,7 +33,7 @@ class Today extends React.Component{
                 <WeatherDisplay {...{group, description, temp, unit, masking, code}} day='today'/> 
                 <WeatherForm city={city} defaultUnit={unit} onLocation={this.handleUserLocation} submitAction={getWeather}/>
                 
-                <Suggestion onQuery={this.handleQuery} unit={this.props.unit}/>
+                <Suggestion onQuery={this.handleQuery}/>
                 
                 <PostForm onPost={createPost} mood={mood}/>
                 <PostList posts={posts} onVote={this.handleCreateVote}/>{
@@ -45,13 +45,14 @@ class Today extends React.Component{
     }
     constructor(props){
         super(props);
-        this.state={
-            lat: this.props.lat,
-            lng: this.props.lng,
-            // posts: []
-        }
+        // this.state={
+        //     lat: this.props.lat,
+        //     lng: this.props.lng,
+        //     // posts: []
+        // }
         
         this.handleUserLocation = this.handleUserLocation.bind(this);
+        this.handleQuery = this.handleQuery.bind(this);
         // this.handleCreatePost = this.handleCreatePost.bind(this); 
         // this.handleCreateVote = this.handleCreateVote.bind(this);
     }
@@ -75,8 +76,8 @@ class Today extends React.Component{
         }
     }
 
-    handleUserLocation(){
-        this.props.dispatch(getLocationWeather());
+    handleUserLocation(){       
+        this.props.dispatch(getLocationWeather(this.props.unit));
         // getUserLocation().then(userCoords => {
         //     this.setState({
         //         lat: userCoords.coords.latitude,
@@ -91,6 +92,10 @@ class Today extends React.Component{
         //         }).then( this.masking())
         //     })
         // })
+    }
+
+    handleQuery(city, unit){
+        this.props.dispatch(getWeather(city, unit));
     }
     
     // notifyUnitChange(unit) {
@@ -135,6 +140,7 @@ export default connect((state, ownProps) => {
         ...state.PostForm,
         ...state.vote,
         ...state.location,
+        // ...state.locationWeather,
         searchText: ownProps.searchText,
         unit: state.unit,
     };

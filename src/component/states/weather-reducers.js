@@ -9,55 +9,6 @@ export function unit(state = initUnitState, action) {
     }
 };
 
-const initWeatherState = {
-    city: 'na',
-    code: -1,
-    group:'na',
-    description: 'N/A',
-    temp: NaN,
-    weatherLoading: false,
-    masking: false
-};
-
-export function weather(state = initWeatherState, action) {
-    switch (action.type) {
-        case '@WEATHER/START_GET_WEATHER':
-            return {
-                ...state,
-                city: action.city,
-                weatherLoading: true
-            }
-        
-        case '@WEATHER/END_GET_WEATHER':
-            return {
-                ...state,
-                city: action.city,
-                code: action.code,
-                group: action.group,
-                description: action.description,
-                temp: action.temp,
-                weatherLoading: false
-            }
-        case '@WEATHER/RESET_WEATHER':
-            return {
-                ...initWeatherState,
-                masking: state.masking
-            };
-        case '@WEATHER/MASK_TODAY_BG':
-            return {
-                ...state,
-                masking: true
-            }
-        case '@WEATHER/UNMASK_TODAY_BG':
-            return {
-                ...state,
-                masking: false
-            }
-        default:
-            return state;
-    }
-};
-
 const initWeatherFormState = {
     inputValue: null,
     unit: null
@@ -139,49 +90,95 @@ export function forecast(state = getInitForecastState(), action) {
 import { handleActions, combineActions } from 'redux-actions';
 
 const initLocationState = {
-    locationStatus: false,
+    requestStatus: false,
     lat: NaN,
     lng: NaN
 };
 
+
 export const location = handleActions({
-    // [combineActions(GET_LOCATION, GET_LOCATION_STATUS)](state, payload) {
-    //     return { ...state, payload}
-    // }
-    GET_LOCATION: (state, action) => {
-        console.log(action);
-        
-        return {
-            ...state, ...action.payload
-        }
-    },
-    GET_LOCATION_STATUS: (state, action) => {return {...state, ...action.payload}}
+    [combineActions('GET_LOCATION', 'GET_LOCATION_STATUS')](state, action) {
+        return { ...state, ...action.payload}
+    }
+    // GET_LOCATION: (state, action) => {        
+    //     return {...state, ...action.payload}
+    // },
+    // GET_LOCATION_STATUS: (state, action) => {return {...state, ...action.payload}}
 }, initLocationState);
 
 // const initLocationWeatherTodayState = {
-//     city: 'na',
 //     lat: NaN,
 //     lng: NaN,
-//     code: -1,
-//     group:'na',
-//     description: 'N/A',
-//     temp: NaN,
+//     ...initWeatherState
 //     // weatherLoading: false,
-//     masking: false
 // }
 
-// export const locationWeather = handleActions ({
-//     GET_LOCATION_WEATHER_STATUS: (state, action) => {
-//         return {
-//             ...state,
-//             masking: true,
-//         }
-//     },
-//     GET_LOCATION_WEATHER: (state, action) => {
-//         return {
-//             ...state,
-//             masking: false,
+const initWeatherState = {
+    city: 'na',
+    code: -1,
+    group:'na',
+    description: 'N/A',
+    temp: NaN,
+    weatherLoading: false,
+    masking: false,
+    lat: NaN,
+    lng: NaN,
+};
 
-//         }
+export const weather = handleActions ({
+    // GET_LOCATION_WEATHER_STATUS: (state, action) => {
+    //     return {
+    //         ...state,
+    //     }
+    // },
+    // GET_LOCATION_WEATHER: (state, action) => {
+    //     return {
+    //         ...state,
+    //     }
+    // }
+    [combineActions('START_GET_USER_LOCATION', 'END_GET_USER_LOCATION', 'GET_LOCATION_WEATHER', 'START_GET_WEATHER', 'END_GET_WEATHER', 'RESET_WEATHER', 'MASK_TODAY_BG', 'UNMASK_TODAY_BG')](state, action) {
+        console.log(`action.payload:`,action.payload);
+        
+        return { ...state, ...action.payload, }
+    }
+}, initWeatherState)
+
+
+// export function weather(state = initWeatherState, action) {
+//     switch (action.type) {
+//         case '@WEATHER/START_GET_WEATHER':
+//             return {
+//                 ...state,
+//                 city: action.city,
+//                 weatherLoading: true
+//             }
+        
+//         case '@WEATHER/END_GET_WEATHER':
+//             return {
+//                 ...state,
+//                 city: action.city,
+//                 code: action.code,
+//                 group: action.group,
+//                 description: action.description,
+//                 temp: action.temp,
+//                 weatherLoading: false
+//             }
+//         case '@WEATHER/RESET_WEATHER':
+//             return {
+//                 ...initWeatherState,
+//                 masking: state.masking
+//             };
+//         case '@WEATHER/MASK_TODAY_BG':
+//             return {
+//                 ...state,
+//                 masking: true
+//             }
+//         case '@WEATHER/UNMASK_TODAY_BG':
+//             return {
+//                 ...state,
+//                 masking: false
+//             }
+//         default:
+//             return state;
 //     }
-// }, initLocationState)
+// };
