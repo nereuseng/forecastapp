@@ -45,11 +45,6 @@ class Today extends React.Component{
     }
     constructor(props){
         super(props);
-        // this.state={
-        //     lat: this.props.lat,
-        //     lng: this.props.lng,
-        //     // posts: []
-        // }
         
         this.handleUserLocation = this.handleUserLocation.bind(this);
         this.handleQuery = this.handleQuery.bind(this);
@@ -78,20 +73,6 @@ class Today extends React.Component{
 
     handleUserLocation(){       
         this.props.dispatch(getLocationWeather(this.props.unit));
-        // getUserLocation().then(userCoords => {
-        //     this.setState({
-        //         lat: userCoords.coords.latitude,
-        //         lng: userCoords.coords.longitude
-        //     }, () => {
-        //         this.notifyUserLocation(userCoords.coords.latitude, userCoords.coords.longitude)
-        //         getLocationWeatherToday(this.state.lat, this.state.lng, this.props.unit).then(weather => {
-        //             this.setState({
-        //                 ...weather,
-        //                 masking:true
-        //             });
-        //         }).then( this.masking())
-        //     })
-        // })
     }
 
     handleQuery(city, unit){
@@ -110,27 +91,6 @@ class Today extends React.Component{
         }
         
     }
-
-    // handleCreatePost(mood, text){
-    //     console.log(mood, text);
-    //     createPost(mood, text).then( () =>{
-    //         this.listPost(this.props.searchText)
-    //     })
-    // }
-
-    // listPost(searchText){
-    //     listPost(searchText).then(posts =>{
-    //         this.setState({
-    //             posts: posts
-    //         })
-    //     })
-    // }
-
-    // handleCreateVote(id, mood){
-    //     createVote(id, mood).then( () =>{
-    //         this.props.dispatch(listPost(this.props.searchText));
-    //     })
-    // }  
 }
 
 export default connect((state, ownProps) => {    
@@ -140,7 +100,6 @@ export default connect((state, ownProps) => {
         ...state.PostForm,
         ...state.vote,
         ...state.location,
-        // ...state.locationWeather,
         searchText: ownProps.searchText,
         unit: state.unit,
     };

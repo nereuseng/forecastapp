@@ -8,7 +8,7 @@ export function getWeather(city, unit) {
 
     console.log(`Making request to ${url}`);
 
-    //這是React版的Ajax，叫做Axios，出來的respond是json檔，再命名成res直接像下面那樣抓
+    //這是增強版的XHR，叫做Axios，出來的respond是json檔，再命名成res直接像下面那樣抓
     //請參考這個https://api.openweathermap.org/data/2.5/weather?appid=2da0473a0c7713adcff021bde8e391e3&q=london&units=metric
     return axios.get(url).then(function (res) {
         if (res.data.cod && res.data.message){

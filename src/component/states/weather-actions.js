@@ -46,50 +46,7 @@ export function getWeather(city, unit) {
     };
 };
 
-// function startGetweather(city, unit) {
-//     return {
-//         type: '@WEATHER/START_GET_WEATHER',
-//         city,
-//         unit
-//     };
-// }
-
-// function endGetWeather(city, code, group, description, temp) {
-//     return {
-//         type: '@WEATHER/END_GET_WEATHER',
-//         city,
-//         code,
-//         group,
-//         description,
-//         temp,
-//     };
-// }
-
-// function resetWeather() {
-//     return {
-//         type: '@WEATHER/RESET_WEATHER'
-//     }
-// }
-
-// function maskTodayBg() {
-//     return{
-//         type: '@WEATHER/MASK_TODAY_BG'
-//     };
-// }
-
-// function unmaskTodayBg() {
-//     return {
-//         type: '@WEATHER/UNMASK_TODAY_BG'
-//     };
-// }
-
 /* WeatherForm */
-
-// export function toggleForm() {
-//     return {
-//         type: '@WEATHER_FORM/TOOGLE_FORM',
-//     };
-// }
 
 export function input(value) {
     return {
@@ -97,12 +54,6 @@ export function input(value) {
         value: value
     };
 }
-
-// export function toggleTemp() {
-//     return {
-//         type: '@WEATHER_FORM/TOGGLE_TEMP'
-//     };
-// }
 
 export function selectUnit(unit) {
     return {
@@ -194,7 +145,7 @@ import { getLocationWeatherToday as getLocationWeatherTodayFromApi } from 'Api/o
             console.log(weather);
             const {city, code, group , description, temp} = weather;
             dispatch(getWeatherLocation({city, code, group , description, temp}));
-            
+
             dispatch(endGetUserLocation({requestStatus: false}));
             setTimeout(() => {
                 dispatch(unmaskTodayBg({masking: false}));

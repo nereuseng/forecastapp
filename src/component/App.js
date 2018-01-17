@@ -80,7 +80,6 @@ export default class App extends React.Component {
       postForm,
       vote,
       location,
-      // locationWeather
     }), composeEnhancers(applyMiddleware(thunkMiddleware)));
   }
 

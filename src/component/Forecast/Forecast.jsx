@@ -52,7 +52,6 @@ class Forecast extends Component {
     // }
     handleClick(lat, lng){
         this.getLocationWeather(lat, lng, this.props.unit);
-        // alert("讓子彈飛一會兒");
     }
 
     getLocationWeather(lat, lng, unit){
@@ -60,7 +59,6 @@ class Forecast extends Component {
             lat: lat,
             lng: lng
         }, () => {
-        // alert('有飛到這裡嗎');
             getLocationWeather(lat, lng, unit).then(weather => {
                 this.setState ({
                     ...weather,

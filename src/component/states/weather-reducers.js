@@ -100,18 +100,7 @@ export const location = handleActions({
     [combineActions('GET_LOCATION', 'GET_LOCATION_STATUS')](state, action) {
         return { ...state, ...action.payload}
     }
-    // GET_LOCATION: (state, action) => {        
-    //     return {...state, ...action.payload}
-    // },
-    // GET_LOCATION_STATUS: (state, action) => {return {...state, ...action.payload}}
 }, initLocationState);
-
-// const initLocationWeatherTodayState = {
-//     lat: NaN,
-//     lng: NaN,
-//     ...initWeatherState
-//     // weatherLoading: false,
-// }
 
 const initWeatherState = {
     city: 'na',
@@ -126,59 +115,9 @@ const initWeatherState = {
 };
 
 export const weather = handleActions ({
-    // GET_LOCATION_WEATHER_STATUS: (state, action) => {
-    //     return {
-    //         ...state,
-    //     }
-    // },
-    // GET_LOCATION_WEATHER: (state, action) => {
-    //     return {
-    //         ...state,
-    //     }
-    // }
     [combineActions('START_GET_USER_LOCATION', 'END_GET_USER_LOCATION', 'GET_LOCATION_WEATHER', 'START_GET_WEATHER', 'END_GET_WEATHER', 'RESET_WEATHER', 'MASK_TODAY_BG', 'UNMASK_TODAY_BG')](state, action) {
         console.log(`action.payload:`,action.payload);
         
         return { ...state, ...action.payload, }
     }
 }, initWeatherState)
-
-
-// export function weather(state = initWeatherState, action) {
-//     switch (action.type) {
-//         case '@WEATHER/START_GET_WEATHER':
-//             return {
-//                 ...state,
-//                 city: action.city,
-//                 weatherLoading: true
-//             }
-        
-//         case '@WEATHER/END_GET_WEATHER':
-//             return {
-//                 ...state,
-//                 city: action.city,
-//                 code: action.code,
-//                 group: action.group,
-//                 description: action.description,
-//                 temp: action.temp,
-//                 weatherLoading: false
-//             }
-//         case '@WEATHER/RESET_WEATHER':
-//             return {
-//                 ...initWeatherState,
-//                 masking: state.masking
-//             };
-//         case '@WEATHER/MASK_TODAY_BG':
-//             return {
-//                 ...state,
-//                 masking: true
-//             }
-//         case '@WEATHER/UNMASK_TODAY_BG':
-//             return {
-//                 ...state,
-//                 masking: false
-//             }
-//         default:
-//             return state;
-//     }
-// };
