@@ -4,11 +4,11 @@ import WeatherForm from 'component/WeatherForm.jsx';
 import Suggestion from 'component/Suggestion.jsx';
 import PostForm from 'component/Post/PostForm.jsx';
 import PostList from 'component/Post/PostList.jsx';
-import {getLocationWeatherToday} from 'Api/openWeatherMapApi.js';
+// import {getLocationWeatherToday} from 'Api/openWeatherMapApi.js';
 import {getUserLocation} from 'component/userLocation.jsx';
 
 import {connect} from 'react-redux';
-import {getWeather, getLocationWeather} from 'states/weather-actions.js';
+import {getWeather, getLocationWeatherToday} from 'states/weather-actions.js';
 import {createPost, listPost, createVote} from 'states/post-actions.js';
 
 import 'Today/Today.css';
@@ -72,7 +72,7 @@ class Today extends React.Component{
     }
 
     handleUserLocation(){       
-        this.props.dispatch(getLocationWeather(this.props.unit));
+        this.props.dispatch(getLocationWeatherToday(this.props.unit));
     }
 
     handleQuery(city, unit){
@@ -85,12 +85,12 @@ class Today extends React.Component{
     //     }
     // }
 
-    notifyUserLocation(lat, lng){
-        if(this.props.lat !== lat && this.props.lng !== lng){
-            this.props.onUserLocationChange(lat, lng);
-        }
+    // notifyUserLocation(lat, lng){
+    //     if(this.props.lat !== lat && this.props.lng !== lng){
+    //         this.props.onUserLocationChange(lat, lng);
+    //     }
         
-    }
+    // }
 }
 
 export default connect((state, ownProps) => {    

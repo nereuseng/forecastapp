@@ -10,8 +10,8 @@ export function unit(state = initUnitState, action) {
 };
 
 const initWeatherFormState = {
-    inputValue: null,
-    unit: null
+    inputValue: '',
+    unit: ''
 }
 
 export function weatherForm(state = initWeatherFormState, action) {
@@ -32,7 +32,8 @@ export function weatherForm(state = initWeatherFormState, action) {
     }
 }
 
-function getInitForecastState() {
+// is it best pratice to export to weather-actions?
+export function getInitForecastState() {
     let list = [];
     for (let i = 0; i < list.length; i++) {
         list[i] = {
@@ -52,40 +53,40 @@ function getInitForecastState() {
     };
 }
 
-export function forecast(state = getInitForecastState(), action) {
-    switch (action.type) {
-        case '@FORECAST/START_GET_FORECAST':
-            return {
-                ...state,
-                city: action.city,
-                forecastLoading: true
-            };
-        case '@FORECAST/END_GET_FORECAST':
-            return {
-                ...state,
-                city: action.city,
-                list: action.list,
-                forecastLoading: false
-            };
-        case '@FORECAST/RESET_FORECAST':
-            return {
-                ...getInitForecastState(),
-                masking: state.masking
-            };
-        case '@FORECAST/MASK_FORECAST_BG':
-            return {
-                ...state,
-                masking: true
-            }
-        case '@FORECAST/UNMASK_FORECAST_BG':
-            return {
-                ...state,
-                masking: false
-            }    
-        default:
-            return state;
-    }
-}
+// export function forecast(state = getInitForecastState(), action) {
+//     switch (action.type) {
+//         case '@FORECAST/START_GET_FORECAST':
+//             return {
+//                 ...state,
+//                 city: action.city,
+//                 forecastLoading: true
+//             };
+//         case '@FORECAST/END_GET_FORECAST':
+//             return {
+//                 ...state,
+//                 city: action.city,
+//                 list: action.list,
+//                 forecastLoading: false
+//             };
+//         case '@FORECAST/RESET_FORECAST':
+//             return {
+//                 ...getInitForecastState(),
+//                 masking: state.masking
+//             };
+//         case '@FORECAST/MASK_FORECAST_BG':
+//             return {
+//                 ...state,
+//                 masking: true
+//             }
+//         case '@FORECAST/UNMASK_FORECAST_BG':
+//             return {
+//                 ...state,
+//                 masking: false
+//             }    
+//         default:
+//             return state;
+//     }
+// }
 
 import { handleActions, combineActions } from 'redux-actions';
 
@@ -115,9 +116,15 @@ const initWeatherState = {
 };
 
 export const weather = handleActions ({
-    [combineActions('START_GET_USER_LOCATION', 'END_GET_USER_LOCATION', 'GET_LOCATION_WEATHER', 'START_GET_WEATHER', 'END_GET_WEATHER', 'RESET_WEATHER', 'MASK_TODAY_BG', 'UNMASK_TODAY_BG')](state, action) {
+    [combineActions('START_GET_USER_LOCATION', 'END_GET_USER_LOCATION', 'GET_WEATHER_LOCATION', 'START_GET_WEATHER', 'END_GET_WEATHER', 'RESET_WEATHER', 'MASK_TODAY_BG', 'UNMASK_TODAY_BG')](state, action) {
         console.log(`action.payload:`,action.payload);
         
-        return { ...state, ...action.payload, }
+        return { ...state, ...action.payload }
     }
 }, initWeatherState)
+
+export const forecast = handleActions({
+    [combineActions('START_GET_LOCATION_WEATHER', 'END_GET_LOCATION_WEATHER', 'START_GET_FORECAST', 'END_GET_FORECAST', 'RESET_FORECAST', 'MASK_FORECAST_BG', 'UNMASK_FORECAST_BG')](state, action) {
+        return { ...state, ...action.payload }
+    }
+}, getInitForecastState());
