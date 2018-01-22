@@ -9,58 +9,9 @@ export function unit(state = initUnitState, action) {
     }
 };
 
-const initWeatherState = {
-    city: 'na',
-    code: -1,
-    group:'na',
-    description: 'N/A',
-    temp: NaN,
-    weatherLoading: false,
-    masking: false
-};
-
-export function weather(state = initWeatherState, action) {
-    switch (action.type) {
-        case '@WEATHER/START_GET_WEATHER':
-            return {
-                ...state,
-                city: action.city,
-                weatherLoading: true
-            }
-        
-        case '@WEATHER/END_GET_WEATHER':
-            return {
-                ...state,
-                city: action.city,
-                code: action.code,
-                group: action.group,
-                description: action.description,
-                temp: action.temp,
-                weatherLoading: false
-            }
-        case '@WEATHER/RESET_WEATHER':
-            return {
-                ...initWeatherState,
-                masking: state.masking
-            };
-        case '@WEATHER/MASK_TODAY_BG':
-            return {
-                ...state,
-                masking: true
-            }
-        case '@WEATHER/UNMASK_TODAY_BG':
-            return {
-                ...state,
-                masking: false
-            }
-        default:
-            return state;
-    }
-};
-
 const initWeatherFormState = {
-    inputValue: null,
-    unit: null
+    inputValue: '',
+    unit: ''
 }
 
 export function weatherForm(state = initWeatherFormState, action) {
@@ -81,7 +32,8 @@ export function weatherForm(state = initWeatherFormState, action) {
     }
 }
 
-function getInitForecastState() {
+// is it best pratice to export to weather-actions?
+export function getInitForecastState() {
     let list = [];
     for (let i = 0; i < list.length; i++) {
         list[i] = {
@@ -101,53 +53,78 @@ function getInitForecastState() {
     };
 }
 
-export function forecast(state = getInitForecastState(), action) {
-    switch (action.type) {
-        case '@FORECAST/START_GET_FORECAST':
-            return {
-                ...state,
-                city: action.city,
-                forecastLoading: true
-            };
-        case '@FORECAST/END_GET_FORECAST':
-            return {
-                ...state,
-                city: action.city,
-                list: action.list,
-                forecastLoading: false
-            };
-        case '@FORECAST/RESET_FORECAST':
-            return {
-                ...getInitForecastState(),
-                masking: state.masking
-            };
-        case '@FORECAST/MASK_FORECAST_BG':
-            return {
-                ...state,
-                masking: true
-            }
-        case '@FORECAST/UNMASK_FORECAST_BG':
-            return {
-                ...state,
-                masking: false
-            }    
-        default:
-            return state;
-    }
-}
+// export function forecast(state = getInitForecastState(), action) {
+//     switch (action.type) {
+//         case '@FORECAST/START_GET_FORECAST':
+//             return {
+//                 ...state,
+//                 city: action.city,
+//                 forecastLoading: true
+//             };
+//         case '@FORECAST/END_GET_FORECAST':
+//             return {
+//                 ...state,
+//                 city: action.city,
+//                 list: action.list,
+//                 forecastLoading: false
+//             };
+//         case '@FORECAST/RESET_FORECAST':
+//             return {
+//                 ...getInitForecastState(),
+//                 masking: state.masking
+//             };
+//         case '@FORECAST/MASK_FORECAST_BG':
+//             return {
+//                 ...state,
+//                 masking: true
+//             }
+//         case '@FORECAST/UNMASK_FORECAST_BG':
+//             return {
+//                 ...state,
+//                 masking: false
+//             }    
+//         default:
+//             return state;
+//     }
+// }
 
 import { handleActions, combineActions } from 'redux-actions';
 
 const initLocationState = {
-    locationStatus: false,
+    requestStatus: false,
     lat: NaN,
     lng: NaN
 };
 
+
 export const location = handleActions({
-    // [combineActions(GET_LOCATION, GET_LOCATION_STATUS)](state, payload) {
-    //     return { ...state, payload}
-    // }
-    GET_LOCATION: (state, action) => {return {...state, lat:action.payload.lat, lng: action.payload.lng}},
-    GET_LOCATION_STATUS: (state, action) => {return {...state, locationStatus: action.payload.locationStatus}}
-}, initLocationState)
+    [combineActions('GET_LOCATION', 'GET_LOCATION_STATUS')](state, action) {
+        return { ...state, ...action.payload}
+    }
+}, initLocationState);
+
+const initWeatherState = {
+    city: 'na',
+    code: -1,
+    group:'na',
+    description: 'N/A',
+    temp: NaN,
+    weatherLoading: false,
+    masking: false,
+    lat: NaN,
+    lng: NaN,
+};
+
+export const weather = handleActions ({
+    [combineActions('START_GET_USER_LOCATION', 'END_GET_USER_LOCATION', 'GET_WEATHER_LOCATION', 'START_GET_WEATHER', 'END_GET_WEATHER', 'RESET_WEATHER', 'MASK_TODAY_BG', 'UNMASK_TODAY_BG')](state, action) {
+        console.log(`action.payload:`,action.payload);
+        
+        return { ...state, ...action.payload }
+    }
+}, initWeatherState)
+
+export const forecast = handleActions({
+    [combineActions('START_GET_LOCATION_WEATHER', 'END_GET_LOCATION_WEATHER', 'START_GET_FORECAST', 'END_GET_FORECAST', 'RESET_FORECAST', 'MASK_FORECAST_BG', 'UNMASK_FORECAST_BG')](state, action) {
+        return { ...state, ...action.payload }
+    }
+}, getInitForecastState());
