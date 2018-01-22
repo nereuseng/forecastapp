@@ -1,0 +1,36 @@
+/* 邏輯：
+在原本的圖片上加上一層masking，放0.5 opcaity透明度
+之後再針對透明度做animation就好！ */
+
+.weather-bg-mask {
+  /* 結論是背景的masking影響到有沒有scroll bar */
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: all 0.6s;
+  min-height: 94.7vh;
+  /* padding-top: 4rem; */
+  text-align: center;
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.weather-bg-mask-masking {
+  background-color: black;
+  text-align: center;
+  min-height: 94.7vh;
+  /* padding-top: 4rem; */
+  left: 0;
+  width: 100%;
+  transition: all 0.3s;
+
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.weather-bg-mask::after, .weather-bg-mask-masking::after {
+  content: "";
+  height: 100%;
+}
