@@ -1,5 +1,5 @@
 {
-    "name": "hello-node",
+    "name": "forecastapp-server",
     "version": "1.0.0",
     "description": "Hello Node.js",
     "main": "src/main.js",
