@@ -17,5 +17,5 @@ app.use(errorHandler);
 
 const port = 8080;
 app.listen(port, () => {
-    console.log(`Server is up and running on port ${port}...`)
+    console.log(`Server is up and running on port ${port}...`);
 });

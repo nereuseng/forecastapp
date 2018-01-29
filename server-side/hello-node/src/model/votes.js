@@ -21,7 +21,7 @@ function create(postId, mood) {
             });
         });
     });
-}
+};
 
 module.exports = {
     create

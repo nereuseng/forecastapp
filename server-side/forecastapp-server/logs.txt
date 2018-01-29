@@ -1,0 +1,44 @@
+1517214211 ERROR  TypeError: voteModel.create is not a function
+    at /mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/src/routers/posts.js:43:15
+    at Layer.handle [as handle_request] (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/layer.js:95:5)
+    at next (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/layer.js:95:5)
+    at /mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/index.js:281:22
+    at param (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/index.js:354:14)
+    at param (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/index.js:365:14)
+    at param (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/index.js:365:14)
+    at Function.process_params (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/index.js:410:3)
+1517214247 ERROR  TypeError: voteModel.create is not a function
+    at /mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/src/routers/posts.js:43:15
+    at Layer.handle [as handle_request] (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/layer.js:95:5)
+    at next (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/layer.js:95:5)
+    at /mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/index.js:281:22
+    at param (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/index.js:354:14)
+    at param (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/index.js:365:14)
+    at param (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/index.js:365:14)
+    at Function.process_params (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/index.js:410:3)
+1517214290 ERROR  TypeError: voteModel.create is not a function
+    at /mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/src/routers/posts.js:43:15
+    at Layer.handle [as handle_request] (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/layer.js:95:5)
+    at next (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/layer.js:95:5)
+    at /mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/index.js:281:22
+    at param (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/index.js:354:14)
+    at param (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/index.js:365:14)
+    at param (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/index.js:365:14)
+    at Function.process_params (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/index.js:410:3)
+1517214518 ERROR  ReferenceError: posts is not defined
+    at Promise (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/src/model/votes.js:19:56)
+    at Object.create (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/src/model/votes.js:7:12)
+    at /mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/src/routers/posts.js:43:15
+    at Layer.handle [as handle_request] (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/layer.js:95:5)
+    at next (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/layer.js:95:5)
+    at /mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/index.js:281:22
+    at param (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/index.js:354:14)
+    at param (/mnt/f/vscode/doodle/weather/forecastapp/server-side/forecastapp-server/node_modules/express/lib/router/index.js:365:14)

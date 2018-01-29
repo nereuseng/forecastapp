@@ -11,7 +11,7 @@ router.use(bodyParser.json());
 router.use(accessController); // Allows cross-origin HTTP requests
 
 // List
-router.get('./posts', function (req, res, next) {
+router.get('/posts', function (req, res, next) {
     const {searchText, start} = req.query;
     postModel.list(searchText, start).then(posts => {
         res.json(posts);
@@ -32,7 +32,7 @@ router.post('/posts', function(req, res, next) {
 });
 
 // Vote
-router.post('/post/:id/:mood(clear|clouds|drizzle|rain|thunder|snow|windy)Votes', function(req, res, next) {
+router.post('/posts/:id/:mood(clear|clouds|drizzle|rain|thunder|snow|windy)Votes', function(req, res, next) {
     const {id, mood} = req.params;
     if(!id || !mood) {
         const err = new Err('Post ID and mood are required');
