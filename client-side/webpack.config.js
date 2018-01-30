@@ -8,8 +8,8 @@ const distPath = path.resolve(__dirname, 'dist');
 module.exports = {
     // devtool: 'cheap-module-eval-source-map',
     // devtool: 'eval',
-    devtool: 'source-map',
-    devtool: 'eval',
+    // devtool: 'source-map',
+    // devtool: 'eval',
     context: srcPath,
     /*入口*/
     entry: [
@@ -90,9 +90,7 @@ module.exports = {
         }), 
         new UglifyJSPlugin(),
         new webpack.DefinePlugin({
-            'process.env': {
-              'NODE_ENV': JSON.stringify('production')
-            }
-        }),
+            'process.env.NODE_ENV': JSON.stringify('production')
+          }),
     ],
 };
