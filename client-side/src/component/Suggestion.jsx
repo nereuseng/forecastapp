@@ -27,6 +27,7 @@ export default class Suggestion extends Component{
         this.handleClick = this.handleClick.bind(this);
         this.play = this.play.bind(this);
         this.position = this.position.bind(this);
+        this.interval;
     }
 
     handleClick(event){
@@ -38,8 +39,12 @@ export default class Suggestion extends Component{
         this.autoplay();
     }
 
+    componentWillUnmount(){
+        clearInterval(this.interval);
+    }
+
     autoplay(){
-        setInterval(this.play, 3000)
+        this.interval = setInterval(this.play, 3000)
     }
 
     play(){

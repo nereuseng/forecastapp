@@ -4,6 +4,7 @@ input{
     cursor:pointer;
     -webkit-border-radius: 5px;
     border-radius: 5px;
+    margin-bottom: 10px
   }
   
   button, select {
@@ -22,6 +23,8 @@ input{
     outline:0;
   }
 
-.weatherForm {
-  padding: 1rem;
+.weatherForm form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }

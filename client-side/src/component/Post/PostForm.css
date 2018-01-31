@@ -1,5 +1,6 @@
 .postBody{
-    width: 420px;
+    max-width: 420px;
+    width: 75%;
     height: 100%;
     background-color: white;
     padding: 10px 10px;

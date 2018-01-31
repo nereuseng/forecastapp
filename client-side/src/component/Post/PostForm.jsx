@@ -14,7 +14,7 @@ class PostForm extends Component {
         const {inputValue, mood} = this.props;
         
         return (
-            <div>
+            // <div>
                 <div className="postBody">
                     <button onClick={this.handleDropdown}  className="dropdownButton"><i className={getMoodIcon(mood)}></i>&nbsp;{mood ==='na' ? 'Mood' :mood}</button>
                     <div id="dropdownItemSelector" className="dropdownItem">
@@ -31,7 +31,7 @@ class PostForm extends Component {
                     <button onClick={this.handlePost}  className="dropdownButton">Post</button>
                 </div>
 
-            </div>
+            // </div>
         )
     }
     componentDidMount(){

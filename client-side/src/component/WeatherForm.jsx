@@ -14,12 +14,14 @@ class WeatherForm extends Component{
             <div className="weatherForm">
                 <form onSubmit={this.handleSubmit}>
                     <input type="text" name='city' placeholder="Type the city name." value={inputValue} ref='inputCity' onChange={this.handleInputChange}/>&nbsp;&nbsp;
-                    <select value={unit} onChange={this.handleUnit}>
-                        <option value="metric">&ordm;C</option>
-                        <option value="imperial">&ordm;F</option>
-                    </select>&nbsp;&nbsp;
-                    <button type="submit">Check</button>&nbsp;&nbsp;
-                    <button onClick={this.handleLocation}>Location</button>
+                    <div className="button">
+                        <select value={unit} onChange={this.handleUnit}>
+                            <option value="metric">&ordm;C</option>
+                            <option value="imperial">&ordm;F</option>
+                        </select>&nbsp;&nbsp;
+                        <button type="submit">Check</button>&nbsp;&nbsp;
+                        <button onClick={this.handleLocation}>Location</button>
+                    </div>
                 </form>
                 
             </div>
