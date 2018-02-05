@@ -89,10 +89,13 @@ export function getForecast(city, unit) {
         return {
             city: capitalized(city),
             unit: unit,
-            list
+            list,
+            lat: res.data.city.coord.lat,
+            lng: res.data.city.coord.lon,
         };
         }
-    )}
+    )
+}
 
 export function getLocationWeatherToday(lat, lng , unit) {
     var url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${key}&units=${unit}`
@@ -102,50 +105,51 @@ export function getLocationWeatherToday(lat, lng , unit) {
         if (res.data.cod && res.data.cod!=200 && res.data.message){
             
             throw new Error(res.data.message)
-            const list = res.data.list.map(forecast => {
-                return {
-                    city: res.data.name,
-                    lat: lat,
-                    lng: lng,
-                    code: res.data.weather[0].id,
-                    group: getWeatherGroup(res.data.weather[0].id),
-                    desc: capitalized(res.data.weather[0].description),
-                    temp: res.data.main.temp,
-                    unit: unit
-                };
-            });
-
-            return {
-                city:capitalize(city),
-                unit:unit,
-                list
-            }
         }
+        console.log(res);
+        
+        return {
+                city: res.data.name,
+                lat: res.data.coord.lat,
+                lng: res.data.coord.lng,
+                code: res.data.weather[0].id,
+                group: getWeatherGroup(res.data.weather[0].id),
+                description: capitalized(res.data.weather[0].description),
+                temp: res.data.main.temp,
+                unit: unit
+            };
     })
 }
 
-export function getLocationWeather(lat, lng , unit) {
-    var url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&appid=${key}&units=${unit}`
+export function getLocationForecast(lat, lng , unit) {
+    var url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&units=${unit}&appid=${key}`
+
     console.log(`Making request to ${url}`);
 
-    return axios.get(url).then(function(res){
+    return axios.get(url).then(function (res) {
         if (res.data.cod && res.data.cod!=200 && res.data.message){
-            
-            throw new Error(res.data.message)
-        } else {
-            return {
-                city: res.data.city.name,
-                lat: lat,
-                lng: lng,
-                code: [res.data.list[0].weather[0].id, res.data.list[7].weather[0].id, res.data.list[15].weather[0].id, res.data.list[23].weather[0].id, res.data.list[31].weather[0].id],
-                // 使用code直接替代group的分類
-                // group: [getWeatherGroup(res.data.list[0].weather[0].id), getWeatherGroup(res.data.list[7].weather[0].id), getWeatherGroup(res.data.list[15].weather[0].id), getWeatherGroup(res.data.list[23].weather[0].id), getWeatherGroup(res.data.list[31].weather[0].id)],
-                desc: [res.data.list[0].weather[0].description, res.data.list[7].weather[0].description, res.data.list[15].weather[0].description, res.data.list[23].weather[0].description, res.data.list[31].weather[0].description],
-                temp: [res.data.list[0].main.temp, res.data.list[7].main.temp, res.data.list[15].main.temp, res.data.list[23].main.temp, res.data.list[31].main.temp],
-                date: [weekDay(res.data.list[0].dt_txt), weekDay(res.data.list[7].dt_txt), weekDay(res.data.list[15].dt_txt), weekDay(res.data.list[23].dt_txt), weekDay(res.data.list[31].dt_txt)]
-            };
+            throw new Error(res.data.message);
         }
-    })
+        const regex = /\s+12/;
+        const rawList = res.data.list.filter(rawForecast => {
+            return rawForecast.dt_txt.match(regex)
+        })
+        
+        const list = rawList.map(forecast => {
+            return {
+                code: forecast.weather[0].id,
+                group: getWeatherGroup(forecast.weather[0].id),
+                description: forecast.weather[0].description,
+                temp: forecast.main.temp,
+                date: weekDay(forecast.dt_txt)
+            };
+        });
+        return {
+            city: capitalized(res.data.city.name),
+            unit: unit,
+            list
+        };
+    });
 }
 
 // https://api.openweathermap.org/data/2.5/forecast?lat=25.0112183&lon=121.52067570000001&appid=2da0473a0c7713adcff021bde8e391e3&units=metric

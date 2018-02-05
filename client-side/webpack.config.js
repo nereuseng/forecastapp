@@ -26,13 +26,27 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/ ,
-                loader:['babel-loader?cacheDirectory=true'],
-                exclude: '/node_modules/'},
-            {
-                test: /\.jsx$/ ,
-                loader:['babel-loader?cacheDirectory=true'],
-                exclude: '/node_modules/'},
+                test: /\.js$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                  loader: 'babel-loader',
+                  options: {
+                    presets: ['env'],
+                    plugins: ['transform-runtime']
+                  }
+                }
+              },
+              {
+                test: /\.jsx$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                  loader: 'babel-loader',
+                  options: {
+                    presets: ['env'],
+                    plugins: ['transform-runtime']
+                  }
+                }
+              },
                 
             {
                 test: /\.css$/,

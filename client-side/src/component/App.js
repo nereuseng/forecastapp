@@ -11,7 +11,7 @@ import {post, postForm, vote} from 'states/post-reducer.js'
 
 import {createStore, combineReducers, compose, applyMiddleware} from 'redux';
 import thunkMiddleware from 'redux-thunk';
-// import loggerMiddleware from 'redux-logger';
+import logger from 'redux-logger';
 import {Provider} from 'react-redux';
 
 import 'component/NavBar.css';
@@ -42,10 +42,10 @@ export default class App extends React.Component {
             </ul> 
           </nav>
         <Route exact path="/" render={() => (
-          <Today searchText={this.state.searchText} lat={this.state.lat} lng={this.state.lng} onUserLocationChange={this.handleLocationChange}/>
+          <Today searchText={this.state.searchText} onUserLocationChange={this.handleLocationChange}/>
             )}/>
           <Route exact path="/Forecast" render={() =>(
-          <Forecast unit={this.state.unit} lat={this.state.lat} lng={this.state.lng} onUserLocationChange={this.handleLocationChange}/>
+          <Forecast unit={this.state.unit} onUserLocationChange={this.handleLocationChange}/>
             )}/>
         </div>
       </Router>
@@ -56,14 +56,14 @@ export default class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      lat: 25.105497,
-      lng: 121.597366,
+      // lat: 25.105497,
+      // lng: 121.597366,
       searchText: ""
     };
     this.store = null;
     this.searchEl = null;
 
-    this.handleLocationChange = this.handleLocationChange.bind(this);
+    // this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleSearchKeyPress = this.handleSearchKeyPress.bind(this);
     // this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleClearSearch = this.handleClearSearch.bind(this);
@@ -80,15 +80,15 @@ export default class App extends React.Component {
       postForm,
       vote,
       location
-    }), composeEnhancers(applyMiddleware(thunkMiddleware)));
+    }), composeEnhancers(applyMiddleware(thunkMiddleware, logger)));
   }
 
-  handleLocationChange(lat, lng){
-    this.setState({
-      lat: lat,
-      lng: lng
-    })
-  }
+  // handleLocationChange(lat, lng){
+  //   this.setState({
+  //     lat: lat,
+  //     lng: lng
+  //   })
+  // }
 
   handleSearchKeyPress(e){
     const keyCode = e.keyCode || e.which;

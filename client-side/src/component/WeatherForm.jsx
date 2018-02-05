@@ -6,10 +6,7 @@ import {input, selectUnit} from 'states/weather-actions.js'
 
 class WeatherForm extends Component{
     render() {
-        const {inputValue, unit} = this.props;
-        console.log(this.props);
-        
-
+        const {inputValue, unit} = this.props;       
         return (
             <div className="weatherForm">
                 <form onSubmit={this.handleSubmit}>

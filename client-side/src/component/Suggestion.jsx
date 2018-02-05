@@ -31,8 +31,7 @@ export default class Suggestion extends Component{
     }
 
     handleClick(event){
-        // alert(event.target.innerText);
-        this.props.onQuery(event.target.innerText, this.props.unit);
+        this.props.onQuery(event.target.innerText);
     }
 
     componentDidMount(){

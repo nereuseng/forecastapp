@@ -5,10 +5,10 @@
     background-color: white;
     padding: 15px;
     border-radius: 5px;
-    margin: 10px 10px;
     display: flex;
     flex-direction: column;
     position: relative;
+    margin-top: 10px
 }
 
 .post {

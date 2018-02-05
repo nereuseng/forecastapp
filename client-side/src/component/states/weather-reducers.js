@@ -92,13 +92,13 @@ import { handleActions, combineActions } from 'redux-actions';
 
 const initLocationState = {
     requestStatus: false,
-    lat: NaN,
-    lng: NaN
+    lat: 25.105497,
+    lng: 121.597366
 };
 
 
 export const location = handleActions({
-    [combineActions('GET_LOCATION', 'GET_LOCATION_STATUS')](state, action) {
+    [combineActions('@LOCATION/START_GET_USER_LOCATION', '@LOCATION/END_GET_USER_LOCATION', '@LOCATION/SET_LOCATION_INPUT_LAT_LNG')](state, action) {
         return { ...state, ...action.payload}
     }
 }, initLocationState);
@@ -111,20 +111,17 @@ const initWeatherState = {
     temp: NaN,
     weatherLoading: false,
     masking: false,
-    lat: NaN,
-    lng: NaN,
 };
 
 export const weather = handleActions ({
-    [combineActions('START_GET_USER_LOCATION', 'END_GET_USER_LOCATION', 'GET_WEATHER_LOCATION', 'START_GET_WEATHER', 'END_GET_WEATHER', 'RESET_WEATHER', 'MASK_TODAY_BG', 'UNMASK_TODAY_BG')](state, action) {
+    [combineActions('START_GET_WEATHER_LOCATION', 'END_GET_WEATHER_LOCATION', 'START_GET_WEATHER', 'END_GET_WEATHER', 'RESET_WEATHER', 'MASK_TODAY_BG', 'UNMASK_TODAY_BG')](state, action) {
         console.log(`action.payload:`,action.payload);
-        
         return { ...state, ...action.payload }
     }
 }, initWeatherState)
 
 export const forecast = handleActions({
-    [combineActions('START_GET_LOCATION_WEATHER', 'END_GET_LOCATION_WEATHER', 'START_GET_FORECAST', 'END_GET_FORECAST', 'RESET_FORECAST', 'MASK_FORECAST_BG', 'UNMASK_FORECAST_BG')](state, action) {
+    [combineActions('START_GET_FORECAST_LOCATION', 'END_GET_FORECAST_LOCATION', 'START_GET_FORECAST', 'END_GET_FORECAST', 'RESET_FORECAST', 'MASK_FORECAST_BG', 'UNMASK_FORECAST_BG')](state, action) {
         return { ...state, ...action.payload }
     }
 }, getInitForecastState());

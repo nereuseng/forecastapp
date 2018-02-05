@@ -19,21 +19,11 @@ export default class WeatherMap extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            markers: [{
-                position: {
-                    lat: props.lat,
-                    lng: props.lng,
-                },
-                key: `Taiwan`,
-                defaultAnimation: 2,
-            }],
-        };
     }
 
     newMarkers(latlong, map){
         var marker = new google.maps.Marker({
-            map:map,
+            map:this.map,
             defaultAnimation: 2,
             position: latlong
         });
@@ -56,8 +46,31 @@ export default class WeatherMap extends Component {
         }
       }    
 
+    componentWillReceiveProps(nextProps) {
+        const {lat, lng} = this.props
+        const map = this.map
+        if (nextProps.lat !== lat && nextProps.lng !== lng) {
+            const newLatlng = {lat: nextProps.lat, lng: nextProps.lng};
+
+            const options = {
+                zoom:12,
+                center: newLatlng
+            }
+
+            // init another new google.maps will override the original maps
+            // X const map = new google.maps.Map(ReactDOM.findDOMNode(this), options);
+
+            this.deleteMarkers();
+            this.newMarkers(newLatlng, map);
+            map.panTo(newLatlng);
+        }
+    }
+
     componentDidMount() {
-        var latlong = new google.maps.LatLng(this.state.markers[0].position.lat, this.state.markers[0].position.lng);
+        const {lat, lng} = this.props;
+        
+        var latlong = new google.maps.LatLng(lat, lng);
+        
         //XX var markers = []; 應該要放在Global才對
 
         var options = {
@@ -65,44 +78,16 @@ export default class WeatherMap extends Component {
             center: latlong
         }
 
-        map = new google.maps.Map(ReactDOM.findDOMNode(this), options);
-        this.newMarkers(latlong, map);
-        //XX markers.push(marker); 把裝很多markers的array也放在global
+        this.map = new google.maps.Map(ReactDOM.findDOMNode(this), options);
+        this.newMarkers(latlong, this.map);
         
+        //XX markers.push(marker); 把裝很多markers的array也放在global
 
-        // map.addListener('center_changed', function() {
-        // // 3 seconds after the center of the map has changed, pan back to the
-        // // marker.
-        //     window.setTimeout(function() {
-        //         map.panTo(marker.getPosition());
-        //     }, 3000);
-        // });
-
-        map.addListener('click', function(e) {
+        this.map.addListener('click', function(e) {
             this.deleteMarkers();
-            // this.setState ({
-            //     position: {
-            //         lat: e.latLng.lat(),
-            //         lng: e.latLng.lng()
-            //     }
-            // })
-
-            // var markers = new google.maps.Marker({
-            //     position: e.latLng,
-            //     map: map
-            // }); this.state.markers[0].position.lat
-            console.log(JSON.stringify(e.latLng));
             this.newMarkers(e.latLng, map);
             this.props.onClick(e.latLng.lat(), e.latLng.lng())
-            map.panTo(e.latLng);
+            this.map.panTo(e.latLng);
           }.bind(this));
-
-        // placeMarkerAndPanTo(latLng, map) {
-        //     var marker = new google.maps.Marker({
-        //         position: latLng,
-        //         map: map
-        //     });
-        //     map.panTo(latLng);
-        // };
     }
 } 
