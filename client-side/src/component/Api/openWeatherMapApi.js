@@ -106,7 +106,7 @@ export function getLocationWeatherToday(lat, lng , unit) {
             
             throw new Error(res.data.message)
         }
-        console.log(res);
+        // console.log(res);
         
         return {
                 city: res.data.name,

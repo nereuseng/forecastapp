@@ -98,7 +98,7 @@ const initLocationState = {
 
 
 export const location = handleActions({
-    [combineActions('@LOCATION/START_GET_USER_LOCATION', '@LOCATION/END_GET_USER_LOCATION', '@LOCATION/SET_LOCATION_INPUT_LAT_LNG')](state, action) {
+    [combineActions('START_GET_USER_LOCATION', 'END_GET_USER_LOCATION', 'SET_LOCATION_INPUT_LAT_LNG')](state, action) {
         return { ...state, ...action.payload}
     }
 }, initLocationState);
@@ -115,7 +115,7 @@ const initWeatherState = {
 
 export const weather = handleActions ({
     [combineActions('START_GET_WEATHER_LOCATION', 'END_GET_WEATHER_LOCATION', 'START_GET_WEATHER', 'END_GET_WEATHER', 'RESET_WEATHER', 'MASK_TODAY_BG', 'UNMASK_TODAY_BG')](state, action) {
-        console.log(`action.payload:`,action.payload);
+        // console.log(`action.payload:`,action.payload);
         return { ...state, ...action.payload }
     }
 }, initWeatherState)

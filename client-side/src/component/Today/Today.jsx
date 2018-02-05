@@ -19,7 +19,7 @@ class Today extends React.Component{
         // TODO: Random pic without Math.random not doing twice
         const {city, group, description, temp, unit, masking, code, posts, mood, text, searchText} = this.props;
         const postLoading = false;     
-        console.log(this.props);
+        // console.log(this.props);
            
         
         var imgUrl = require('images/w-bg-'+group+'.jpg');
@@ -69,7 +69,7 @@ class Today extends React.Component{
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.searchText !== this.props.searchText){
-            console.log(`listPost!!`);
+            // console.log(`listPost!!`);
             
             this.props.dispatch(listPost(nextProps.searchText));
         }

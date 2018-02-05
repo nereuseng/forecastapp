@@ -92,12 +92,15 @@ export const getUserLocation = function () {
     }
 }
 
-export const getLocationWeatherToday = function(lat, lng, unit){
+export const getLocationWeatherToday = function(unit){
     return async (dispatch, getState) => {
         dispatch(startGetWeatherLocation({weatherLoading: true}));
         dispatch(maskTodayBg({masking: true}));
 
         try {
+            const res = await getUserLocationFromApi();
+            const {latitude: lat, longitude: lng} = res.coords;
+            
             const weather = await getLocationWeatherTodayFromApi(lat, lng, unit);
             const {city, code, group , description, temp} = weather;
             dispatch(endGetWeatherLocation({city, code, group , description, temp, weatherLoading: false}));
@@ -122,10 +125,10 @@ export const getLocationForecast = function (lat, lng, unit) {
         dispatch(startGetForecastLocation({forecastLoading: true}));
 
         try {
-            console.log(lat, lng);
+            // console.log(lat, lng);
             
             const forecastLoation = await getLocationForecastFromApi(lat, lng, unit)
-            console.log(forecastLoation);
+            // console.log(forecastLoation);
             const {city, list} = forecastLoation;
             dispatch(endGetForecastLocation({city, list, forecastLoading: false}));
 

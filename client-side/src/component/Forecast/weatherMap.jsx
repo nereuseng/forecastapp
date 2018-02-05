@@ -51,12 +51,6 @@ export default class WeatherMap extends Component {
         const map = this.map
         if (nextProps.lat !== lat && nextProps.lng !== lng) {
             const newLatlng = {lat: nextProps.lat, lng: nextProps.lng};
-
-            const options = {
-                zoom:12,
-                center: newLatlng
-            }
-
             // init another new google.maps will override the original maps
             // X const map = new google.maps.Map(ReactDOM.findDOMNode(this), options);
 

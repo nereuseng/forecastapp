@@ -11,7 +11,7 @@ import {post, postForm, vote} from 'states/post-reducer.js'
 
 import {createStore, combineReducers, compose, applyMiddleware} from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import logger from 'redux-logger';
+// import logger from 'redux-logger';
 import {Provider} from 'react-redux';
 
 import 'component/NavBar.css';
@@ -80,7 +80,7 @@ export default class App extends React.Component {
       postForm,
       vote,
       location
-    }), composeEnhancers(applyMiddleware(thunkMiddleware, logger)));
+    }), composeEnhancers(applyMiddleware(thunkMiddleware)));
   }
 
   // handleLocationChange(lat, lng){
