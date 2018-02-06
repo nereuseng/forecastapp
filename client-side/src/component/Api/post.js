@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const postBaseUrl = 'http://localhost:8080/api'
+// const postBaseUrl = 'http://localhost:8080/api';
+
+const postBaseUrl = 'http://forecastapp.us-west-2.elasticbeanstalk.com/api';
 
 export function createPost(mood, text){
     let url = `${postBaseUrl}/posts`;

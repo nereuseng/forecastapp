@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const WebpackShellPlugin = require('webpack-shell-plugin');
 
 const srcPath = path.resolve(__dirname, 'src');
 const distPath = path.resolve(__dirname, 'dist');
@@ -106,5 +107,8 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production')
           }),
+        new WebpackShellPlugin({
+            onBuildEnd: 'node copy-files-to-server-side.js'
+        })
     ],
 };
