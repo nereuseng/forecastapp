@@ -4,7 +4,7 @@ import WeatherForm from 'component/WeatherForm.jsx';
 import Suggestion from 'component/Suggestion.jsx';
 import PostForm from 'component/Post/PostForm.jsx';
 import PostList from 'component/Post/PostList.jsx';
-// import {getLocationWeatherToday} from 'Api/openWeatherMapApi.js';
+import {cancelWeather} from 'Api/openWeatherMapApi.js';
 import {getUserLocation} from 'component/userLocation.jsx';
 
 import {connect} from 'react-redux';
@@ -17,8 +17,7 @@ class Today extends React.Component{
     
     render() {
         // TODO: Random pic without Math.random not doing twice
-        const {city, group, description, temp, unit, masking, code, posts, mood, text, searchText} = this.props;
-        const postLoading = false;     
+        const {city, group, description, temp, unit, masking, code, posts, mood, text, searchText, weatherLoading, postLoading} = this.props;   
         // console.log(this.props);
            
         
@@ -37,8 +36,8 @@ class Today extends React.Component{
                 
                 <PostForm onPost={createPost} mood={mood}/>
                 <PostList posts={posts} onVote={this.handleCreateVote}/>{
-                    postLoading &&
-                    <span>Loading...</span>
+                    (weatherLoading || postLoading) &&
+                    <span className="loading">Loading...</span>
                 }
             </div>
         );
@@ -62,28 +61,20 @@ class Today extends React.Component{
     }
 
     componentWillUnmount() {
-        // if (this.state.weatherLoading) {
-        //     cancelWeather();
-        // }
+        const {weatherLoading} = this.props
+        if (weatherLoading) {           
+            cancelWeather();
+        }
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.searchText !== this.props.searchText){
-            // console.log(`listPost!!`);
-            
             this.props.dispatch(listPost(nextProps.searchText));
         }
     }
 
     handleUserLocation(){
         this.props.dispatch(getLocationWeatherToday(this.props.unit));
-    }
-
-    notifyUserLocation(lat, lng){
-        if(this.props.lat !== lat && this.props.lng !== lng){
-            this.props.onUserLocationChange(lat, lng);
-        }
-        
     }
 
     handleQuery(city) {       

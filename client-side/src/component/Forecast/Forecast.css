@@ -35,3 +35,12 @@
     justify-content: center;
     z-index: 10;
   }
+
+  .forecast-loading {
+    padding: 15px 20px;
+    background-color: wheat;
+    border-radius: 5px;
+    margin-top: 10px;
+    position: fixed;
+    bottom: 40px;
+  }

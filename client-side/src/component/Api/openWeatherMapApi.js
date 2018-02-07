@@ -2,13 +2,15 @@ import axios from 'axios';
 
 const key = `2da0473a0c7713adcff021bde8e391e3`;
 
+const weatherSource = axios.CancelToken.source();
+const forecastSource = axios.CancelToken.source();
 
 export function getWeather(city, unit) {
     var url = `https://api.openweathermap.org/data/2.5/weather?appid=${key}&q=${city}&units=${unit}`;
 
     console.log(`Making request to ${url}`);
 
-    //這是React版的Ajax，叫做Axios，出來的respond是json檔，再命名成res直接像下面那樣抓
+    //Axios是一個ajax的library，出來的respond是json檔，再命名成res直接像下面那樣抓
     //請參考這個https://api.openweathermap.org/data/2.5/weather?appid=2da0473a0c7713adcff021bde8e391e3&q=london&units=metric
     return axios.get(url).then(function (res) {
         if (res.data.cod && res.data.message){
@@ -17,7 +19,6 @@ export function getWeather(city, unit) {
             return {
                 city: capitalized(city),
                 code: res.data.weather[0].id,
-                // Today的背景還是需要group
                 group: getWeatherGroup(res.data.weather[0].id),
                 description: capitalized(res.data.weather[0].description),
                 temp: res.data.main.temp,
@@ -27,21 +28,18 @@ export function getWeather(city, unit) {
     })
 }
 
+export function cancelWeather() {
+    weatherSource.cancel('Weather request canceled.');
+}
+
 function capitalized(string) {
     return string.charAt(0).toUpperCase()+string.substring(1).toLowerCase();
 }
 
-function weekDay(string) {
-   let dateArrray = string.split("-");
-   let year = dateArrray[0];
-   let month = dateArrray[1];
-   let day = dateArrray[2];
-   let combined = year + "/" + month + "/" + day;
-   let date = new Date(combined);
-   let dayRaw = date.getDay();
-
-   let weekDay = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-   return weekDay[dayRaw];
+function weekDay(dt) {
+    let weekDay = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+    let dayRaw = new Date(dt * 1000).getDay();
+    return weekDay[dayRaw];
 }
 
 export function getWeatherGroup(code) {
@@ -77,13 +75,14 @@ export function getForecast(city, unit) {
         const rawList = res.data.list.filter(rawForecast => {
             return rawForecast.dt_txt.match(regex)
         })
+        
         const list = rawList.map(forecast => {
             return {
                 code: forecast.weather[0].id,
                 group: getWeatherGroup(forecast.weather[0].id),
                 description: forecast.weather[0].description,
                 temp: forecast.main.temp,
-                date: weekDay(forecast.dt_txt)
+                date: weekDay(forecast.dt)
             };
         });
         return {
@@ -95,6 +94,10 @@ export function getForecast(city, unit) {
         };
         }
     )
+}
+
+export function cancelForecast() {
+    forecastSource.cancel('Forecast request canceled.');
 }
 
 export function getLocationWeatherToday(lat, lng , unit) {
@@ -141,7 +144,7 @@ export function getLocationForecast(lat, lng , unit) {
                 group: getWeatherGroup(forecast.weather[0].id),
                 description: forecast.weather[0].description,
                 temp: forecast.main.temp,
-                date: weekDay(forecast.dt_txt)
+                date: weekDay(forecast.dt)
             };
         });
         return {

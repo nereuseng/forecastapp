@@ -11,7 +11,7 @@ import {post, postForm, vote} from 'states/post-reducer.js'
 
 import {createStore, combineReducers, compose, applyMiddleware} from 'redux';
 import thunkMiddleware from 'redux-thunk';
-// import logger from 'redux-logger';
+import logger from 'redux-logger';
 import {Provider} from 'react-redux';
 
 import 'component/NavBar.css';
@@ -33,7 +33,7 @@ export default class App extends React.Component {
                         {/* className="current" 要怎麼現實當前頁面被選擇的highlight？ */}
               <li><Link to="/">Today</Link></li>
               <li><Link to="/Forecast">Forecast</Link></li>
-              <div id="todaySearchBox">
+              <div id="searchBox">
               <input type="text" placeholder="Search..." ref={this.searchEl}onKeyPress={this.handleSearchKeyPress} ref={el => this.searchEl = el} className="search"></input>{
                   this.state.searchText &&
                   <i className='navbar-text fa fa-times' onClick={this.handleClearSearch}></i>
@@ -92,7 +92,7 @@ export default class App extends React.Component {
 
   handleSearchKeyPress(e){
     const keyCode = e.keyCode || e.which;
-    console.log(this);
+    // console.log(this);
     
     if(keyCode === 13){
       this.setState({
@@ -102,7 +102,7 @@ export default class App extends React.Component {
   }
 
   handleClearSearch(){    
-    console.log(this.refs);
+    // console.log(this.refs);
     
     this.setState({
       searchText: ''

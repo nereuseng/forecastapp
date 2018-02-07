@@ -1,6 +1,6 @@
 const initPostState = {
     posts: [],
-    mood: 'na',
+    postLoading: false
 }
 
 export function post(state = initPostState, action) {
@@ -19,12 +19,12 @@ export function post(state = initPostState, action) {
         case '@POST/START_CREATE_POST':
             return {
                 ...state,
-                mood: action.mood,
-                text: action.text
+                postLoading: true,
             }
         case '@POST/END_CREATE_POST':
             return {
                 ...state,
+                postLoading: false
             }
         default:
             return state;

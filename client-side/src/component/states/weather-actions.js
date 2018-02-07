@@ -41,7 +41,7 @@ const {
 
 export function getWeather(city, unit) {
     return (dispatch, getState) => {
-        dispatch(startGetWeather({city, unit}));
+        dispatch(startGetWeather({city, unit, weatherLoading: true}));
         dispatch(maskTodayBg({masking: true}));
 
         return getWeatherFromApi(city, unit).then(weather =>{
@@ -50,7 +50,7 @@ export function getWeather(city, unit) {
             dispatch(setUnit(unit));
         }).then( () => {
             setTimeout(() => {
-                dispatch(unmaskTodayBg({masking: false}));
+                dispatch(unmaskTodayBg({masking: false, weatherLoading: false}));
             }, 600);
         }).catch(err => {
             console.error('Error getting weather', err);
@@ -103,12 +103,12 @@ export const getLocationWeatherToday = function(unit){
             
             const weather = await getLocationWeatherTodayFromApi(lat, lng, unit);
             const {city, code, group , description, temp} = weather;
-            dispatch(endGetWeatherLocation({city, code, group , description, temp, weatherLoading: false}));
+            dispatch(endGetWeatherLocation({city, code, group , description, temp}));
             
             dispatch(setUnit(unit))
 
             setTimeout(() => {
-                dispatch(unmaskTodayBg({masking: false}));
+                dispatch(unmaskTodayBg({masking: false, weatherLoading: false}));
             }, 600);
         } catch (err) {
             console.log('Error getting User Location', err);
@@ -123,6 +123,7 @@ export const getLocationWeatherToday = function(unit){
 export const getLocationForecast = function (lat, lng, unit) {
     return async (dispatch, getState) => {
         dispatch(startGetForecastLocation({forecastLoading: true}));
+        // set forecastLoading to true at Forecast.jsx
 
         try {
             // console.log(lat, lng);
@@ -130,7 +131,8 @@ export const getLocationForecast = function (lat, lng, unit) {
             const forecastLoation = await getLocationForecastFromApi(lat, lng, unit)
             // console.log(forecastLoation);
             const {city, list} = forecastLoation;
-            dispatch(endGetForecastLocation({city, list, forecastLoading: false}));
+
+            dispatch(endGetForecastLocation({city, list}));
 
             dispatch(setUnit(unit));
         } catch (err) {
@@ -189,7 +191,7 @@ export const {
 
 export function getForecast(city, unit) {
     return (dispatch, getState) => {
-        dispatch(startGetForecast({city, unit}));
+        dispatch(startGetForecast({city, unit, forecastLoading: true}));
         dispatch(maskForecastBg({masking: true}));
         
         return getForecastFromApi(city, unit).then(forecast => {
@@ -199,7 +201,7 @@ export function getForecast(city, unit) {
             dispatch(setUnit(unit));
         }).then( () => {
             setTimeout(() => {
-            dispatch(unmaskForecastBg({masking: false}));
+            dispatch(unmaskForecastBg({masking: false, forecastLoading: false}));
         }, 600);
         }).catch(err => {
             console.error('Error getting forecast', err);
