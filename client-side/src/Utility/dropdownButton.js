@@ -3,7 +3,6 @@ export function dropdownButton(){
 }
 
 export function clickOutside(event) {
-        console.log(event);
         
         if (!event.target.matches('.dropdownButton')){
                 let dropdowns = document.getElementsByClassName('dropdownItem');
