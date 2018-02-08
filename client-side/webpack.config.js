@@ -84,14 +84,16 @@ module.exports = {
     resolve: {
         modules: ['./', 'node_modules'],
         alias: {
-            states: path.join(__dirname, 'src/component/states'),
-            images: path.join(__dirname, './dist/images'),
-            owfont: path.join(__dirname, 'src/component/Forecast/owfont-master'),
-            Api: path.join(__dirname, 'src/component/Api'),
-            Today: path.join(__dirname, 'src/component/Today'),
-            Forecast: path.join(__dirname, 'src/component/Forecast'),
+            src: path.join(__dirname, './src'),
             component: path.join(__dirname, 'src/component'),
-            router: path.join(__dirname, 'src/router'),
+            Api: 'src/Api',
+            router: 'src/router',
+            states: 'src/states',
+            images: path.join(__dirname, 'dist/images'),
+            owfont: 'Forecast/owfont-master',
+            Today: 'component/Today',
+            Forecast: 'component/Forecast',
+            Utility: 'src/Utility'
         }
     },
 
@@ -108,7 +110,7 @@ module.exports = {
             'process.env.NODE_ENV': JSON.stringify('production')
           }),
         new WebpackShellPlugin({
-            onBuildEnd: 'node copy-files-to-server-side.js'
+            onBuildEnd: 'node src/Utility/copy-files-to-server-side.js'
         })
     ],
 };

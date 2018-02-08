@@ -1,10 +1,10 @@
   .forecast-bg-mask {
     background-color: rgba(0, 0, 0, 0.9);
     transition: opacity 0.6s;
-    position: absolute;
-    justify-content: center;
+    /* position: absolute; */
+    /* justify-content: center; */
     top: 25%;
-    z-index: 50;
+    /* z-index: 50; */
     /* fixed weather form不置中的問題 */
     text-align: center;
   }
@@ -33,7 +33,7 @@
     position: relative;
     display: flex;
     justify-content: center;
-    z-index: 10;
+    /* z-index: 10; */
   }
 
   .forecast-loading {
@@ -43,4 +43,22 @@
     margin-top: 10px;
     position: fixed;
     bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
   }
+
+  .forecastBody {
+    position: absolute;
+    top: 10vh;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 50;
+  }
+
+  .forecastBody > div+ * {
+    margin-top: 10px;
+}

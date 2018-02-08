@@ -2,20 +2,20 @@ import React , {Component} from 'react';
 
 import {dropdownButton, clickOutside} from 'Utility/dropdownButton.js';
 
-import './PostForm.css';
+import './TodoForm.css';
 
 import {getMoodIcon} from 'Utility/formIcon.js';
 
 import {connect} from 'react-redux';
 import {input, selectMood, resetForm} from 'states/post-actions.js'
 
-class PostForm extends Component {
+class TodoForm extends Component {
     render(){
         const {inputValue, mood} = this.props;
         
         return (
             // <div>
-                <div className="postBody">
+                <div className="todoBody">
                     <button onClick={this.handleDropdown}  className="dropdownButton"><i className={getMoodIcon(mood)}></i>&nbsp;{mood ==='na' ? 'Mood' :mood}</button>
                     <div id="dropdownItemSelector" className="dropdownItem">
                         <i className={getMoodIcon('Clear')} onClick={() => this.handleDropdownSelect('Clear')}>&nbsp;&nbsp;Clear</i>
@@ -91,4 +91,4 @@ export default connect((state) => {
     return {
         ...state.postForm
     };
-})(PostForm);
+})(TodoForm);

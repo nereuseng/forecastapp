@@ -27,7 +27,7 @@ export default class Suggestion extends Component{
         this.handleClick = this.handleClick.bind(this);
         this.play = this.play.bind(this);
         this.position = this.position.bind(this);
-        this.interval;
+        // this.interval;
     }
 
     handleClick(event){

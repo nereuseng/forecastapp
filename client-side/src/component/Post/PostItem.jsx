@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment/min/moment.min';
 
-import {getMoodIcon} from './postIcon.js';
+import {getMoodIcon} from 'Utility/formIcon.js';
 
 import './PostItem.css'
 

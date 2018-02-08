@@ -19,6 +19,9 @@ export default class WeatherMap extends Component {
 
     constructor(props) {
         super(props);
+
+        this.handleMapClickEvent = this.handleMapClickEvent.bind(this);
+        // this.eventListener = this.eventListener.bind(this);
     }
 
     newMarkers(latlong, map){
@@ -48,7 +51,7 @@ export default class WeatherMap extends Component {
 
     componentWillReceiveProps(nextProps) {
         const {lat, lng} = this.props
-        const map = this.map
+        const map = window.gmap
         if (nextProps.lat !== lat && nextProps.lng !== lng) {
             const newLatlng = {lat: nextProps.lat, lng: nextProps.lng};
             // init another new google.maps will override the original maps
@@ -72,16 +75,27 @@ export default class WeatherMap extends Component {
             center: latlong
         }
 
-        this.map = new google.maps.Map(ReactDOM.findDOMNode(this), options);
+        window.gmap = new google.maps.Map(ReactDOM.findDOMNode(this), options);
         this.newMarkers(latlong, this.map);
         
         //XX markers.push(marker); 把裝很多markers的array也放在global
+        console.log(this.map);
+        
+        this.eventListener = google.maps.event.addListener(window.gmap,'click', this.handleMapClickEvent)            
+    }
 
-        this.map.addListener('click', function(e) {
-            this.deleteMarkers();
-            this.newMarkers(e.latLng, map);
-            this.props.onClick(e.latLng.lat(), e.latLng.lng())
-            this.map.panTo(e.latLng);
-          }.bind(this));
+    componentWillUnmount() {
+        // I tried many ways including binding this.eventListener, but I cant bind object
+
+        // google.maps.event.clearListeners(window.gmap, 'click');
+        // window.eventListener.remove();
+        // google.maps.event.removeListener(this.eventListener);
+    }
+
+    handleMapClickEvent(e) {
+        this.deleteMarkers();
+        this.newMarkers(e.latLng, map);
+        this.props.onClick(e.latLng.lat(), e.latLng.lng())
+        this.map.panTo(e.latLng);
     }
 } 

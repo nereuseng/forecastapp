@@ -133,6 +133,8 @@ export const getLocationForecast = function (lat, lng, unit) {
             const {city, list} = forecastLoation;
 
             dispatch(endGetForecastLocation({city, list}));
+            dispatch(endGetForecast({city, list}));
+            dispatch(unmaskTodayBg({city, list}));
 
             dispatch(setUnit(unit));
         } catch (err) {

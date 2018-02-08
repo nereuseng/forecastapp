@@ -1,0 +1,18 @@
+.todoBody{
+    max-width: 440px;
+    width: 80%;
+    height: 100%;
+    background-color: white;
+    padding: 10px 10px;
+    border-radius: 5px;
+    position: relative;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.todoBody textarea {
+    margin: 0 10px;
+}

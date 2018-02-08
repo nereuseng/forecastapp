@@ -96,7 +96,7 @@ const initLocationState = {
     lng: 121.597366
 };
 
-
+// 我到底要分開這些dispatch的值嗎?
 export const location = handleActions({
     [combineActions('START_GET_USER_LOCATION', 'END_GET_USER_LOCATION', 'SET_LOCATION_INPUT_LAT_LNG')](state, action) {
         return { ...state, ...action.payload}
@@ -113,6 +113,7 @@ const initWeatherState = {
     masking: false,
 };
 
+// TODO: rewrite reducer
 export const weather = handleActions ({
     [combineActions('START_GET_WEATHER_LOCATION', 'END_GET_WEATHER_LOCATION', 'START_GET_WEATHER', 'END_GET_WEATHER', 'RESET_WEATHER', 'MASK_TODAY_BG', 'UNMASK_TODAY_BG')](state, action) {
         // console.log(`action.payload:`,action.payload);

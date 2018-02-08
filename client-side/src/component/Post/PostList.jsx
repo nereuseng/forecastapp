@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import 'src/component/Post/PostList.css';
-import {getMoodIcon} from './postIcon.js';
+// import {getMoodIcon} from 'Utility/formIcon.js';
 import PostItem from './PostItem.jsx';
 
 import {createVote} from 'states/post-actions.js';
