@@ -24,8 +24,7 @@ export default class PostItem extends React.Component {
     }
 
     render(){
-        const {id, mood, text, ts, clearVotes, cloudsVotes, drizzleVotes, rainVotes, thunderVotes, snowVotes, windyVotes} = this.props
-
+        const {id, mood, text, ts, clearVotes, cloudsVotes, drizzleVotes, rainVotes, thunderVotes, snowVotes, windyVotes} = this.props      
 
         return (
             <div className="postItem" onClick={this.handleClick}>

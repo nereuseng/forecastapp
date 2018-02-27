@@ -79,10 +79,10 @@ export default class WeatherMap extends Component {
         this.newMarkers(latlong, this.map);
         
         //XX markers.push(marker); 把裝很多markers的array也放在global
-        console.log(this.map);
+        // console.log(this.map);
         
         this.eventListener = google.maps.event.addListener(this.map,'click', this.handleMapClickEvent)            
-        console.log(this.eventListener);
+        // console.log(this.eventListener);
         
     }
 

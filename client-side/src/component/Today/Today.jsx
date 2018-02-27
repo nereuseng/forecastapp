@@ -28,14 +28,14 @@ class Today extends React.Component{
         
 
         return (
-            <div className={`weather-bg-mask${this.props.masking ? '-masking' : ''}`}>
+            <div className={`weather-bg-mask${masking ? '-masking' : ''}`}>
                 <WeatherDisplay {...{group, description, temp, unit, masking, code}} day='today'/> 
                 <WeatherForm city={city} defaultUnit={unit} onLocation={this.handleUserLocation} submitAction={getWeather}/>
                 
                 <Suggestion onQuery={this.handleQuery}/>
                 
                 <PostForm onPost={createPost} mood={mood}/>
-                <PostList posts={posts} onVote={this.handleCreateVote}/>{
+                <PostList posts={posts}/>{
                     (weatherLoading || postLoading) &&
                     <span className="loading">Loading...</span>
                 }

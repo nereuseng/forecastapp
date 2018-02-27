@@ -17,7 +17,7 @@ class PostForm extends Component {
             // <div>
                 <div className="postBody">
                     <button onClick={this.handleDropdown}  className="dropdownButton"><i className={getMoodIcon(mood)}></i>&nbsp;{mood ==='na' ? 'Mood' :mood}</button>
-                    <div id="dropdownItemSelector" className="dropdownItem">
+                    <div id="dropdownItemSelector" className={`dropdownItem ${this.state.showDropdown ? `show` : ''}`}>
                         <i className={getMoodIcon('Clear')} onClick={() => this.handleDropdownSelect('Clear')}>&nbsp;&nbsp;Clear</i>
                         <i className={getMoodIcon('Clouds')} onClick={() => this.handleDropdownSelect('Clouds')}>&nbsp;&nbsp;Clouds</i>
                         <i className={getMoodIcon('Drizzle')} onClick={() => this.handleDropdownSelect('Drizzle')}>&nbsp;&nbsp;Drizzle</i>
@@ -26,7 +26,7 @@ class PostForm extends Component {
                         <i className={getMoodIcon('Snow')} onClick={() => this.handleDropdownSelect('Snow')}>&nbsp;&nbsp;Snow</i>
                         <i className={getMoodIcon('Windy')} onClick={() => this.handleDropdownSelect('Windy')}>&nbsp;Windy</i>
                     </div>
-                    <textarea id="textarea" rows="2" cols="30" placeholder="What's on your mind?" value={inputValue} onChange={this.handleInputChange}/>
+                    <textarea id="textarea" rows="2" cols="30" placeholder="What's on your mind?" value={inputValue} onChange={this.handleInputChange} ref={(input) => this.formInput = input}/>
                     
                     <button onClick={this.handlePost}  className="dropdownButton">Post</button>
                 </div>
@@ -45,16 +45,15 @@ class PostForm extends Component {
         clickOutside(event);
     }
 
-    componentWillUnmount() {
-        console.log(`unmount!`);
-        
-        // console.log(this.passEvent());
-        
+    componentWillUnmount() {       
         window.removeEventListener('click', this.passEvent);
     }
 
     constructor(props){
         super(props);
+        this.state = {
+            showDropdown: false
+        }
 
         this.handleDropdown = this.handleDropdown.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -63,7 +62,10 @@ class PostForm extends Component {
     }
 
     handleDropdown(){
-        dropdownButton();
+        // dropdownButton();
+        this.setState((prevState) => {
+            return {showDropdown: !prevState.showDropdown};
+        });
     }
 
     handleDropdownSelect(mood){
@@ -76,10 +78,10 @@ class PostForm extends Component {
 
     handlePost(){
         if (this.props.mood === 'na'){
-            return document.getElementById("dropdownItemSelector").classList.add("show");
+            return this.setState({showDropdown: true})
         }
         if (this.props.inputValue == ''){
-            return document.getElementById("textarea").focus();
+            return this.formInput.focus();
         }
         const {inputValue, mood, dispatch} = this.props;
         dispatch(this.props.onPost(mood, inputValue));

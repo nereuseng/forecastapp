@@ -1,0 +1,9 @@
+.todoItem-check {
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.todoItem-check i {
+    cursor: pointer;
+}

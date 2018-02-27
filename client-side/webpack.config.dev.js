@@ -96,7 +96,8 @@ module.exports = {
             owfont: 'Forecast/owfont-master',
             Today: 'component/Today',
             Forecast: 'component/Forecast',
-            Utility: 'src/Utility'
+            Utility: 'src/Utility',
+            Todo: 'component/Todo',
         }
     },
 

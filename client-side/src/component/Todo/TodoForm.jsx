@@ -7,7 +7,7 @@ import './TodoForm.css';
 import {getMoodIcon} from 'Utility/formIcon.js';
 
 import {connect} from 'react-redux';
-import {input, selectMood, resetForm} from 'states/post-actions.js'
+import {input, selectMood, resetTodoForm} from 'states/todo-action.js'
 
 class TodoForm extends Component {
     render(){
@@ -26,7 +26,7 @@ class TodoForm extends Component {
                         <i className={getMoodIcon('Snow')} onClick={() => this.handleDropdownSelect('Snow')}>&nbsp;&nbsp;Snow</i>
                         <i className={getMoodIcon('Windy')} onClick={() => this.handleDropdownSelect('Windy')}>&nbsp;Windy</i>
                     </div>
-                    <textarea id="textarea" rows="2" cols="30" placeholder="What's on your mind?" value={inputValue} onChange={this.handleInputChange}/>
+                    <textarea id="textarea" rows="2" cols="30" placeholder="What's on your mind?" value={inputValue} onChange={this.handleInputChange} ref={(input) => this.formInput = input}/>
                     
                     <button onClick={this.handlePost}  className="dropdownButton">Post</button>
                 </div>
@@ -46,10 +46,6 @@ class TodoForm extends Component {
     }
 
     componentWillUnmount() {
-        console.log(`unmount!`);
-        
-        // console.log(this.passEvent());
-        
         window.removeEventListener('click', this.passEvent);
     }
 
@@ -71,7 +67,7 @@ class TodoForm extends Component {
     }
 
     handleInputChange(event){
-        this.props.dispatch(input(event.target.value));       
+        this.props.dispatch(input(event.target.value));
     }
 
     handlePost(){
@@ -79,16 +75,16 @@ class TodoForm extends Component {
             return document.getElementById("dropdownItemSelector").classList.add("show");
         }
         if (this.props.inputValue == ''){
-            return document.getElementById("textarea").focus();
+            return this.formInput.focus();
         }
         const {inputValue, mood, dispatch} = this.props;
-        dispatch(this.props.onPost(mood, inputValue));
-        dispatch(resetForm());
+        dispatch(this.props.onTodo(mood, inputValue));
+        dispatch(resetTodoForm());
     }
 }
 
 export default connect((state) => {
     return {
-        ...state.postForm
+        ...state.todoForm
     };
 })(TodoForm);

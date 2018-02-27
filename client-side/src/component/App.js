@@ -7,7 +7,8 @@ import {
 } from 'react-router-dom';
 import Forecast from 'Forecast/Forecast.jsx';
 import {unit, weather, weatherForm,  forecast, location} from 'states/weather-reducers.js';
-import {post, postForm, vote} from 'states/post-reducer.js'
+import {post, postForm, vote} from 'states/post-reducer.js';
+import {todo, todoForm} from 'states/todo-reducers.js'
 
 import {createStore, combineReducers, compose, applyMiddleware} from 'redux';
 import thunkMiddleware from 'redux-thunk';
@@ -79,7 +80,9 @@ export default class App extends React.Component {
       post,
       postForm,
       vote,
-      location
+      location,
+      todo,
+      todoForm
     }), composeEnhancers(applyMiddleware(thunkMiddleware)));
   }
 

@@ -26,7 +26,7 @@ function endListPost(posts) {
 export function listPost(searchText) {
     return (dispatch, getState) => {
         dispatch(startListPost(searchText));
-        return listPostFromApi(searchText).then(posts => {
+        return listPostFromApi(searchText).then(posts => {            
             dispatch(endListPost(posts))
         }).catch(err => {
             console.error('Error getting post', err);

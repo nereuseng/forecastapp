@@ -8,12 +8,15 @@ import WeatherMap from 'Forecast/weatherMap.jsx';
 
 import {connect} from 'react-redux';
 import {getForecast, getLocationForecast, getUserLocation, maskForecastBg, unmaskForecastBg} from 'states/weather-actions.js';
-import TodoForm from './TodoForm.jsx';
+import {listTodo, createTodo, checkTodo} from 'states/todo-action.js'
+import TodoForm from 'Todo/TodoForm.jsx';
+import TodoList from 'Todo/TodoList.jsx';
 
 class Forecast extends Component {
     render(){
         const {unit, city, masking, list, forecastLoading, lat, lng} = this.props;
-        const todoLoading = false
+        const {todos, todoLoading} = this.props;
+        // const todoLoading = false
         // console.log(`Forecast lat lng:`+ lat+ lng);
         
         return(
@@ -26,7 +29,8 @@ class Forecast extends Component {
                     <WeatherTable unit={unit} {...list} city={city} masking={masking}/>
                     <WeatherForm city={city} defaultUnit={unit} onLocation={this.handleUserLocation} submitAction={getForecast}/>
                 </div>
-                <TodoForm />
+                <TodoForm onTodo={createTodo}/>
+                <TodoList todos={todos}/>
             </div>{
                     (forecastLoading || todoLoading) &&
                     <span className="forecast-loading">Loading...</span>
@@ -43,7 +47,10 @@ class Forecast extends Component {
     }
 
     componentDidMount(){
-        this.props.dispatch(getForecast('Taipei', this.props.unit));
+        const {dispatch} = this.props;
+        dispatch(getForecast('Taipei', this.props.unit));
+        dispatch(listTodo());
+        // this.props.dispatch()
     }
 
     componentWillUnmount() {
@@ -81,6 +88,7 @@ export default connect((state) => {
     return {
         ...state.forecast,
         ...state.location,
+        ...state.todo,
         unit: state.unit,
     };
 })(Forecast);
