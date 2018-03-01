@@ -6,17 +6,17 @@ import TodoItem from 'Todo/TodoItem.jsx';
 import {checkTodo} from 'states/todo-action.js';
 import {connect} from 'react-redux';
 
-class postList extends Component{
+class todoList extends Component{
     constructor(props) {
         super(props);
 
-        this.handleVote = this.handleVote.bind(this);
+        this.handleTodo = this.handleTodo.bind(this);
     }
 
     render(){
         // const todo = [];
         const {todos} = this.props;
-        console.log(todos);
+        // console.log(todos);
         
 
         let children = (            
@@ -29,7 +29,7 @@ class postList extends Component{
            
             children = todos.map(t =>(
                 <div className="children">
-                    <TodoItem {...t} onVote={this.handleVote}/>
+                    <TodoItem {...t} onTodo={this.handleTodo}/>
                 </div>
             ))
         }
@@ -39,8 +39,10 @@ class postList extends Component{
         )
     }
 
-    handleVote(id, mood){
-        this.props.dispatch(createVote(id, mood));
+    handleTodo(id){
+        // console.log(`todolist handletodo id: `,id);
+        
+        this.props.dispatch(checkTodo(id));
         // this.props.onVote(id, mood);
         // .then listPost()
     }
@@ -48,6 +50,6 @@ class postList extends Component{
 
 export default connect( (state) => {
     return {
-        ...state.vote
+        ...state.todo
     };
-})(postList)
+})(todoList)

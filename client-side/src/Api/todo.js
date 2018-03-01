@@ -8,7 +8,7 @@ export function listTodo(searchText='') {
     const todoString = localStorage.getItem(todoKey);
 
     let todos = todoString ? JSON.parse(todoString) : [];
-    console.log(`listtodo `,todos);
+    // console.log(`listtodo `,todos);
     
     if(todos && searchText) {
         todos = todos.filter(t => {
@@ -27,11 +27,11 @@ export function createTodo (mood, text) {
         check: false
     }
 
-    const todo = {
+    const todo = [
         newTodo,
         ...listTodo()
-    }
-    console.log(listTodo());
+    ];
+    // console.log(todo);
     
 
     localStorage.setItem(todoKey, JSON.stringify(todo));
@@ -39,10 +39,14 @@ export function createTodo (mood, text) {
 }
 
 export function checkTodo (id) {
+    // console.log(id);
+    
     const todos = listTodo().map(t => {
-        if(t.id === id) t.check = true;
+        if(t.id === id) t.check = !t.check;
         return t
     })
+    // console.log(`todolist checkTodo api: `,todos);
+    
 
     localStorage.setItem(todoKey, JSON.stringify(todos))
 }

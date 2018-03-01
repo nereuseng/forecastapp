@@ -25,15 +25,13 @@ export default class TodoItem extends React.Component {
     }
 
     render(){
-        const {id, mood, text, ts, clearVotes, cloudsVotes, drizzleVotes, rainVotes, thunderVotes, snowVotes, windyVotes} 
-        = {id:1, mood:'Clear', text:'lalala', ts:1517973788, clearVotes:0, cloudsVotes:0, drizzleVotes:0, rainVotes:0, thunderVotes:0, snowVotes:0, windyVotes:0}
-        // const {id, mood, text, ts, clearVotes, cloudsVotes, drizzleVotes, rainVotes, thunderVotes, snowVotes, windyVotes} = this.props
+        const {id, mood, text, ts, check} = this.props
 
         return (
             <div className="todoItem" onClick={this.handleClick}>
                 <div className="todoItem-todo">
                     <div className='mood'>
-                        <i className={getMoodIcon(`${mood}`)}></i>&nbsp;
+                        <i className={`${getMoodIcon(`${mood}`)} fa-sm`}></i>&nbsp;
                     </div>
                     <div className='wrap'>
                         <div className='ts'>{moment(ts * 1000).calendar()}</div>
@@ -51,7 +49,7 @@ export default class TodoItem extends React.Component {
                             {windyVotes > 0 &&<span><i className={getMoodIcon('Windy')}></i>&nbsp;{windyVotes}&nbsp;&nbsp;</span>}
                     </div> */}
                     {/* <div className="upvote"> */}
-                        <i id={`todo-item-vote-${id}`} className='fa fa-plus' onClick={this.handleCheck}></i>
+                        <i id={`todo-item-check-${id}`} className='fa fa-plus' onClick={this.handleCheck}></i>
                         {/* <div className={`voteBox ${(this.state.voteBoxOpen) ? "show" : ""}`} >
                             <i className={`${getMoodIcon('Clear')}`} ></i>&nbsp;
                             <i className={`${getMoodIcon('Clouds')}`} onClick={this.handleCloudsVote}></i>&nbsp;
@@ -68,7 +66,8 @@ export default class TodoItem extends React.Component {
     }
 
     handleClick(){
-        console.log(`haha!`);
+        // console.log(`haha!`,this.props.id);
+        this.props.onTodo(this.props.id);
         // 
         
         // this.setState((prevState, props) => ({

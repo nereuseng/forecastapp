@@ -1,20 +1,20 @@
 export function getMoodIcon(group) {
     switch (group) {
         case 'Thunder':
-            return 'fa fa-bolt';
+            return 'fas fa-bolt';
         case 'Drizzle':
-            return 'fa fa-tint';
+            return 'fas fa-tint';
         case 'Rain':
-            return 'fa fa-umbrella'
+            return 'fas fa-umbrella'
         case 'Snow':
-            return 'fa fa-snowflake-o';
+            return 'fas fa-snowflake';
         case 'Windy':
             return 'owf owf-905';
         case 'Clear':
-            return 'fa fa-sun-o';
+            return 'far fa-sun';
         case 'Clouds':
-            return 'fa fa-cloud';
+            return 'fas fa-cloud';
         default:
-            return 'fa fa-question-circle';
+            return 'fas fa-question-circle';
     }
 }

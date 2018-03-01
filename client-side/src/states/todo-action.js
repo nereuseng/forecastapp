@@ -37,7 +37,7 @@ export function listTodo() {
         dispatch(fetchTodoRequest());
         try {
             const todos = await listTodoFromApi();
-            console.log(todos);
+            // console.log(todos);
             
             dispatch(setlistTodo(todos));
             dispatch(fetchTodoResponse());
@@ -66,7 +66,7 @@ export function checkTodo(id) {
     return async (dispatch, getState) => {
         dispatch(fetchTodoRequest());
         try {
-            await checkTodoFromApi();
+            await checkTodoFromApi(id);
             dispatch(setCheckTodo());
             dispatch(listTodo());
             dispatch(fetchTodoResponse());
