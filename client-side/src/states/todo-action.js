@@ -13,7 +13,7 @@ export const {
 } = createActions(
     'INPUT',
     'SELECT_MOOD',
-    'RESET_MOOD'
+    'RESET_FORM'
 )
 
 const {
@@ -54,7 +54,7 @@ export function createTodo(mood, text) {
         try {
             await createTodoFromApi(mood, text);
             dispatch(setCreateTodo());
-            dispatch(listTodo());
+            await dispatch(listTodo());
             dispatch(fetchTodoResponse());
         } catch (error) {
             console.error('Error creating todo', error);
@@ -68,7 +68,7 @@ export function checkTodo(id) {
         try {
             await checkTodoFromApi(id);
             dispatch(setCheckTodo());
-            dispatch(listTodo());
+            await dispatch(listTodo());
             dispatch(fetchTodoResponse());
         } catch (error) {
             

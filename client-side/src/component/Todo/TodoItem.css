@@ -4,6 +4,14 @@
     justify-content: flex-end;
 }
 
-.todoItem-check i {
+.todoItem-check > * {
     cursor: pointer;
+}
+
+.checked {
+    text-decoration: line-through;
+}
+
+.hide {
+    display: none;
 }

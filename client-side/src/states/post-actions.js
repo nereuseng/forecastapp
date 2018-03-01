@@ -23,14 +23,26 @@ function endListPost(posts) {
     }
 }
 
+// export function listPost(searchText) {
+//     return (dispatch, getState) => {
+//         dispatch(startListPost(searchText));
+//         return listPostFromApi(searchText).then(posts => {            
+//             dispatch(endListPost(posts))
+//         }).catch(err => {
+//             console.error('Error getting post', err);
+//         });
+//     }
+// }
+
 export function listPost(searchText) {
-    return (dispatch, getState) => {
-        dispatch(startListPost(searchText));
-        return listPostFromApi(searchText).then(posts => {            
-            dispatch(endListPost(posts))
-        }).catch(err => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch(startListPost(searchText));
+            const posts = await listPostFromApi(searchText);
+            dispatch(endListPost(posts));
+        } catch (error) {
             console.error('Error getting post', err);
-        });
+        }
     }
 }
 
@@ -50,15 +62,28 @@ function endCreatePost() {
     }
 }
 
+// export function createPost(mood, text) {
+//     return (dispatch, getState) => {
+//         dispatch(startCreatePost(mood, text));
+//         return createPostFromApi(mood, text).then( () => {
+//             dispatch(endCreatePost());
+//             dispatch(listPost(''));
+//         }).catch(err => {
+//             console.error('Error creating post', err);
+//         });
+//     }
+// }
+
 export function createPost(mood, text) {
-    return (dispatch, getState) => {
-        dispatch(startCreatePost(mood, text));
-        return createPostFromApi(mood, text).then( () => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch(startCreatePost(mood, text));
+            await createPostFromApi(mood, text);
             dispatch(endCreatePost());
             dispatch(listPost(''));
-        }).catch(err => {
+        } catch (error) {
             console.error('Error creating post', err);
-        });
+        };
     }
 }
 

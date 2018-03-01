@@ -18,13 +18,13 @@ class PostForm extends Component {
                 <div className="postBody">
                     <button onClick={this.handleDropdown}  className="dropdownButton"><i className={getMoodIcon(mood)}></i>&nbsp;{mood ==='na' ? 'Mood' :mood}</button>
                     <div id="dropdownItemSelector" className={`dropdownItem ${this.state.showDropdown ? `show` : ''}`}>
-                        <div><i className={getMoodIcon('Clear')} onClick={() => this.handleDropdownSelect('Clear')}></i>&nbsp;&nbsp;Clear</div>
-                        <div><i className={getMoodIcon('Clouds')} onClick={() => this.handleDropdownSelect('Clouds')}></i>&nbsp;&nbsp;Clouds</div>
-                        <div><i className={getMoodIcon('Drizzle')} onClick={() => this.handleDropdownSelect('Drizzle')}></i>&nbsp;&nbsp;Drizzle</div>
-                        <div><i className={getMoodIcon('Rain')} onClick={() => this.handleDropdownSelect('Rain')}></i>&nbsp;&nbsp;Rain</div>
-                        <div><i className={getMoodIcon('Thunder')} onClick={() => this.handleDropdownSelect('Thunder')}></i>&nbsp;&nbsp;Thunder</div>
-                        <div><i className={getMoodIcon('Snow')} onClick={() => this.handleDropdownSelect('Snow')}></i>&nbsp;&nbsp;Snow</div>
-                        <div><i className={getMoodIcon('Windy')} onClick={() => this.handleDropdownSelect('Windy')}></i>&nbsp;Windy</div>
+                        <div onClick={() => this.handleDropdownSelect('Clear')}><i className={getMoodIcon('Clear')}></i>&nbsp;&nbsp;Clear</div>
+                        <div onClick={() => this.handleDropdownSelect('Clouds')}><i className={getMoodIcon('Clouds')}></i>&nbsp;&nbsp;Clouds</div>
+                        <div onClick={() => this.handleDropdownSelect('Drizzle')}><i className={getMoodIcon('Drizzle')}></i>&nbsp;&nbsp;Drizzle</div>
+                        <div onClick={() => this.handleDropdownSelect('Rain')}><i className={getMoodIcon('Rain')}></i>&nbsp;&nbsp;Rain</div>
+                        <div onClick={() => this.handleDropdownSelect('Thunder')}><i className={getMoodIcon('Thunder')}></i>&nbsp;&nbsp;Thunder</div>
+                        <div onClick={() => this.handleDropdownSelect('Snow')}><i className={getMoodIcon('Snow')}></i>&nbsp;&nbsp;Snow</div>
+                        <div onClick={() => this.handleDropdownSelect('Windy')}><i className={getMoodIcon('Windy')}></i>&nbsp;Windy</div>
                     </div>
                     <textarea id="textarea" rows="2" cols="30" placeholder="What's on your mind?" value={inputValue} onChange={this.handleInputChange} ref={(input) => this.formInput = input}/>
                     
