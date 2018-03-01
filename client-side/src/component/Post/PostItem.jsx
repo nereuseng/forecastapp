@@ -50,13 +50,13 @@ export default class PostItem extends React.Component {
                     <div className="upvote">
                         <i id={`post-item-vote-${id}`} className='fa fa-plus'></i>
                         <div className={`voteBox ${(this.state.voteBoxOpen) ? "show" : ""}`} >
-                            <i className={`${getMoodIcon('Clear')}`} onClick={this.handleClearVote}></i>&nbsp;
-                            <i className={`${getMoodIcon('Clouds')}`} onClick={this.handleCloudsVote}></i>&nbsp;
-                            <i className={`${getMoodIcon('Drizzle')}`} onClick={this.handleDrizzleVote}></i>&nbsp;
-                            <i className={`${getMoodIcon('Rain')}`} onClick={this.handleRainVote}></i>&nbsp;
-                            <i className={`${getMoodIcon('Thunder')}`} onClick={this.handleThunderVote}></i>&nbsp;
-                            <i className={`${getMoodIcon('Snow')}`} onClick={this.handleSnowVote}></i>&nbsp;
-                            <i className={`${getMoodIcon('Windy')}`} onClick={this.handleWindyVote}></i>
+                            <div onClick={this.handleClearVote}><i className={`${getMoodIcon('Clear')}`}></i>&nbsp;</div>
+                            <div onClick={this.handleCloudsVote}><i className={`${getMoodIcon('Clouds')}`}></i>&nbsp;</div>
+                            <div onClick={this.handleDrizzleVote}><i className={`${getMoodIcon('Drizzle')}`}></i>&nbsp;</div>
+                            <div onClick={this.handleRainVote}><i className={`${getMoodIcon('Rain')}`}></i>&nbsp;</div>
+                            <div onClick={this.handleThunderVote}><i className={`${getMoodIcon('Thunder')}`}></i>&nbsp;</div>
+                            <div onClick={this.handleSnowVote}><i className={`${getMoodIcon('Snow')}`}></i>&nbsp;</div>
+                            <div onClick={this.handleWindyVote}><i className={`${getMoodIcon('Windy')}`}></i></div>
                         </div>
                     </div>
                 </div>

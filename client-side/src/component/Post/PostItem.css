@@ -1,0 +1,59 @@
+.post {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.mood {
+    text-align: center;
+    font-size: 2rem;
+    width: 3rem;
+    display: inline-block;
+    align-items:flex-start;
+}
+
+.wrap {
+    width: 80%;
+    text-align: left;
+    display: inline-block;
+}
+
+.ts {
+    color: #bcbcbc;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+}
+
+.text {
+    white-space: pre-wrap;
+    word-wrap:break-word;
+}
+
+.vote {
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.voteBox {
+    opacity: 0;
+    position: absolute;
+    bottom: 6px;
+    right: 35px;
+    font-size: 2rem;
+    color: white;
+    background-color: #000000;
+    padding: 0.5rem;
+    border-radius: 10px;
+    transition: opacity 1s;
+    display: flex;
+}
+
+.voteBox div {
+    cursor: pointer;
+}
+
+.upvote:hover .voteBox, .vote .upvote .show{
+    opacity: 1;
+}
+/* show class for clickable comment */
