@@ -1,52 +1,51 @@
 import axios from 'axios';
-import moment from "moment";
-import uuid from 'uuid/v4';
 
-const todoKey = 'todos';
+// const todoKey = 'todos';
+
+const todoBaseUrl = 'http://localhost:8080/api';
 
 export function listTodo(searchText='') {
-    const todoString = localStorage.getItem(todoKey);
+    let url = `${todoBaseUrl}/todos`
 
-    let todos = todoString ? JSON.parse(todoString) : [];
-    // console.log(`listtodo `,todos);
-    
-    if(todos && searchText) {
-        todos = todos.filter(t => {
-            if(t.text.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) !== -1) return t; 
-        })
-    }
-    return todos;
+    console.log(`Making GET request to: ${url}`);
+
+    return axios.get(url).then( res => {
+        if (res.status !== 200){
+            throw new Error(`Unexpected response code: ${res.status}`);
+        }
+        return res.data
+    })
 }
 
 export function createTodo (mood, text) {
-    const newTodo = {
-        mood,
-        text,
-        id: uuid(),
-        ts: moment().unix(),
-        check: false
-    }
-
-    const todo = [
-        newTodo,
-        ...listTodo()
-    ];
+    let url = `${todoBaseUrl}/todos`
     // console.log(todo);
     
+    console.log(`Making POST request to: ${url}`);
+
+    return axios.posts(url, {
+        mood,
+        text
+    }).then( res => {
+        if (res.status !== 200){
+            throw new Error (`Unexpected response code: ${res.status}`);
+        }
+        return res.data;
+    })
 
     localStorage.setItem(todoKey, JSON.stringify(todo));
     return todo;
 }
 
 export function checkTodo (id) {
-    // console.log(id);
-    
-    const todos = listTodo().map(t => {
-        if(t.id === id) t.check = !t.check;
-        return t
-    })
-    // console.log(`todolist checkTodo api: `,todos);
-    
+    let url = `${todoBaseUrl}/todos/${id}`;
 
-    localStorage.setItem(todoKey, JSON.stringify(todos))
+    console.log(`Making POST request to: ${url}`);
+
+    return axios.post(url).then( res => {
+        if (res.status !== 200) {
+            throw new Error (`Unexpected response code: ${res.status}`);
+        }
+        return res.data;
+    });
 }
