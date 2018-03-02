@@ -12,6 +12,16 @@ a:hover {
     margin-left: auto;
     right: 20px;
     height: 20px;
+    display: flex
+}
+
+#searchBox input {
+    height: 10px;
+    margin-right: 10px;
+}
+
+#searchBox div {
+    cursor: pointer;
 }
 
 #todaySearchBox i {

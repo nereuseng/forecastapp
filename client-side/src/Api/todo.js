@@ -6,13 +6,15 @@ const todoBaseUrl = 'http://localhost:8080/api';
 
 export function listTodo(searchText='') {
     let url = `${todoBaseUrl}/todos`
-
+    if (searchText) url += `?searchText=${searchText}`
     console.log(`Making GET request to: ${url}`);
 
     return axios.get(url).then( res => {
         if (res.status !== 200){
             throw new Error(`Unexpected response code: ${res.status}`);
         }
+        console.log(`resdata`, res.data);
+        
         return res.data
     })
 }
@@ -23,7 +25,7 @@ export function createTodo (mood, text) {
     
     console.log(`Making POST request to: ${url}`);
 
-    return axios.posts(url, {
+    return axios.post(url, {
         mood,
         text
     }).then( res => {
@@ -32,9 +34,6 @@ export function createTodo (mood, text) {
         }
         return res.data;
     })
-
-    localStorage.setItem(todoKey, JSON.stringify(todo));
-    return todo;
 }
 
 export function checkTodo (id) {

@@ -45,4 +45,5 @@
 textarea {
     resize: none;
     overflow: hidden;
+    border: 1px solid gainsboro
 }

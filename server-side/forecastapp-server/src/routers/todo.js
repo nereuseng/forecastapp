@@ -21,6 +21,7 @@ router.get('/todos', function (req, res, next) {
 // CreateTodo
 router.post('/todos', function (req, res, next) {
     const {mood, text} = req.body;
+    console.log(`lalala`)
     if (!mood || !text) {
         const err = new Error('Mood and Text are required');
         err.status = 400;
@@ -40,8 +41,10 @@ router.post('/todos/:id', function (req, res, next) {
         throw err;
     };
 
-    checkModel.check(id).then( post => {
-        res.json(post);
+    checkModel.check(id).then( t => {
+        res.json(t);
+        
+        
     }).catch(next);
 });
 

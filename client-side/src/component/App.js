@@ -37,7 +37,7 @@ export default class App extends React.Component {
               <div id="searchBox">
               <input type="text" placeholder="Search..." ref={this.searchEl}onKeyPress={this.handleSearchKeyPress} ref={el => this.searchEl = el} className="search"></input>{
                   this.state.searchText &&
-                  <i className='navbar-text fa fa-times' onClick={this.handleClearSearch}></i>
+                  <div onClick={this.handleClearSearch}><i className='navbar-text fa fa-times'></i></div>
                 }
               </div>
             </ul> 
@@ -46,7 +46,7 @@ export default class App extends React.Component {
           <Today searchText={this.state.searchText} onUserLocationChange={this.handleLocationChange}/>
             )}/>
           <Route exact path="/Forecast" render={() =>(
-          <Forecast unit={this.state.unit} onUserLocationChange={this.handleLocationChange}/>
+          <Forecast searchText={this.state.searchText} onUserLocationChange={this.handleLocationChange}/>
             )}/>
         </div>
       </Router>

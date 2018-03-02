@@ -24,27 +24,26 @@ function listTodo(searchText = '') {
 }
 
 function createTodo(mood, text) {
-    return new Promise((resolve, reject) => {
-        const newPost = {
+    return new Promise(async (resolve, reject) => {
+        const newTodo = {
             id: uuid(),
             mood: mood,
             text: text,
-            check: false
+            check: false,
+            ts: moment().unix()
         }
 
-        async () => {
-            let posts = await listTodo();
-            posts = [
-                newPost,
-                ...posts
-            ];
-            fs.writeFile('data-todos.json', JSON.stringify(posts), err => {
-                if (err) reject (err);
+        let todos = await listTodo();
+        todos = [
+            newTodo,
+            ...todos
+        ];
+        fs.writeFile('data-todos.json', JSON.stringify(todos), err => {
+            if (err) reject (err);
 
-                resolve(newPost);
-            })
-        }
-    })
+            resolve(newTodo);
+        })
+    });
 }
 
 module.exports = {

@@ -32,12 +32,14 @@ const {
 
 const setlistTodo = createAction('SET_LIST_TODO');
 
-export function listTodo() {
+export function listTodo(searchText = '') {
     return async (dispatch, getState) => {
         dispatch(fetchTodoRequest());
         try {
-            const todos = await listTodoFromApi();
-            // console.log(todos);
+            console.log(searchText);
+            
+            const todos = await listTodoFromApi(searchText);
+            console.log(todos);
             
             dispatch(setlistTodo(todos));
             dispatch(fetchTodoResponse());

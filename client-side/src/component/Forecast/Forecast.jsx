@@ -49,7 +49,7 @@ class Forecast extends Component {
     componentDidMount(){
         const {dispatch} = this.props;
         dispatch(getForecast('Taipei', this.props.unit));
-        dispatch(listTodo());
+        dispatch(listTodo(''));
         // this.props.dispatch()
     }
 
@@ -57,6 +57,12 @@ class Forecast extends Component {
         const {forecastLoading} = this.props
         if (forecastLoading) {           
             cancelForecast();
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.searchText !== this.props.searchText){
+            this.props.dispatch(listTodo(nextProps.searchText));
         }
     }
 
@@ -84,11 +90,12 @@ class Forecast extends Component {
     }
 }
     
-export default connect((state) => {
+export default connect((state, ownProps) => {
     return {
         ...state.forecast,
         ...state.location,
         ...state.todo,
         unit: state.unit,
+        searchText: ownProps.searchText
     };
 })(Forecast);
