@@ -55,6 +55,8 @@ a:hover {
     margin: 0 auto;
     height: 50px;
     background: #EEE;
+    position: fixed;
+    width: 100%;
 }
 
 .nav ul {

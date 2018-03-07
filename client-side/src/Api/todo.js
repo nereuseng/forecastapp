@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-// const todoKey = 'todos';
+// const todoBaseUrl = 'http://localhost:8080/api';
 
-const todoBaseUrl = 'http://localhost:8080/api';
+const todoBaseUrl = 'http://forecastapp.us-west-2.elasticbeanstalk.com/api';
 
 export function listTodo(searchText='') {
     let url = `${todoBaseUrl}/todos`
