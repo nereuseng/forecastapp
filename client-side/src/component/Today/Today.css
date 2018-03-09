@@ -4,6 +4,7 @@
 
 .weather-bg-mask {
   /* 結論是背景的masking影響到有沒有scroll bar */
+  padding-top: 50px;
   background-color: rgba(0, 0, 0, 0.5);
   transition: all 0.6s;
   min-height: 94.7vh;
@@ -16,6 +17,7 @@
 }
 
 .weather-bg-mask-masking {
+  padding-top: 50px;
   background-color: black;
   text-align: center;
   min-height: 94.7vh;

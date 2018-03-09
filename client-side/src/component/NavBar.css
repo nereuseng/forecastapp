@@ -57,6 +57,8 @@ a:hover {
     background: #EEE;
     position: fixed;
     width: 100%;
+    /* slightly higher than forecastbody */
+    z-index: 51;
 }
 
 .nav ul {
